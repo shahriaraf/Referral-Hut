@@ -1,11 +1,34 @@
-import React from 'react';
+import React from "react";
 
-const SectionTitle = ({title}) => {
-    return (
-        <div className='mb-4 sm:mb-6 md:mb-8 lg:mb-10 text-center'>
-                    <h1 className='primary_text_color text-2xl  font-semibold uppercase'>  {title} </h1>
-        </div>
-    );
+
+
+
+const SectionTitle = ({ title_1, title_2, text }) => {
+  return (
+    <div className=" text-center ">
+      <h1
+        className={`${
+          title_1
+            ? "primary_text_color text-base  font-semibold uppercase mb-4 text-center"
+            : ""
+        }`}
+      >
+        {" "}
+        {title_1}{" "}
+      </h1>
+      <h1
+        className={`${
+          title_2
+            ? "primary_text_color text-4xl  font-semibold capitalize text-center"
+            : ""
+        }`}
+      >
+        {" "}
+        {title_2}{" "}
+      </h1>
+      <p className={`${text ? 'text-purple-600 text-5xl  font-semibold capitalize mt-1' : ''}`}> {text} </p>
+    </div>
+  );
 };
 
 export default SectionTitle;
