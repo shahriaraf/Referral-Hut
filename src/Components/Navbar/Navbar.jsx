@@ -17,14 +17,14 @@ const Navbar = () => {
   const handleMenuIcon = () => setIsActive(true);
 
   return (
-  <div className="bg-gradient-to-r from-[#151C2B] via-[#2C3548] to-gray-800 shadow-2xl sticky top-0 z-50">
+  <div className="bg-gradient-to-r from-[#151C2B] via-[#2C3548] to-gray-800 shadow-2xl sticky top-0 z-50 py-2">
   <div className="navbar px-4 sm:px-6 md:px-16 2xl:px-22 py-3 relative">
 
     {/* Logo - navbar-start */}
     <div className="navbar-start flex items-center gap-x-2">
-      <RiVipCrownFill className="text-3xl text-[#FB9C00]" />
-      <h2 className="text-xl font-semibold text-[#FB9C00]">
-        Referal<span className="text-white">Hut</span>
+      <RiVipCrownFill className="text-3xl seondary_text_color" />
+      <h2 className="text-xl font-semibold seondary_text_color">
+        Referal<span className="primary_text_color">Hut</span>
       </h2>
     </div>
 
@@ -40,7 +40,7 @@ const Navbar = () => {
     {/* User Avatar - navbar-end */}
     <div className="navbar-end flex items-center gap-x-4">
       {/* Mobile Menu Icon */}
-      <div className="md:hidden text-4xl cursor-pointer text-white">
+      <div className="md:hidden text-4xl cursor-pointer primary_text_color">
         {!isActive && <IoMenu onClick={handleMenuIcon} />}
       </div>
 
@@ -49,7 +49,7 @@ const Navbar = () => {
         {user ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button">
-                <FaUserCircle className="w-[35px] h-[35px] rounded-full  text-white "> </FaUserCircle>
+                <FaUserCircle className="w-[35px] h-[35px] rounded-full  primary_text_color "> </FaUserCircle>
                 {/* className="" */}
             </div>
             <div
@@ -86,15 +86,15 @@ const Navbar = () => {
                 {/* logo */}
 
                     <div className="navbar-start pl-3 flex items-center gap-x-2">
-      <RiVipCrownFill className="text-3xl text-[#FB9C00]" />
-      <h2 className="text-xl font-semibold text-[#FB9C00]">
-        Referal<span className="text-white">Hut</span>
+      <RiVipCrownFill className="text-3xl seondary_text_color" />
+      <h2 className="text-xl font-semibold seondary_text_color">
+        Referal<span className="primary_text_color">Hut</span>
       </h2>
     </div>
 
 
           <MdClose
-            className="text-5xl pr-4 cursor-pointer text-white"
+            className="text-5xl pr-4 cursor-pointer primary_text_color"
             onClick={() => setIsActive(false)}
           />
         </div>
@@ -107,8 +107,8 @@ const Navbar = () => {
         {user ? (
           <div className="responsive_user_avater pl-4">
             <div className="img flex items-center gap-x-3 mb-5">
-                      <FaUserCircle className="w-[35px] h-[35px] rounded-full  text-white "> </FaUserCircle>
-                            <h2 className="text-xl capitalize text-white">Jon Doe</h2>
+                      <FaUserCircle className="w-[35px] h-[35px] rounded-full  primary_text_color "> </FaUserCircle>
+                            <h2 className="text-xl capitalize primary_text_color">Jon Doe</h2>
               <div>
                 {/* <p className="capitalize">{user?.displayName}</p> */}
                 {/* <p className="text-sm">{data?.role}</p> */}

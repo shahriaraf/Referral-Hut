@@ -12,19 +12,19 @@ const UserAvater = () => {
         <>
           <Link
             to="/profile"
-            className="text-base font-semibold capitalize text-white flex items-center gap-x-3  px-2 py-3  hover:bg-gray-950"
+            className="text-base font-semibold capitalize primary_text_color flex items-center gap-x-3  px-2 py-3  hover:bg-gray-950"
           >
             <FaUser /> Profile
           </Link>
           <Link
             to="/dashboard"
-            className="text-base font-semibold capitalize text-white flex items-center gap-x-3  px-2 py-3 hover:bg-gray-950"
+            className="text-base font-semibold capitalize primary_text_color flex items-center gap-x-3  px-2 py-3 hover:bg-gray-950"
           >
             <MdDashboard /> Dashboard
           </Link>
           <Link
             // onClick={logOut}
-            className="text-base font-semibold capitalize text-white flex items-center gap-x-3  px-2 py-3 hover:bg-gray-950"
+            className="text-base font-semibold capitalize primary_text_color flex items-center gap-x-3  px-2 py-3 hover:bg-gray-950"
           >
             <FaSignOutAlt /> Logout
           </Link>
