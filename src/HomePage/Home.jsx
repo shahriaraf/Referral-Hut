@@ -1,9 +1,10 @@
 import React from 'react';
+import RoutePrograms from '../Route Programs/RoutePrograms';
 
 const Home = () => {
     return (
-        <div>
-            This is home
+        <div className='primary_bg_color w-full min-h-screen'>
+         
         </div>
     );
 };
