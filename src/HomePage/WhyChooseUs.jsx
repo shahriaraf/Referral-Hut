@@ -2,10 +2,10 @@ import React from "react";
 import SectionTitle from "../Components/ComonSection/SectionTitle";
 
 // icons
-import icon_1 from '../../public/Images/whyChooseUs/choose_icon01.svg' 
-import icon_2 from '../../public/Images/whyChooseUs/choose_icon02.svg' 
-import icon_3 from '../../public/Images/whyChooseUs/choose_icon03.svg' 
-import icon_4 from '../../public/Images/whyChooseUs/choose_icon04.svg' 
+import icon_1 from "../../public/Images/whyChooseUs/choose_icon01.svg";
+import icon_2 from "../../public/Images/whyChooseUs/choose_icon02.svg";
+import icon_3 from "../../public/Images/whyChooseUs/choose_icon03.svg";
+import icon_4 from "../../public/Images/whyChooseUs/choose_icon04.svg";
 
 const outFeturedData = [
   {

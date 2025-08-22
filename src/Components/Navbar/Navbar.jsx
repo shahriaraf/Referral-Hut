@@ -11,6 +11,7 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const user = true;
 
+
   // Navigation items for bottom nav with icons
 
 const bottomNavItems = [
