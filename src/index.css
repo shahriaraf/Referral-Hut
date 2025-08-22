@@ -47,14 +47,19 @@
 
 
 
-/* navbar design */
-.nav_link a {
- @apply relative text-purple-600 inline-block bg-transparent px-3 py-[3px] font-semibold capitalize no-underline transition-colors duration-300 ease-in-out
-}
+/* .nav_link a {
+  position: relative;
+  display: inline-block; 
+  padding: 3px 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-decoration: none;
+  background-color: transparent;
+  transition: color 0.3s ease;
+  color :purple
+} */
 
-
-
- .nav_link a::after {
+/* .nav_link a::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -65,20 +70,22 @@
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease-in-out;
-}
+  display: block; 
+} */
 
- .nav_link a:hover::after {
+/* .nav_link a:hover::after {
   transform: scaleX(1);
 }
 
- .nav_link a.active {
+.nav_link a.active {
   color: white;
 }
 
- .nav_link a.active::after {
-  transform: scaleX(1);
-}
+} */
 
+.nav_link a.active {
+ @apply text-white
+}
 /* footer */
   .footer_link_title {
     @apply  text-lg uppercase text-white font-semibold mb-6

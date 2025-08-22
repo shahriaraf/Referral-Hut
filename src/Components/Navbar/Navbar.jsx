@@ -12,12 +12,12 @@ import UserAvater from "./UserAvater";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
-  const user = true;
+  const user = false;
 
   const handleMenuIcon = () => setIsActive(true);
 
   return (
-  <div className="primary_bg_color border-b shadow-2xl sticky top-0 z-50 py-2">
+  <div className="primary_bg_color border-b border-gray-800 shadow-2xl sticky top-0 z-50 py-2">
   <div className="navbar px-4 sm:px-6 md:px-16 2xl:px-22 py-3 relative">
 
     {/* Logo - navbar-start */}
@@ -61,7 +61,7 @@ const Navbar = () => {
           </div>
         ) : (
           <Link to="signIn">
-            <button className="secondary_btn uppercase">
+            <button className="primary_btn uppercase">
               <span>Log In</span>
             </button>
           </Link>
@@ -121,8 +121,8 @@ const Navbar = () => {
         ) : (
           <div className="text-center">
             <Link to="signIn">
-              <button className="secondary_btn uppercase">
-                <span>Log In / Sign Up</span>
+              <button className="primary_btn ">
+                    log in
               </button>
             </Link>
           </div>
