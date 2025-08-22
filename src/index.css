@@ -49,16 +49,7 @@
 
 /* navbar design */
 .nav_link a {
-  position: relative;
-  display: inline-block;
-  background-color: transparent;
-  padding: 3px 12px;
-  font-weight: 600;
-  color : white ;
-  text-transform: capitalize;
-  text-decoration: none;
-  transition: color 0.3s ease;
-
+ @apply relative text-white inline-block bg-transparent px-3 py-[3px] font-semibold capitalize no-underline transition-colors duration-300 ease-in-out
 }
 
 

@@ -43,8 +43,8 @@ const WhyChooseUs = () => {
       <div className="featured_cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 mt-16  mb-20 md:mb-28 lg:mb-32">
         {outFeturedData.map((data, index) => {
           return (
-            <div className="card px-10 py-12 shadow-md border border-gray-800 rounded-lg hover:scale-105 transition-all easy-in duration-500">
-              <div className="icon w-[80px] h-[80px] rounded-full bg-gray-800 flex justify-center text-center border-[3px] border-gray-500 hover:border-purple-600">
+            <div className="card px-10 py-12 shadow-md border border-gray-800 rounded-lg hover:scale-105 transition-all easy-in duration-500 hover:border-purple-600">
+              <div className="icon w-[80px] h-[80px] rounded-full bg-gray-800 flex justify-center text-center border-[3px] border-gray-500 ">
                 <img src={data.image} alt="" />
               </div>
 

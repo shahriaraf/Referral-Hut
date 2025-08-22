@@ -31,42 +31,28 @@ const tokenSaleData = [
 const TokenSale = () => {
   return (
     <section className="token_sale_section w-full primary_bg_color common_padding  ">
-      <SectionTitle title_1={"token"} title_2={"Token Sale"}></SectionTitle>
+      <SectionTitle title_1={"token Sale"} title_2={"Empowering Your Token Journey"}></SectionTitle>
 
       {/* token sale card */}
       <div className="token_sale_cards  grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-5 mt-10 mb-20 md:mb-28 lg:mb-32">
         {tokenSaleData.map((data, index) => {
           return (
-            <div
-              key={index}
-              className=" card capitalize rounded-lg border border-purple-600 text-center pb-10 hover:scale-105 transition-all easy-in duration-500"
-            >
-              <div className="stage secondary_bg_color text-white px-12 py-4 ">
-                <h1 className="text-2xl lg:text-3xl font-semibold">
-                  {" "}
-                  {data.stage}{" "}
-                </h1>
-                <p className=" text-lg font-normal  mt-3 mb-8"> {data.date} </p>
-              </div>
-              <div className="details ">
-                <h2 className="text-xl font-semibold text-white mt-3 mb-5">
-                  {" "}
-                  {data.exchange_rate}{" "}
-                </h2>
-                <p className=" text-base font-normal text-white">
-                  {" "}
-                  {data.bonus}{" "}
-                </p>
-                <p className=" text-base font-normal seondary_text_color my-2">
-                  {" "}
-                  {data.token_amount}{" "}
-                </p>
-                <p className=" text-base font-normal text-white">
-                  {" "}
-                  {data.value_in_usd}{" "}
-                </p>
-              </div>
-            </div>
+        <div
+  key={index}
+  className="relative bg-black rounded-xl border border-purple-500 p-6 shadow-[0_0_20px_rgba(168,85,247,0.5)] hover:shadow-[0_0_30px_rgba(168,85,247,0.8)] transform hover:scale-105 transition-all duration-500"
+>
+  <div className="text-center mb-10">
+    <h1 className="text-3xl font-bold text-purple-400">{data.stage}</h1>
+    <p className="text-sm text-purple-300 mt-4">{data.date}</p>
+  </div>
+  <div className="text-center space-y-2">
+    <h2 className="text-xl font-semibold text-white">{data.exchange_rate}</h2>
+    <p className="text-base text-purple-300">{data.bonus}</p>
+    <p className="text-base text-gray-400">{data.token_amount}</p>
+    <p className="text-lg font-bold text-green-400">{data.value_in_usd}</p>
+  </div>
+</div>
+
           );
         })}
       </div>
