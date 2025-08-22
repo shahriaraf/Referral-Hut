@@ -4,6 +4,7 @@ import Banner from './Banner';
 import OurPertners from './OurPertners';
 import WhyChooseUs from './WhyChooseUs';
 import Crypto from './Crypto';
+import TokenSale from './TokenSale';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
                      <OurPertners></OurPertners>
                      <WhyChooseUs></WhyChooseUs>
                      <Crypto></Crypto>
+                      <TokenSale></TokenSale>
         </div>
     );
 };
