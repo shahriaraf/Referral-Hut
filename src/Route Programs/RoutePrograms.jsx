@@ -136,7 +136,7 @@ const RoutePrograms = () => {
             <p className="text-gray-400 text-center mb-10 max-w-xl mx-auto">{activeProgram.description}</p>
             
             <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-8"
               variants={{
                 visible: { transition: { staggerChildren: 0.1 } },
                 hidden: {},

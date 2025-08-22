@@ -12,9 +12,6 @@ const Home = () => {
     return (
         <div className='primary_bg_color w-full h-auto'>
                     <Banner></Banner>
-                    <Profile></Profile>
-                    <Signup></Signup>
-                    <Login></Login>
                      <WhyChooseUs></WhyChooseUs>
                      <Crypto></Crypto>
                      <OurPertners></OurPertners>
