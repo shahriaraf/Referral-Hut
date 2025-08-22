@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <Home />
       },
        {
-        path: "/pakage",
+        path: "/package",
         element: <RoutePrograms />
       },
        {

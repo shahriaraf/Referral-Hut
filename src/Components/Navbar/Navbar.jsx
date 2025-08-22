@@ -4,6 +4,7 @@ import { FaUserCircle, FaHome, FaPhone, FaMoneyBillWave, FaWallet } from "react-
 import { RiVipCrownFill } from "react-icons/ri";
 import Navlinks from "./Navlinks";
 import UserAvater from "./UserAvater";
+import { LuPackageOpen } from "react-icons/lu";
 
 const Navbar = () => {
   const [showBottomNav, setShowBottomNav] = useState(true);
@@ -16,7 +17,7 @@ const bottomNavItems = [
   { name: "Home", icon: FaHome, path: "/" },
   { name: "Deposit", icon: FaMoneyBillWave, path: "/deposit" },
   { name: "Withdraw", icon: FaWallet, path: "/withdraw" },
-  { name: "Pakage", icon: FaPhone, path: "/pakage" },
+  { name: "Package", icon: LuPackageOpen, path: "/package" },
 ];
 
 
