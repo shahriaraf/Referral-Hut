@@ -1,3 +1,4 @@
+
 import React from "react";
 import banner_img from "../../public/Images/Banner/banner.png";
 
@@ -24,3 +25,4 @@ const Banner = () => {
 };
 
 export default Banner;
+

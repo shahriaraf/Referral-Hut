@@ -1,4 +1,5 @@
 import React from 'react';
+import Banner from './Banner';
 import RoutePrograms from '../Route Programs/RoutePrograms';
 import Banner from './Banner';
 import OurPertners from './OurPertners';
