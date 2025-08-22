@@ -39,7 +39,7 @@ const OurPartners = () => {
         {partners.map(({ id, logo: Icon, companyName }) => (
       <div
   key={id}
-  className=" pertners_card relative flex flex-col items-center justify-center w-52 h-28 mx-4 mt-4 rounded-xl border border-gray-700 bg-black/60 shadow-md transition-transform duration-300 hover:scale-105 "
+  className=" pertners_card relative flex flex-col items-center justify-center w-52 h-28 mx-4 mt-4  rounded-xl border border-gray-700 bg-black/60 shadow-md transition-transform duration-300 hover:scale-105  "
 >
   {/* 4 dot */}
   <span className="absolute top-2 left-2 w-1.5 h-1.5 bg-[#2A2C3C] rounded-full"></span>

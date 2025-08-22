@@ -1,10 +1,12 @@
 import React from 'react';
-import RoutePrograms from '../Route Programs/RoutePrograms';
 import Banner from './Banner';
+import RoutePrograms from '../Route Programs/RoutePrograms';
+// import Banner from './Banner';
 import OurPertners from './OurPertners';
 import WhyChooseUs from './WhyChooseUs';
 import Crypto from './Crypto';
 import TokenSale from './TokenSale';
+import Faq from './Faq';
 
 const Home = () => {
     return (
@@ -14,6 +16,7 @@ const Home = () => {
                      <WhyChooseUs></WhyChooseUs>
                      <Crypto></Crypto>
                       <TokenSale></TokenSale>
+                       <Faq></Faq>
         </div>
     );
 };
