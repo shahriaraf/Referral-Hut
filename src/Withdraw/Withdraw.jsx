@@ -117,7 +117,7 @@ const Withdraw = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex w-full items-center justify-center rounded-lg bg-amber-500 px-4 py-3 text-sm font-bold text-gray-900 transition hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-70"
+                className="flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 px-6 hover:from-blue-700 hover:to-purple-700 transform disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <>

@@ -16,7 +16,7 @@ const bottomNavItems = [
   { name: "Home", icon: FaHome, path: "/" },
   { name: "Deposit", icon: FaMoneyBillWave, path: "/deposit" },
   { name: "Withdraw", icon: FaWallet, path: "/withdraw" },
-  { name: "Contact", icon: FaPhone, path: "/contact" },
+  { name: "Pakage", icon: FaPhone, path: "/pakage" },
 ];
 
 

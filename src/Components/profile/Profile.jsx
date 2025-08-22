@@ -2,43 +2,8 @@ import React from "react";
 
 const Profile = () => {
   return (
-    <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700">
-      <div class="flex items-center justify-between backdrop-blur-sm bg-gray-900/50 rounded-xl p-4 border border-gray-700/50 shadow-lg">
-        <div class="flex items-center space-x-3">
-          <div class="p-2 bg-indigo-900/30 rounded-lg border border-indigo-700/50">
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              viewBox="0 0 448 512"
-              class="text-indigo-400 text-xl"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
-            </svg>
-          </div>
-          <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-transparent">
-            Profile Hub
-          </h1>
-        </div>
-        <button class="p-2 hover:bg-gray-800/50 rounded-lg transition-all group">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 24 24"
-            class="text-xl text-gray-400 group-hover:text-rose-400 transition-colors"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path fill="none" d="M0 0h24v24H0z"></path>
-            <path d="M10.09 15.59 11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5a2 2 0 0 0-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
-          </svg>
-        </button>
-      </div>
+    <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-800">
+
       <div class="relative max-w-3xl mx-auto px-4 mb-6">
         <div class="relative overflow-hidden rounded-2xl shadow-2xl">
           <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-gray-900 to-cyan-900/30 opacity-80"></div>
