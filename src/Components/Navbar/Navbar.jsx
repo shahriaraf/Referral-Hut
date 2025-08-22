@@ -17,7 +17,7 @@ const Navbar = () => {
   const handleMenuIcon = () => setIsActive(true);
 
   return (
-  <div className="bg-gradient-to-r from-[#151C2B] via-[#2C3548] to-gray-800 shadow-2xl sticky top-0 z-50 py-2">
+  <div className="primary_bg_color border-b shadow-2xl sticky top-0 z-50 py-2">
   <div className="navbar px-4 sm:px-6 md:px-16 2xl:px-22 py-3 relative">
 
     {/* Logo - navbar-start */}
