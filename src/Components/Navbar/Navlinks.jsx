@@ -8,7 +8,7 @@ const Navlinks = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li className="text-base font-semibold capitalize md:mx-3 py-2 lg:py-0 cursor-pointer">
-        <NavLink to="/pakage">Pakage</NavLink>
+        <NavLink to="/package">Pakage</NavLink>
       </li>
       <li className="text-base font-semibold capitalize md:mx-3 py-2 lg:py-0 cursor-pointer">
         <NavLink to="/deposit">Doposit</NavLink>
