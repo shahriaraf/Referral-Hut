@@ -31,7 +31,7 @@ const partners = [
 
 const OurPartners = () => {
   return (
-    <div className="w-full py-16 primary_bg_color mb-20">
+    <div className="w-full py-16 primary_bg_color pb-30">
    <h1 className="text-center font-semibold text-3xl tracking-widest">Our Partners</h1>
 
       <div className="mt-12">

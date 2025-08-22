@@ -9,6 +9,8 @@ import {
 import MainLayout from './Layout/MainLayout.jsx';
 import Home from './HomePage/Home.jsx';
 import RoutePrograms from './Route Programs/RoutePrograms.jsx';
+import Deposit from './Deposit/Deposit.jsx';
+import Withdraw from './Withdraw/Withdraw.jsx';
 const router = createBrowserRouter([
   {
   path: "/",
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
        {
         path: "/routeProgram",
         element: <RoutePrograms />
+      },
+       {
+        path: "/Deposit",
+        element: <Deposit></Deposit>
+      },
+       {
+        path: "/withdraw",
+        element: <Withdraw></Withdraw>
       },
     ]
   },
