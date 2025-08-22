@@ -13,7 +13,6 @@ import {
   FaVideo,
   FaDatabase,
 } from "react-icons/fa";
-import SectionTitle from "../Components/ComonSection/SectionTitle";
 
 const partners = [
   { id: 1, logo: FaGoogle, companyName: "Google" },
@@ -32,32 +31,27 @@ const partners = [
 
 const OurPartners = () => {
   return (
-    <div className="w-full py-6 primary_bg_color mb-20">
-      <SectionTitle title_1={"our top pertners"}></SectionTitle>
+    <div className="w-full py-16 primary_bg_color mb-20">
+   <h1 className="text-center font-semibold text-3xl tracking-widest">Our Partners</h1>
 
-      <Marquee pauseOnHover={true} speed={50} gradient={false}>
-        {partners.map(({ id, logo: Icon, companyName }) => (
-      <div
-  key={id}
-  className=" pertners_card relative flex flex-col items-center justify-center w-52 h-28 mx-4 mt-4 rounded-xl border border-gray-700 bg-black/60 shadow-md transition-transform duration-300 hover:scale-105"
->
-  {/* চারকোণের ডট */}
-  <span className="absolute top-2 left-2 w-1.5 h-1.5 bg-[#2A2C3C] rounded-full"></span>
-  <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#2A2C3C] rounded-full"></span>
-  <span className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-[#2A2C3C] rounded-full"></span>
-  <span className="absolute bottom-2 right-2 w-1.5 h-1.5 bg-[#2A2C3C] rounded-full"></span>
+      <div className="mt-12">
+        <Marquee pauseOnHover={true} speed={50} gradient={false}>
+          {partners.map(({ id, logo: Icon, companyName }) => (
+            <div
+              key={id}
+              className="partners_card flex flex-col items-center justify-center w-56 h-32 mx-4 rounded-xl backdrop-blur-md bg-white/10 border border-white/20 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/15 hover:border-white/30 cursor-pointer"
+            >
+              {/* Icon */}
+              <Icon className="company_logo text-white/80 text-4xl mb-2 transition-colors duration-300 hover:text-white" />
 
-  {/* Icon */}
-  <Icon className=" company_logo text-gray-300 text-4xl mb-2" />
-
-  {/* Company Name */}
-  <span className=" company_name text-gray-300 font-medium text-2xl">
-    {companyName}
-  </span>
-</div>
-
-        ))}
-      </Marquee>
+              {/* Company Name */}
+              <span className="company_name text-white/90 font-medium text-lg">
+                {companyName}
+              </span>
+            </div>
+          ))}
+        </Marquee>
+      </div>
     </div>
   );
 };

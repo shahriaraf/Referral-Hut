@@ -9,9 +9,9 @@ const Home = () => {
     return (
         <div className='primary_bg_color w-full h-auto'>
                     <Banner></Banner>
-                     <OurPertners></OurPertners>
                      <WhyChooseUs></WhyChooseUs>
                      <Crypto></Crypto>
+                     <OurPertners></OurPertners>
         </div>
     );
 };
