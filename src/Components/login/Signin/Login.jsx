@@ -2,21 +2,42 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaGoogle, FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from '/public/Login.json'
 import Lottie from "lottie-react";
+import useAuth from "../../../CustomHooks/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors,isSubmitting },
   } = useForm();
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log("Login Data:", data);
+  const [showPassword, setShowPassword] = useState(false);
+  const {logIn} =  useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+
+  const onSubmit =  async(data) => {
+                try {
+                    const result = await logIn(data.email,data.password)
+                     navigate(from, { replace: true });
+
+                      setTimeout(() => {
+                            toast.success('You have successfully Sign In')
+                      }, 200);
+                } catch (error) {
+                    console.log(error);
+                    
+                }finally{
+                  reset()
+                }
   };
 
   return (
@@ -119,37 +140,17 @@ const Login = () => {
                 {/* Login Button */}
                 <button 
                   type="submit" 
-                  disabled={loading}
+                  disabled={isSubmitting}
                   className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  {loading ? (
+                  {isSubmitting ? (
                     <TbFidgetSpinner className="animate-spin mx-auto text-xl" />
                   ) : (
                     "Sign In"
                   )}
                 </button>
 
-                {/* Divider */}
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-white/20"></div>
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-400">
-                      Or continue with
-                    </span>
-                  </div>
-                </div>
-
-                {/* Google Login Button */}
-                <button 
-                  type="button"
-                  disabled={loading}
-                  className="w-full py-3 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
-                >
-                  <FaGoogle className="text-red-400" />
-                  {loading ? "Loading..." : "Continue with Google"}
-                </button>
+        
               </div>
 
               {/* Sign Up Link */}
