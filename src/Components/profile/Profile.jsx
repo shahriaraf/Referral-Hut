@@ -1,12 +1,11 @@
 import React from "react";
-
 const Profile = () => {
   return (
     <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-800">
 
       <div class="relative max-w-3xl mx-auto px-4 mb-6">
         <div class="relative overflow-hidden rounded-2xl shadow-2xl">
-          <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-gray-900 to-cyan-900/30 opacity-80"></div>
+          <div class="absolute inset-0 bg-gradient-to-br from-indigo-700/30 via-violet-600 to-cyan-700/30 opacity-80"></div>
           <div class="absolute inset-0 overflow-hidden">
             <div
               class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] animate-spin-slow"
@@ -42,7 +41,7 @@ const Profile = () => {
                 </div>
                 <div>
                   <h2 class="text-xl font-bold text-white flex items-center">
-                    Sarah Anderson
+                    Jhone doe
                     <span class="ml-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-xs px-2 py-0.5 rounded-full flex items-center">
                       <svg
                         stroke="currentColor"
@@ -91,17 +90,17 @@ const Profile = () => {
       </div>
       <div class="relative max-w-3xl mx-auto px-4 mb-6">
         <div class="grid grid-cols-3 gap-3">
-          <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-3 border border-gray-700/50 shadow-sm">
+          <div class="bg-cyan-600/50 backdrop-blur-sm rounded-xl p-3 border border-gray-700/50 shadow-sm">
             <p class="text-xs text-gray-400">Active Plans</p>
             <p class="text-xl font-bold text-white">3</p>
             <div class="h-1 mt-2 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full"></div>
           </div>
-          <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-3 border border-gray-700/50 shadow-sm">
+          <div class="bg-cyan-600/50 backdrop-blur-sm rounded-xl p-3 border border-gray-700/50 shadow-sm">
             <p class="text-xs text-gray-400">Total Profit</p>
             <p class="text-xl font-bold text-white">$2,450</p>
             <div class="h-1 mt-2 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full"></div>
           </div>
-          <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-3 border border-gray-700/50 shadow-sm">
+          <div class="bg-cyan-600/50 backdrop-blur-sm rounded-xl p-3 border border-gray-700/50 shadow-sm">
             <p class="text-xs text-gray-400">VIP Level</p>
             <p class="text-xl font-bold text-white">Diamond</p>
             <div class="h-1 mt-2 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full"></div>
@@ -459,62 +458,67 @@ const Profile = () => {
           </div>
         </div>
       </div>
+<div class="relative max-w-3xl mx-auto px-4">
+  <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+    {/* Light gradient background */}
+    <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-yellow-100 opacity-95"></div>
 
-      <div class="relative max-w-3xl mx-auto px-4">
-        <div class="relative overflow-hidden rounded-2xl shadow-2xl">
-          <div class="absolute inset-0 bg-gradient-to-br from-amber-900/30 via-gray-900 to-yellow-900/30 opacity-80"></div>
-          <div class="absolute inset-0 overflow-hidden">
-            <div
-              class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] animate-spin-slow"
-              style={{
-                background:
-                  "conic-gradient(transparent 0%, rgba(99,102,241,0.1) 20%, transparent 40%, rgba(6,182,212,0.1) 60%, transparent 80%, rgba(99,102,241,0.1) 100%)",
-              }}
-            ></div>
-          </div>
-          <div class="relative z-10 p-5">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <h3 class="font-bold text-white text-lg flex items-center">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 640 512"
-                    class="text-amber-400 mr-2"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z"></path>
-                  </svg>{" "}
-                  Black Card Membership
-                </h3>
-                <p class="text-gray-300 text-sm mt-1">
-                  Unlock premium benefits and exclusive rewards
-                </p>
-              </div>
-              <div class="bg-amber-500/10 p-3 rounded-lg border border-amber-500/20">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 512 512"
-                  class="text-xl text-amber-400"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path>
-                </svg>
-              </div>
-            </div>
-            <button class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-gray-900 font-semibold py-3 rounded-lg text-sm transition-all transform hover:scale-[1.01] shadow-lg shadow-amber-500/20 flex items-center justify-center">
-              Upgrade to Elite
-            </button>
-          </div>
+    {/* Soft animated shine effect */}
+    <div class="absolute inset-0 overflow-hidden">
+      <div
+        class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] animate-spin-slow"
+        style={{
+          background:
+            "conic-gradient(transparent 0%, rgba(99,102,241,0.05) 20%, transparent 40%, rgba(6,182,212,0.05) 60%, transparent 80%, rgba(99,102,241,0.05) 100%)",
+        }}
+      ></div>
+    </div>
+
+    {/* Content */}
+    <div class="relative z-10 p-5">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <h3 class="font-bold text-black text-lg flex items-center">
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 640 512"
+              class="text-black mr-2"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z"></path>
+            </svg>
+            Black Card Membership
+          </h3>
+          <p class="text-gray-700 text-sm mt-1">
+            Unlock premium benefits and exclusive rewards
+          </p>
+        </div>
+        <div class="bg-amber-200/40 p-3 rounded-lg border border-amber-300/60">
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            class="text-xl text-amber-600"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path>
+          </svg>
         </div>
       </div>
+      <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:text-purple-300 transition-colors duration-200 font-semibold py-3 rounded-lg text-sm transform hover:scale-[1.01] shadow-lg shadow-amber-500/20 flex items-center justify-center">
+        Upgrade to Elite
+      </button>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 };
