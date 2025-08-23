@@ -5,6 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 // --- Data Structure for Programs ---
 
 const programsData = {
+   "2p": {
+    title: "2P Program",
+    color: "blue",
+    description: "Foundational programs designed for rapid skill acquisition.",
+    cards: [{}, {}],
+  },
   "3p": {
     title: "3P Program",
     color: "blue",
@@ -21,7 +27,7 @@ const programsData = {
     title: "VIP Program",
     color: "purple",
     description: "Exclusive, personalized coaching for elite performance.",
-    cards: [{}, {}, {}, {}],
+    cards: [{}, {}, {}, {}, {}, {}],
   },
 };
 
