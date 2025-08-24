@@ -1,4 +1,3 @@
-
 import React, { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -9,52 +8,35 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../../firebase.init";
+import useAxiosPublic from "../CustomHooks/Api/useAxiosPublic";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvier = ({ children }) => {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
-    console.log(user);
-    
+  console.log(user);
 
   // Firebase observer
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth,  (currentUser) => {
       setUser(currentUser);
       setLoading(false);
 
-      // if(currentUser){
+     
 
-      //    const  userInfo = {
-      //       UserName : currentUser.displayName,
-      //       email : currentUser.email,
-      //       image : currentUser.photoURL
 
-      //     }
+        return () => {
+      return unsubscribe();
+    };
 
-          
-      //     try {
-      //         // send user informaton  to database 
-      //           const result = await axiosSecure.post('/api/users',userInfo)
-              
-      //       } catch (error) {
-    
-      // toast.error(`someting is wrong`)
-      //       }
 
-      // }
 
     });
 
-    
-      return () => {
-        return unsubscribe();
-      };
-
-      
-  },[]);
+  
+  }, []);
 
   // firebase sign up
   const creatUser = (email, password) => {
@@ -69,8 +51,6 @@ const AuthProvier = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-
-
   // firebase  log out
 
   const logOut = () => {
@@ -78,15 +58,13 @@ const AuthProvier = ({ children }) => {
     return signOut(auth);
   };
 
-
-  // update profile 
-    const updateUserProfile = (name,image) => {
-return updateProfile(auth.currentUser , {
-    displayName : name,
-    photoURL : image
-})
-    }
-
+  // update profile
+  const updateUserProfile = (name, image) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: image,
+    });
+  };
 
   // auth info
   const authInfo = {
@@ -95,8 +73,7 @@ return updateProfile(auth.currentUser , {
     creatUser,
     logIn,
     logOut,
-    updateUserProfile
- 
+    updateUserProfile,
   };
 
   return (
