@@ -15,6 +15,7 @@ const Home = () => {
                      <WhyChooseUs></WhyChooseUs>
                      <Crypto></Crypto>
                      <OurPertners></OurPertners>
+
         </div>
     );
 };

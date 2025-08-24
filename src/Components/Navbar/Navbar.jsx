@@ -5,11 +5,13 @@ import { RiVipCrownFill } from "react-icons/ri";
 import Navlinks from "./Navlinks";
 import UserAvater from "./UserAvater";
 import { LuPackageOpen } from "react-icons/lu";
+import useAuth from "../../CustomHooks/useAuth";
 
 const Navbar = () => {
   const [showBottomNav, setShowBottomNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const user = true;
+  const {user} =  useAuth()
+
 
   // Navigation items for bottom nav with icons
 
@@ -78,8 +80,8 @@ const bottomNavItems = [
                 </div>
               </div>
             ) : (
-              <Link to="signIn">
-                <button className="secondary_btn uppercase">
+              <Link to="/login">
+                <button className=" primary_btn ">
                   <span>Log In</span>
                 </button>
               </Link>
@@ -113,9 +115,9 @@ const bottomNavItems = [
               </div>
             </div>
           ) : (
-            <Link to="signIn">
-              <button className="text-sm secondary_btn uppercase px-3 py-1">
-                <span>Log In</span>
+            <Link to="/login">
+              <button className="  primary_btn ">
+                Log In
               </button>
             </Link>
           )}

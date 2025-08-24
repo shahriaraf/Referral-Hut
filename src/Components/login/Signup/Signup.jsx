@@ -2,29 +2,53 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle, FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaImage } from 'react-icons/fa';
 import { TbFidgetSpinner } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Lottie from "lottie-react";
 import login from '/public/register.json'
+import useAuth from '../../../CustomHooks/useAuth';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
+  const {creatUser,updateUserProfile} = useAuth() ;
+  const navigate = useNavigate()
   
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors ,isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Signup Data:", data);
+  const onSubmit = async (data) => {
+    
+    
+    try {
+       
+            const result = await creatUser(data.email, data.password)
+            await updateUserProfile(data.name)
+             navigate('/')
+
+              setTimeout(() => {
+                  toast.success('your Account is created');
+              }, 200);
+      
+     } catch (error) {
+        console.log(error);
+        
+     }finally{
+        reset(); // form reset
+     }
+   
+       
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-  };
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setSelectedFile(file);
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
@@ -152,7 +176,7 @@ const Signup = () => {
               </div>
 
               {/* Profile Image Upload */}
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">
                   Profile Image
                 </label>
@@ -182,7 +206,7 @@ const Signup = () => {
                     {errors.file.message}
                   </p>
                 )}
-              </div>
+              </div> */}
 
              
 
@@ -191,10 +215,10 @@ const Signup = () => {
                 {/* Signup Button */}
                 <button 
                   type="submit" 
-                  disabled={loading}
+                  disabled={isSubmitting}
                   className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  {loading ? (
+                  {isSubmitting ? (
                     <TbFidgetSpinner className="animate-spin mx-auto text-xl" />
                   ) : (
                     "Create Account"
@@ -206,22 +230,9 @@ const Signup = () => {
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-white/20"></div>
                   </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-400">
-                      Or continue with
-                    </span>
-                  </div>
+        
                 </div>
 
-                {/* Google Signup Button */}
-                <button 
-                  type="button"
-                  disabled={loading}
-                  className="w-full py-3 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
-                >
-                  <FaGoogle className="text-red-400" />
-                  {loading ? "Loading..." : "Sign up with Google"}
-                </button>
               </div>
 
               {/* Login Link */}

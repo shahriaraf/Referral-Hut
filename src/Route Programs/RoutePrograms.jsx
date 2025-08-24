@@ -21,7 +21,7 @@ const programsData = {
     title: "6P Program",
     color: "blue",
     description: "Advanced programs for deep specialization and expertise.",
-    cards: [{}, {}, {}, {}], 
+    cards: [{}, {}, {}, {}, {}, {}], 
   },
   "vip": {
     title: "VIP Program",

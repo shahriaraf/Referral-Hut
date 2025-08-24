@@ -44,6 +44,7 @@ const OurPartners = () => {
               {/* Icon */}
               <Icon className="company_logo text-white/80 text-4xl mb-2 transition-colors duration-300 hover:text-white" />
 
+
               {/* Company Name */}
               <span className="company_name text-white/90 font-medium text-lg">
                 {companyName}

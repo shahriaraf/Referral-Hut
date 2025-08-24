@@ -14,6 +14,9 @@ import Withdraw from './Withdraw/Withdraw.jsx';
 import Profile from './Components/profile/Profile.jsx';
 import Signup from './Components/login/Signup/Signup.jsx';
 import Login from './Components/login/Signin/Login.jsx';
+import AuthProvier from './Context/AuthProvier.jsx';
+import { ToastContainer } from 'react-toastify';
+import PrivateRoute from './Routes/PrivateRoute.jsx';
 const router = createBrowserRouter([
   {
   path: "/",
@@ -25,19 +28,19 @@ const router = createBrowserRouter([
       },
        {
         path: "/package",
-        element: <RoutePrograms />
+        element:  <PrivateRoute> <RoutePrograms /> </PrivateRoute>
       },
        {
         path: "/Deposit",
-        element: <Deposit></Deposit>
+        element:  <PrivateRoute> <Deposit></Deposit> </PrivateRoute>
       },
        {
         path: "/withdraw",
-        element: <Withdraw></Withdraw>
+        element:  <PrivateRoute> <Withdraw></Withdraw> </PrivateRoute>
       },
        {
         path: "/profile",
-        element: <Profile></Profile>
+        element:  <PrivateRoute> <Profile></Profile> </PrivateRoute>
       },
        {
         path: "/login",
@@ -53,8 +56,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <div className=' '>
-          <RouterProvider router={router} />
-      </div>
+   
+        <AuthProvier>
+            <RouterProvider router={router} />
+                  <ToastContainer position="top-right" autoClose={3000} />
+        </AuthProvier>
+
   </StrictMode>,
 )
