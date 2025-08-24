@@ -47,9 +47,9 @@ const Signup = () => {
         name : data.name,
         email : data.email,
         uniqueId : null,
-        refarelNumber : Number(data.referralNumber),
+        refarelNumber : Number(data.referralNumber) || null,
         role :  "user",
-        Date : new Date()
+        Date : new Date().toLocaleString()
       }
 
         // send user data to database 
