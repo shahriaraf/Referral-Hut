@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
-import { FiHome, FiPackage, FiUser, FiLogOut,FiDownload } from 'react-icons/fi';
+import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload } from 'react-icons/fi';
 import { RiVipCrownFill } from "react-icons/ri";
 
 const DashboardHeaderSkeleton = () => (
@@ -14,9 +14,7 @@ const DashboardHeaderSkeleton = () => (
 );
 
 const DashboardHeader = ({ user }) => {
-    if (!user) {
-        return <DashboardHeaderSkeleton />;
-    }
+    if (!user) return <DashboardHeaderSkeleton />;
 
     return (
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800 mb-8">
@@ -45,6 +43,8 @@ const DashboardHeader = ({ user }) => {
 
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
+    const [showMobileNav, setShowMobileNav] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -60,9 +60,25 @@ const UserDashboard = () => {
                 console.error("Failed to fetch user data:", error);
             }
         };
-
         fetchUserData();
     }, []);
+
+    // Scroll listener for mobile nav
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY) {
+                // scrolling down
+                setShowMobileNav(false);
+            } else {
+                // scrolling up
+                setShowMobileNav(true);
+            }
+            setLastScrollY(window.scrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [lastScrollY]);
 
     const getNavLinkClass = ({ isActive }) => {
         const baseClasses = 'flex items-center justify-center md:justify-start w-full md:gap-3 py-3 px-4 rounded-lg transition-all duration-200 ease-in-out';
@@ -74,12 +90,12 @@ const UserDashboard = () => {
     return (
         <div className="flex flex-col md:flex-row min-h-screen bg-[#0D1117]">
             <aside
-                className="
+                className={`
                     fixed bottom-0 left-0 right-0 h-16 bg-[#161B22] border-t border-gray-800
-                    flex items-center justify-around z-50
-                    
+                    flex items-center justify-around z-50 transition-transform duration-300
                     md:relative md:w-64 md:h-auto md:min-h-screen md:flex-col md:items-start md:justify-start md:p-4 md:border-r md:border-t-0
-                "
+                    ${showMobileNav ? "translate-y-0" : "translate-y-full"}
+                `}
             >
                 {/* Logo - only on desktop */}
                 <div className="hidden md:flex items-center gap-x-2 mb-6">
@@ -107,7 +123,7 @@ const UserDashboard = () => {
                         <li>
                             <NavLink to="/userDashboard/withdraw" className={getNavLinkClass}>
                                 <FiDownload size={20} />
-                                <span className="hidden md:inline">withdraw</span>
+                                <span className="hidden md:inline">Withdraw</span>
                             </NavLink>
                         </li>
                         <li>
