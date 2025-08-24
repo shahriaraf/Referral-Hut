@@ -62,11 +62,7 @@ const router = createBrowserRouter([
         path: "deposit",
         element: <Deposit />
       },
-      {
-         index: true,
-        element:<UserHome/>,
-       
-      },
+  
       
     ]
 

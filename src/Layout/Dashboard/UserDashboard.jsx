@@ -4,7 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 const UserDashboard = () => {
     return (
         <div className='flex'>
-            <div className='w-64 min-h-full bg-purple-500'>
+            <div className='w-64 min-h-screen bg-purple-500'>
                 <ul className='menu'>
                     <li>
                         <NavLink to="" end className={({ isActive }) => isActive ? 'text-white font-bold' : 'text-gray-200'}>
