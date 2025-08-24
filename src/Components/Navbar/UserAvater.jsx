@@ -50,7 +50,7 @@ const UserAvater = () => {
         <FaUser /> Profile
       </Link>
       <Link
-        to="/dashboard"
+        to="/userDashboard"
         className="text-base font-semibold capitalize primary_text_color flex items-center gap-x-3 px-2 py-3 hover:bg-gray-950"
       >
         <MdDashboard /> Dashboard
