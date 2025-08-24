@@ -2,7 +2,6 @@ import React from "react";
 const Profile = () => {
   return (
     <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-800">
-
       <div class="relative max-w-3xl mx-auto px-4 mb-6">
         <div class="relative overflow-hidden rounded-2xl shadow-2xl">
           <div class="absolute inset-0 bg-gradient-to-br from-indigo-700/30 via-violet-600 to-cyan-700/30 opacity-80"></div>
@@ -181,11 +180,12 @@ const Profile = () => {
         </div>
       </div>
 
-      <div class="relative max-w-3xl mx-auto px-4 mb-6">
-        <div class="space-y-2">
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
+      <div className="relative max-w-3xl mx-auto px-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {/* Transaction History */}
+          <div className="group col-span-2 bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
@@ -196,137 +196,197 @@ const Profile = () => {
                   width="1em"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M336 64h-80c0-35.3-28.7-64-64-64s-64 28.7-64 64H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM96 424c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm0-96c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm0-96c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm96-192c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24zm128 368c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-96c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-96c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z"></path>
+                  {" "}
+                  <path d="M336 64h-80c0-35.3-28.7-64-64-64s-64 28.7-64 64H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM96 424c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm0-96c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm0-96c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24zm96-192c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24zm128 368c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-96c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-96c0 4.4-3.6 8-8 8H168c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z"></path>{" "}
                 </svg>
               </div>
-              <span class="font-medium text-white">Transaction History</span>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full mr-2">
+              <span className="bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
                 New
               </span>
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" class="text-gray-500 group-hover:text-indigo-300 transition-colors" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path> </svg>
             </div>
+            <h4 className="text-sm font-semibold text-white">
+              Transaction History
+            </h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full"></div>
           </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
-                <svg
+
+          {/* Withdraw Details */}
+          <div className="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" class="text-purple-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M608 32H32C14.33 32 0 46.33 0 64v384c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zM176 327.88V344c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-16.29c-11.29-.58-22.27-4.52-31.37-11.35-3.9-2.93-4.1-8.77-.57-12.14l11.75-11.21c2.77-2.64 6.89-2.76 10.13-.73 3.87 2.42 8.26 3.72 12.82 3.72h28.11c6.5 0 11.8-5.92 11.8-13.19 0-5.95-3.61-11.19-8.77-12.73l-45-13.5c-18.59-5.58-31.58-23.42-31.58-43.39 0-24.52 19.05-44.44 42.67-45.07V152c0-4.42 3.58-8 8-8h16c4.42 0 8 3.58 8 8v16.29c11.29.58 22.27 4.51 31.37 11.35 3.9 2.93 4.1 8.77.57 12.14l-11.75 11.21c-2.77 2.64-6.89 2.76-10.13.73-3.87-2.43-8.26-3.72-12.82-3.72h-28.11c-6.5 0-11.8 5.92-11.8 13.19 0 5.95 3.61 11.19 8.77 12.73l45 13.5c18.59 5.58 31.58 23.42 31.58 43.39 0 24.53-19.05 44.44-42.67 45.07zM416 312c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h112c4.42 0 8 3.58 8 8v16zm160 0c0 4.42-3.58 8-8 8h-80c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16zm0-96c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h272c4.42 0 8 3.58 8 8v16z"></path> </svg>
+              </div>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" class="text-gray-500 group-hover:text-indigo-300 transition-colors" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path> </svg> 
+              </div>
+            <h4 className="text-sm font-semibold text-white">
+              Withdraw Details
+            </h4>
+
+            <div className="h-1 mt-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+          </div>
+
+          {/* Investment Analytics */}
+          <div className="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+
+             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-emerald-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zM464 96H345.94c-21.38 0-32.09 25.85-16.97 40.97l32.4 32.4L288 242.75l-73.37-73.37c-12.5-12.5-32.76-12.5-45.25 0l-68.69 68.69c-6.25 6.25-6.25 16.38 0 22.63l22.62 22.62c6.25 6.25 16.38 6.25 22.63 0L192 237.25l73.37 73.37c12.5 12.5 32.76 12.5 45.25 0l96-96 32.4 32.4c15.12 15.12 40.97 4.41 40.97-16.97V112c.01-8.84-7.15-16-15.99-16z"></path> </svg>
+              </div>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" class="text-gray-500 group-hover:text-indigo-300 transition-colors" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path> </svg>
+            </div>
+            <h4 className="text-sm font-semibold text-white">
+              Investment Analytics
+            </h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full"></div>
+          </div>
+
+          {/* Download App */}
+          <div className="group col-span-2 bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-pink-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path> </svg>
+             
+              </div>
+                 <svg
                   stroke="currentColor"
                   fill="currentColor"
                   stroke-width="0"
-                  viewBox="0 0 640 512"
-                  class="text-purple-300"
+                  viewBox="0 0 320 512"
+                  class="text-gray-500 group-hover:text-indigo-300 transition-colors"
                   height="1em"
                   width="1em"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M608 32H32C14.33 32 0 46.33 0 64v384c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zM176 327.88V344c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-16.29c-11.29-.58-22.27-4.52-31.37-11.35-3.9-2.93-4.1-8.77-.57-12.14l11.75-11.21c2.77-2.64 6.89-2.76 10.13-.73 3.87 2.42 8.26 3.72 12.82 3.72h28.11c6.5 0 11.8-5.92 11.8-13.19 0-5.95-3.61-11.19-8.77-12.73l-45-13.5c-18.59-5.58-31.58-23.42-31.58-43.39 0-24.52 19.05-44.44 42.67-45.07V152c0-4.42 3.58-8 8-8h16c4.42 0 8 3.58 8 8v16.29c11.29.58 22.27 4.51 31.37 11.35 3.9 2.93 4.1 8.77.57 12.14l-11.75 11.21c-2.77 2.64-6.89 2.76-10.13.73-3.87-2.43-8.26-3.72-12.82-3.72h-28.11c-6.5 0-11.8 5.92-11.8 13.19 0 5.95 3.61 11.19 8.77 12.73l45 13.5c18.59 5.58 31.58 23.42 31.58 43.39 0 24.53-19.05 44.44-42.67 45.07zM416 312c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h112c4.42 0 8 3.58 8 8v16zm160 0c0 4.42-3.58 8-8 8h-80c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16zm0-96c0 4.42-3.58 8-8 8H296c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h272c4.42 0 8 3.58 8 8v16z"></path>
+                  {" "}
+                  <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>{" "}
                 </svg>
-              </div>
-              <span class="font-medium text-white">Withdraw Details</span>
             </div>
-            <div class="flex items-center">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
+            <h4 className="text-sm font-semibold text-white">Download App</h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full"></div>
           </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
+
+          {/* Portfolio */}
+          <div className="group col-span-2 bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-amber-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path> </svg>
+               
+              </div>
+              <span className="bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
+                3
+              </span>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" class="text-gray-500 group-hover:text-indigo-300 transition-colors" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path> </svg>
+            </div>
+            <h4 className="text-sm font-semibold text-white">My Portfolio</h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full"></div>
+          </div>
+
+          {/* Security */}
+          <div className="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+               <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="text-red-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"></path> </svg>
+              </div>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" class="text-gray-500 group-hover:text-indigo-300 transition-colors" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path> </svg>
+            </div>
+            <h4 className="text-sm font-semibold text-white">
+              Security Center
+            </h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-red-400 to-pink-400 rounded-full"></div>
+          </div>
+
+          {/* Settings */}
+          <div className="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="text-blue-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path> </svg>
+              </div>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" class="text-gray-500 group-hover:text-indigo-300 transition-colors" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path> </svg>
+            </div>
+            <h4 className="text-sm font-semibold text-white">
+              Account Settings
+            </h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full"></div>
+          </div>
+
+          {/* Notifications */}
+          <div className="group col-span-2 bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-indigo-500/30 shadow-sm transition-all cursor-pointer">
+            <div className="flex items-center justify-between mb-2">
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="text-yellow-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" > <path d="M256 464c22.779 0 41.411-18.719 41.411-41.6h-82.823c0 22.881 18.633 41.6 41.412 41.6zm134.589-124.8V224.8c0-63.44-44.516-117.518-103.53-131.041V79.2c0-17.682-13.457-31.2-31.059-31.2s-31.059 13.518-31.059 31.2v14.559c-59.015 13.523-103.53 67.601-103.53 131.041v114.4L80 380.8v20.8h352v-20.8l-41.411-41.6z"></path> </svg>
+             
+              </div>
+              <span className="bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
+                5
+              </span>
+                 <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 320 512"
+                  class="text-gray-500 group-hover:text-indigo-300 transition-colors"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {" "}
+                  <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>{" "}
+                </svg>
+              
+            </div>
+            <h4 className="text-sm font-semibold text-white">Notifications</h4>
+            <div className="h-1 mt-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative max-w-3xl mx-auto px-4">
+        <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+          {/* Light gradient background */}
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-yellow-100 opacity-95"></div>
+
+          {/* Soft animated shine effect */}
+          <div class="absolute inset-0 overflow-hidden">
+            <div
+              class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] animate-spin-slow"
+              style={{
+                background:
+                  "conic-gradient(transparent 0%, rgba(99,102,241,0.05) 20%, transparent 40%, rgba(6,182,212,0.05) 60%, transparent 80%, rgba(99,102,241,0.05) 100%)",
+              }}
+            ></div>
+          </div>
+
+          {/* Content */}
+          <div class="relative z-10 p-5">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="font-bold text-black text-lg flex items-center">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 640 512"
+                    class="text-black mr-2"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z"></path>
+                  </svg>
+                  Black Card Membership
+                </h3>
+                <p class="text-gray-700 text-sm mt-1">
+                  Unlock premium benefits and exclusive rewards
+                </p>
+              </div>
+              <div class="bg-amber-200/40 p-3 rounded-lg border border-amber-300/60">
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
                   stroke-width="0"
                   viewBox="0 0 512 512"
-                  class="text-emerald-300"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zM464 96H345.94c-21.38 0-32.09 25.85-16.97 40.97l32.4 32.4L288 242.75l-73.37-73.37c-12.5-12.5-32.76-12.5-45.25 0l-68.69 68.69c-6.25 6.25-6.25 16.38 0 22.63l22.62 22.62c6.25 6.25 16.38 6.25 22.63 0L192 237.25l73.37 73.37c12.5 12.5 32.76 12.5 45.25 0l96-96 32.4 32.4c15.12 15.12 40.97 4.41 40.97-16.97V112c.01-8.84-7.15-16-15.99-16z"></path>
-                </svg>
-              </div>
-              <span class="font-medium text-white">Investment Analytics</span>
-            </div>
-            <div class="flex items-center">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 512 512"
-                  class="text-pink-300"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path>
-                </svg>
-              </div>
-              <span class="font-medium text-white">Download APP</span>
-            </div>
-            <div class="flex items-center">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 512 512"
-                  class="text-amber-300"
+                  class="text-xl text-amber-600"
                   height="1em"
                   width="1em"
                   xmlns="http://www.w3.org/2000/svg"
@@ -334,191 +394,13 @@ const Profile = () => {
                   <path d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path>
                 </svg>
               </div>
-              <span class="font-medium text-white">My Portfolio</span>
             </div>
-            <div class="flex items-center">
-              <span class="bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full mr-2">
-                3
-              </span>
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 448 512"
-                  class="text-red-300"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"></path>
-                </svg>
-              </div>
-              <span class="font-medium text-white">Security Center</span>
-            </div>
-            <div class="flex items-center">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 448 512"
-                  class="text-blue-300"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
-                </svg>
-              </div>
-              <span class="font-medium text-white">Account Settings</span>
-            </div>
-            <div class="flex items-center">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="group bg-gray-900/50 hover:bg-gray-800/70 backdrop-blur-sm p-4 rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-700/50 hover:border-indigo-500/30 flex items-center justify-between cursor-pointer">
-            <div class="flex items-center space-x-3">
-              <div class="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-all">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 512 512"
-                  class="text-yellow-300"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M256 464c22.779 0 41.411-18.719 41.411-41.6h-82.823c0 22.881 18.633 41.6 41.412 41.6zm134.589-124.8V224.8c0-63.44-44.516-117.518-103.53-131.041V79.2c0-17.682-13.457-31.2-31.059-31.2s-31.059 13.518-31.059 31.2v14.559c-59.015 13.523-103.53 67.601-103.53 131.041v114.4L80 380.8v20.8h352v-20.8l-41.411-41.6z"></path>
-                </svg>
-              </div>
-              <span class="font-medium text-white">Notifications</span>
-            </div>
-            <div class="flex items-center">
-              <span class="bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full mr-2">
-                5
-              </span>
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 320 512"
-                class="text-gray-500 group-hover:text-indigo-300 transition-colors"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-              </svg>
-            </div>
+            <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:text-purple-300 transition-colors duration-200 font-semibold py-3 rounded-lg text-sm transform hover:scale-[1.01] shadow-lg shadow-amber-500/20 flex items-center justify-center">
+              Upgrade to Elite
+            </button>
           </div>
         </div>
       </div>
-<div class="relative max-w-3xl mx-auto px-4">
-  <div class="relative overflow-hidden rounded-2xl shadow-2xl">
-    {/* Light gradient background */}
-    <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-white to-yellow-100 opacity-95"></div>
-
-    {/* Soft animated shine effect */}
-    <div class="absolute inset-0 overflow-hidden">
-      <div
-        class="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] animate-spin-slow"
-        style={{
-          background:
-            "conic-gradient(transparent 0%, rgba(99,102,241,0.05) 20%, transparent 40%, rgba(6,182,212,0.05) 60%, transparent 80%, rgba(99,102,241,0.05) 100%)",
-        }}
-      ></div>
-    </div>
-
-    {/* Content */}
-    <div class="relative z-10 p-5">
-      <div class="flex items-start justify-between mb-4">
-        <div>
-          <h3 class="font-bold text-black text-lg flex items-center">
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              viewBox="0 0 640 512"
-              class="text-black mr-2"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z"></path>
-            </svg>
-            Black Card Membership
-          </h3>
-          <p class="text-gray-700 text-sm mt-1">
-            Unlock premium benefits and exclusive rewards
-          </p>
-        </div>
-        <div class="bg-amber-200/40 p-3 rounded-lg border border-amber-300/60">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 512 512"
-            class="text-xl text-amber-600"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path>
-          </svg>
-        </div>
-      </div>
-      <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:text-purple-300 transition-colors duration-200 font-semibold py-3 rounded-lg text-sm transform hover:scale-[1.01] shadow-lg shadow-amber-500/20 flex items-center justify-center">
-        Upgrade to Elite
-      </button>
-    </div>
-  </div>
-</div>
-
     </div>
   );
 };
