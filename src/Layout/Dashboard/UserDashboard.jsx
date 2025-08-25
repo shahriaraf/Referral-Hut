@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
-import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload } from 'react-icons/fi';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload,FiUpload } from 'react-icons/fi';
 import { RiVipCrownFill } from "react-icons/ri";
+import Swal from 'sweetalert2';
+import useAuth from '../../CustomHooks/useAuth';
 
-// Skeleton loader while fetching user data (No changes needed)
 const DashboardHeaderSkeleton = () => (
     <div className="flex items-center justify-between p-6 bg-[#161B22] rounded-lg shadow-md mb-8 animate-pulse">
         <div>
@@ -14,7 +15,7 @@ const DashboardHeaderSkeleton = () => (
     </div>
 );
 
-// Header component (No changes needed)
+
 const DashboardHeader = ({ user }) => {
     if (!user) return <DashboardHeaderSkeleton />;
 
@@ -47,8 +48,42 @@ const UserDashboard = () => {
     const [lastScrollY, setLastScrollY] = useState(0);
     const mainContentRef = useRef(null);
 
+    
+const { logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Logging out will end your session. You’ll need to log in again.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log me out!"
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await logOut(); // Auth logout function
+        Swal.fire({
+          title: "Logged Out!",
+          text: "You have successfully logged out.",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false
+        });
+        navigate('/'); // Redirect to login page
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: error.message || "Something went wrong.",
+          icon: "error"
+        });
+      }
+    }
+  };
     useEffect(() => {
-        // Mock fetching user data
         const fetchUserData = async () => {
             try {
                 setTimeout(() => {
@@ -65,15 +100,15 @@ const UserDashboard = () => {
         fetchUserData();
     }, []);
 
-    // Scroll listener to hide/show mobile nav
+
     useEffect(() => {
         const contentElement = mainContentRef.current;
         if (!contentElement) return;
 
         const handleScroll = () => {
             const currentScrollY = contentElement.scrollTop;
-            // Hide nav if scrolling down, show if scrolling up
-            if (currentScrollY > lastScrollY && currentScrollY > 50) { // Added threshold
+
+            if (currentScrollY > lastScrollY && currentScrollY > 50) {
                 setShowMobileNav(false);
             } else {
                 setShowMobileNav(true);
@@ -82,11 +117,11 @@ const UserDashboard = () => {
         };
 
         contentElement.addEventListener("scroll", handleScroll);
-        // Cleanup listener on component unmount
-        return () => contentElement.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]); // lastScrollY is needed to compare current vs previous scroll position
 
-    // Helper function for NavLink styling
+        return () => contentElement.removeEventListener("scroll", handleScroll);
+    }, [lastScrollY]);
+
+
     const getNavLinkClass = ({ isActive }) => {
         const baseClasses = 'flex items-center justify-center md:justify-start w-full md:gap-3 py-3 px-4 rounded-lg transition-all duration-200 ease-in-out';
         const activeClasses = 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-500/40';
@@ -96,7 +131,7 @@ const UserDashboard = () => {
 
     return (
         <div className="flex flex-col md:flex-row h-screen bg-[#0D1117] overflow-hidden">
-            {/* Sidebar / Mobile Nav */}
+
             <aside
                 className={`
                     fixed bottom-0 left-0 right-0 h-16 bg-[#161B22] border-t border-gray-800
@@ -114,34 +149,34 @@ const UserDashboard = () => {
                     </h2>
                 </div>
 
-                {/* Navigation Links */}
+
                 <nav className="flex-1 w-full">
                     <ul className="flex flex-row justify-around md:flex-col md:gap-2 w-full">
                         <li><NavLink to="/userDashboard" end className={getNavLinkClass}><FiUser size={20} /><span className="hidden md:inline">Profile</span></NavLink></li>
                         <li><NavLink to="/userDashboard/package" className={getNavLinkClass}><FiPackage size={20} /><span className="hidden md:inline">Packages</span></NavLink></li>
                         <li><NavLink to="/userDashboard/deposit" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Deposit</span></NavLink></li>
-                        <li><NavLink to="/userDashboard/withdraw" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/withdraw" className={getNavLinkClass}><FiUpload size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
                         <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
                     </ul>
                 </nav>
-                
-                {/* Logout Button - Desktop only */}
+
+
                 <div className="hidden md:block mt-auto w-full">
-                     <button className={`${getNavLinkClass({isActive: false})} w-full`}>
+                    <button onClick={handleLogOut} className={`${getNavLinkClass({ isActive: false })} w-full`}>
                         <FiLogOut size={20} />
                         <span className="hidden md:inline">Logout</span>
                     </button>
                 </div>
             </aside>
 
-            {/* Main Content Area */}
+
             <main className="flex-1 flex flex-col overflow-hidden">
-                {/* Header is fixed at the top of the main content */}
+
                 <div className="px-6 lg:px-10 pt-6 lg:pt-8">
                     <DashboardHeader user={user} />
                 </div>
 
-                {/* This inner div is the scrollable container */}
+
                 <div ref={mainContentRef} className="flex-1 overflow-y-auto px-6 lg:px-10 pb-20 md:pb-10">
                     <Outlet />
                 </div>

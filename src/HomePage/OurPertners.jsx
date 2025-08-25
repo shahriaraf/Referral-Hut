@@ -32,7 +32,7 @@ const partners = [
 const OurPartners = () => {
   return (
     <div className="w-full py-16 primary_bg_color pb-30">
-   <h1 className="text-center font-semibold text-3xl tracking-widest">Our Partners</h1>
+   <h1 className="text-center font-semibold text-4xl text-white tracking-widest">Our Partners</h1>
 
       <div className="mt-12">
         <Marquee pauseOnHover={true} speed={50} gradient={false}>

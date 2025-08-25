@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// --- Data Structure with Level-Specific Details ---
 const programsData = {
   "3p": {
     title: "3P Program",
@@ -41,7 +40,6 @@ const programsData = {
   },
 };
 
-// --- Color Theme Mapping ---
 const colors = {
   blue: {
     bg: "bg-blue-600",
@@ -57,7 +55,7 @@ const colors = {
   },
 };
 
-// --- Reusable Level Badge Component ---
+
 const LevelBadge = ({ level, color }) => {
   const colorClass = colors[color].bg;
   return (
@@ -87,7 +85,7 @@ const LevelBadge = ({ level, color }) => {
   );
 };
 
-// --- Enhanced Program Card Component ---
+
 const ProgramCard = ({ level, title, description, color }) => {
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.95, y: 20 },
@@ -106,14 +104,14 @@ const ProgramCard = ({ level, title, description, color }) => {
   );
 };
 
-// --- Main Component ---
+
 const RoutePrograms = () => {
   const [activeTab, setActiveTab] = useState("3p");
   const activeProgram = programsData[activeTab];
 
   return (
     <div className="relative min-h-screen bg-[#0f172a] flex flex-col items-center justify-start p-6 pt-16 md:pt-24 text-white font-sans overflow-hidden">
-      {/* Background Gradient */}
+     
       <div className={`absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b ${colors[activeProgram.color].gradient} opacity-10 blur-3xl`}></div>
 
       <motion.div
@@ -153,7 +151,6 @@ const RoutePrograms = () => {
         ))}
       </div>
 
-      {/* Tab Content */}
       <div className="w-full max-w-6xl z-10">
         <AnimatePresence mode="wait">
           <motion.div
