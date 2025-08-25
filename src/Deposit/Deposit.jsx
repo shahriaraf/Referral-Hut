@@ -5,7 +5,7 @@ import { FaUser, FaReceipt, FaDollarSign, FaSpinner, FaAddressBook } from 'react
 import useAxiosPublic from '../CustomHooks/Api/useAxiosPublic';
 import useAuth from '../CustomHooks/useAuth';
 
-// This is the component for a single form field. It helps keep the main form clean.
+
 const FormField = ({ id, label, type, placeholder, icon, register, error }) => {
   const Icon = icon;
   return (
@@ -91,7 +91,7 @@ const Deposit = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#0D1117] p-4 font-sans">
+    <div className=" w-full items-center justify-center bg-[#0D1117] p-4 font-sans">
        <div className="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_top,_rgba(29,78,216,0.15),_transparent_40%)]"></div>
       
       <div className="relative w-full max-w-md rounded-2xl bg-[#161B22]/80 backdrop-blur-sm shadow-2xl shadow-blue-500/10 border border-slate-800">
