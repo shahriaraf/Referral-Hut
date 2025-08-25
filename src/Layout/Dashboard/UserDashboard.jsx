@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload,FiUpload } from 'react-icons/fi';
+
+
 import { RiVipCrownFill } from "react-icons/ri";
 import Swal from 'sweetalert2';
 import useAuth from '../../CustomHooks/useAuth';
@@ -20,7 +23,7 @@ const DashboardHeader = ({ user }) => {
     if (!user) return <DashboardHeaderSkeleton />;
 
     return (
-        <div className="flex items-center justify-between p-4 md:p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800 mb-8">
+        <div className="flex items-center justify-between p-4 md:p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800">
             <div className="flex-1">
                 <h1 className="lg:text-2xl text-xl font-bold text-white">
                     Welcome back,{' '}
@@ -36,17 +39,22 @@ const DashboardHeader = ({ user }) => {
                     alt="User Avatar"
                     className="w-12 h-12 rounded-full border-2 border-purple-500 object-cover"
                 />
+                {/* Mobile-only logout button, as desktop has one in the sidebar */}
+                <button className="p-3 bg-gray-700/50 rounded-full md:hidden hover:bg-gray-700 transition-colors">
+                    <FiLogOut className="text-gray-300" size={20} />
+                </button>
             </div>
         </div>
     );
 };
 
-
+// Main Dashboard Component - Fully corrected and consolidated
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
     const [showMobileNav, setShowMobileNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const mainContentRef = useRef(null);
+
 
     
 const { logOut } = useAuth();
@@ -83,6 +91,7 @@ const { logOut } = useAuth();
       }
     }
   };
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -119,7 +128,9 @@ const { logOut } = useAuth();
         contentElement.addEventListener("scroll", handleScroll);
 
         return () => contentElement.removeEventListener("scroll", handleScroll);
+
     }, [lastScrollY]);
+
 
 
     const getNavLinkClass = ({ isActive }) => {
@@ -155,14 +166,18 @@ const { logOut } = useAuth();
                         <li><NavLink to="/userDashboard" end className={getNavLinkClass}><FiUser size={20} /><span className="hidden md:inline">Profile</span></NavLink></li>
                         <li><NavLink to="/userDashboard/package" className={getNavLinkClass}><FiPackage size={20} /><span className="hidden md:inline">Packages</span></NavLink></li>
                         <li><NavLink to="/userDashboard/deposit" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Deposit</span></NavLink></li>
+
                         <li><NavLink to="/userDashboard/withdraw" className={getNavLinkClass}><FiUpload size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
+
                         <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
                     </ul>
                 </nav>
 
 
+
                 <div className="hidden md:block mt-auto w-full">
                     <button onClick={handleLogOut} className={`${getNavLinkClass({ isActive: false })} w-full`}>
+
                         <FiLogOut size={20} />
                         <span className="hidden md:inline">Logout</span>
                     </button>
@@ -172,10 +187,19 @@ const { logOut } = useAuth();
 
             <main className="flex-1 flex flex-col overflow-hidden">
 
+
                 <div className="px-6 lg:px-10 pt-6 lg:pt-8">
                     <DashboardHeader user={user} />
                 </div>
 
+
+
+                {/* Header Container */}
+                <div className="px-6 lg:px-10 pt-6 lg:pt-8 mb-8">
+                    <DashboardHeader user={user} />
+                </div>
+
+                {/* Scrollable Inner Container */}
 
                 <div ref={mainContentRef} className="flex-1 overflow-y-auto px-6 lg:px-10 pb-20 md:pb-10">
                     <Outlet />
