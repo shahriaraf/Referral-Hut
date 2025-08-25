@@ -51,8 +51,6 @@ const onSubmit = async (data) => {
 
     // Send user data to server
     const response = await axiosPublic.post('/api/referral-creat-user', userData); 
-        // send user data to database 
-      const response = await axiosPublic.post('/api/referral-creat-users',userData); 
         
           if(response.data.acknowledged && response.data.insertedId){
     navigate("/userDashboard");
