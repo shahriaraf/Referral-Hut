@@ -51,9 +51,11 @@ const onSubmit = async (data) => {
 
     // Send user data to server
     const response = await axiosPublic.post('/api/referral-creat-user', userData); 
-
-    // Check server response
-    if (response.data.success && response.data.data.acknowledged) {
+        // send user data to database 
+      const response = await axiosPublic.post('/api/referral-creat-users',userData); 
+        
+          if(response.data.acknowledged && response.data.insertedId){
+    navigate("/userDashboard");
 
        // Create user in Firebase Auth
     const result = await creatUser(data.email, data.password);
