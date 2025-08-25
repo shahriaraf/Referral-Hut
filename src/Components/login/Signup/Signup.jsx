@@ -47,9 +47,9 @@ const Signup = () => {
         name : data.name,
         email : data.email,
         uniqueId : null,
-        refarelNumber : Number(data.referralNumber),
+        refarelNumber : Number(data.referralNumber) || null,
         role :  "user",
-        Date : new Date()
+        Date : new Date().toLocaleString()
       }
 
         // send user data to database 
@@ -139,12 +139,12 @@ const Signup = () => {
       {...register("referralNumber", {
         // required: "Referral number is required",
         minLength: {
-          value: 8,
-          message: "Referral number must be at least 8 digits",
+          value: 6,
+          message: "Referral number must be at least 6 digits",
         },
         maxLength: {
-          value: 8,
-          message: "Referral number cannot exceed 8 digits",
+          value: 6,
+          message: "Referral number cannot exceed 6 digits",
         },
         pattern: {
             value: /^[0-9]{4,10}$/,

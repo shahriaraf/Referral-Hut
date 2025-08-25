@@ -9,13 +9,28 @@ import useAuth from "../../CustomHooks/useAuth";
 const Navbar = () => {
   const { user } = useAuth();
 
+  const authBtn = (
+    <>
+      <Link to="/login">
+        <button className=" primary_btn  ">
+          <span>Log In</span>
+        </button>
+      </Link>
 
+          <Link to="/register">
+        <button className=" secondary_btn  ">
+          <span>Register</span>
+        </button>
+      </Link>
+    </>
+  );
 
   return (
     <>
-   
-      <div className="hidden md:block bg-gradient-to-r from-[#151C2B] via-[#2C3548] to-gray-800 shadow-2xl sticky top-0 z-50 py-2">
-        <div className="navbar max-w-7xl mx-auto px-4 sm:px-6 md:px-16 2xl:px-22 py-3 relative">
+
+            {/* desktop layout */}
+      <div className="hidden md:block bg-gradient-to-r from-[#151C2B] via-[#2C3548] to-gray-800 shadow-2xl sticky top-0 z-50 ">
+        <div className="navbar max-w-7xl mx-auto px-4 sm:px-6 md:px-16 2xl:px-22 py-4 relative">
           <div className="navbar-start flex items-center gap-x-2">
             <RiVipCrownFill className="text-3xl seondary_text_color" />
             <h2 className="text-xl font-semibold seondary_text_color">
@@ -43,19 +58,17 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <Link to="/login">
-                <button className=" primary_btn ">
-                  <span>Log In</span>
-                </button>
-              </Link>
+              <div className="flex gap-2">
+                  {authBtn}
+              </div>
             )}
           </div>
         </div>
       </div>
 
-  
+                {/* mobail layout */}
       <div className="md:hidden bg-gradient-to-r from-[#151C2B] via-[#2C3548] to-gray-800 shadow-lg sticky top-0 z-50 py-3">
-        <div className="flex justify-between items-center px-4">
+        <div className="flex justify-between items-center px-4 py-3">
           <div className="flex items-center gap-x-2">
             <RiVipCrownFill className="text-2xl seondary_text_color" />
             <h2 className="text-lg font-semibold seondary_text_color">
@@ -75,11 +88,9 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link to="/login">
-              <button className="primary_btn">
-                Log In
-              </button>
-            </Link>
+            <div className="flex gap-2">
+                  {authBtn}
+              </div>
           )}
         </div>
       </div>

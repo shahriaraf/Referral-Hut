@@ -30,10 +30,15 @@
 }
 
 .primary_btn{
-  @apply btn px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold  hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl border-none
+  @apply btn btn-sm sm:btn-sm md:btn-md px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold  hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl border-none
+}
+
+.secondary_btn {
+  @apply btn btn-sm sm:btn-sm md:btn-md border-2 border-gray-300 text-white hover:text-black  font-semibold bg-transparent  hover:bg-gray-50  hover:border-gray-400 transition-all duration-200
 }
 
 
+ 
 
 
 
