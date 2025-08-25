@@ -23,7 +23,7 @@ const DashboardHeader = ({ user }) => {
     if (!user) return <DashboardHeaderSkeleton />;
 
     return (
-        <div className="flex items-center justify-between p-4 md:p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800">
+        <div className="flex items-center justify-between px-10 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800">
             <div className="flex-1">
                 <h1 className="lg:text-2xl text-xl font-bold text-white">
                     Welcome back,{' '}
@@ -195,7 +195,7 @@ const { logOut } = useAuth();
 
 
                 {/* Header Container */}
-                <div className="px-6 lg:px-10 pt-6 lg:pt-8 mb-8">
+                <div className=" pt-6 lg:pt-8 mb-8">
                     <DashboardHeader user={user} />
                 </div>
 
