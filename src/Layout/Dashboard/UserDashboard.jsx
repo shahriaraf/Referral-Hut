@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink} from 'react-router-dom';
 import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload } from 'react-icons/fi';
 import { RiVipCrownFill } from "react-icons/ri";
 
@@ -19,7 +19,7 @@ const DashboardHeader = ({ user }) => {
     if (!user) return <DashboardHeaderSkeleton />;
 
     return (
-        <div className="flex items-center justify-between p-4 md:p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800 mb-8">
+        <div className="flex items-center justify-between p-1 md:p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800">
             <div className="flex-1">
                 <h1 className="lg:text-2xl text-xl font-bold text-white">
                     Welcome back,{' '}
@@ -124,10 +124,10 @@ const UserDashboard = () => {
                         <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
                     </ul>
                 </nav>
-                
+
                 {/* Logout Button - Desktop only */}
                 <div className="hidden md:block mt-auto w-full">
-                     <button className={`${getNavLinkClass({isActive: false})} w-full`}>
+                    <button className={`${getNavLinkClass({ isActive: false })} w-full`}>
                         <FiLogOut size={20} />
                         <span className="hidden md:inline">Logout</span>
                     </button>
@@ -142,7 +142,7 @@ const UserDashboard = () => {
                 </div>
 
                 {/* This inner div is the scrollable container */}
-                <div ref={mainContentRef} className="flex-1 overflow-y-auto px-6 lg:px-10 pb-20 md:pb-10">
+                <div ref={mainContentRef} className="flex-1 overflow-y-auto pb-20 md:pb-10">
                     <Outlet />
                 </div>
             </main>

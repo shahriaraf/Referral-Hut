@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:'userDashboard',
+    path:'/userDashboard',
     element:<PrivateRoute><UserDashboard/></PrivateRoute>,
     children:[
        {
@@ -55,9 +55,6 @@ const router = createBrowserRouter([
         path: "deposit",
         element: <Deposit />
       },
-  
-      
-     
       {
        index: true,
         element: <Profile/>
