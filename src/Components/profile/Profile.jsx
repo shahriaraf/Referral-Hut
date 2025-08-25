@@ -1,6 +1,23 @@
 import React from "react";
+import useAuth from "../../CustomHooks/useAuth";
+import useAllDeposite from "../../CustomHooks/useAllDeposite";
 
 const Profile = () => {
+ const {user} = useAuth();
+ const [allDeposite,refetch,isLoading] = useAllDeposite();
+
+ const myDeposites = allDeposite?.filter(dep => dep.email === user?.email && dep.status === "accepted");
+
+ const totalAmount = myDeposites?.reduce((sum, dep) => sum + dep.ammount, 0); // total amount
+
+ console.log(totalAmount);
+ 
+
+
+
+   
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black p-4 sm:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -58,8 +75,8 @@ const Profile = () => {
                   <div className="h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full mt-2"></div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white">89%</div>
-                  <div className="text-gray-400 text-sm">Conversion Rate</div>
+                  <div className="text-2xl font-bold text-white"> ${totalAmount} </div>
+                  <div className="text-gray-400 text-sm">Balance</div>
                   <div className="h-1 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full mt-2"></div>
                 </div>
               </div>
