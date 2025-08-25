@@ -56,7 +56,7 @@ const Signup = () => {
       const response = await axiosPublic.post('/api/referral-creat-users',userData); 
         
           if(response.data.acknowledged && response.data.insertedId){
-    navigate("/");
+    navigate("/userDashboard");
 
       setTimeout(() => {
         toast.success("your Account is created");
