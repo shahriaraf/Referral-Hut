@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { FaUser, FaReceipt, FaDollarSign, FaSpinner } from 'react-icons/fa';
+import { FaUser, FaReceipt, FaDollarSign, FaSpinner, FaAddressBook } from 'react-icons/fa';
+import useAxiosPublic from '../CustomHooks/Api/useAxiosPublic';
+import useAuth from '../CustomHooks/useAuth';
 
 // This is the component for a single form field. It helps keep the main form clean.
 const FormField = ({ id, label, type, placeholder, icon, register, error }) => {
@@ -36,24 +38,46 @@ const Deposit = () => {
   const [submissionStatus, setSubmissionStatus] = useState({ message: '', type: '' });
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const axiosPublic = useAxiosPublic() // public api
+  const {user} = useAuth()
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setSubmissionStatus({ message: '', type: '' });
-
+    
     try {
-      // --- BACKEND INTEGRATION ---
-      // This is the demo URL. Replace it with your actual backend endpoint.
-      const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-      // The 'data' object contains { name, transactionId, amount }
-      const response = await axios.post(API_URL, data);
-      
-      console.log('Submission successful:', response.data);
 
-      // Handle success
+          const depositData = {
+               name : user?.displayName,
+               email : user?.email,
+               ammount : data.amount,
+               transectionId : data.transactionId,
+               address : data.address,
+               status : 'pending',
+               Date : new Date().toLocaleString()
+               
+          }
+     
+        const res = await axiosPublic.post('/api/post-deposite',depositData);
+          
+           if(res.data.insertedId && res.data.insertedId){
+             // Handle success
       setSubmissionStatus({ message: 'Your deposit has been submitted for review!', type: 'success' });
       reset(); // Clear the form fields after successful submission
+
+
+       // Remove message after 2 seconds
+  setTimeout(() => {
+    setSubmissionStatus({ message: '', type: '' });
+  }, 3000);
+
+
+
+           }
+                
+
+      
 
     } catch (error) {
       console.error('Submission failed:', error);
@@ -62,6 +86,7 @@ const Deposit = () => {
       setSubmissionStatus({ message: 'An error occurred. Please try again later.', type: 'error' });
     } finally {
       setIsSubmitting(false);
+      reset()
     }
   };
 
@@ -78,12 +103,12 @@ const Deposit = () => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
             <FormField
-              id="name"
-              label="Full Name"
+              id="address"
+              label="Enter Your Address"
               type="text"
               placeholder="e.g., Sarah Anderson"
-              icon={FaUser}
-              register={register('name', { required: 'Full Name is required' })}
+              icon={FaAddressBook}
+              register={register('address', { required: 'Address is required' })}
               error={errors.name}
             />
 

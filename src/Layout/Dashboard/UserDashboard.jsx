@@ -126,6 +126,17 @@ const UserDashboard = () => {
                 <span className="hidden md:inline">Withdraw</span>
               </NavLink>
             </li>
+
+
+              <li>
+              <NavLink to="/userDashboard/admin-dashboard" className={getNavLinkClass}>
+                <FiDownload size={20} />
+                <span className="hidden md:inline">admin</span>
+              </NavLink>
+            </li>
+
+
+
             <li>
               <NavLink to="/" className={getNavLinkClass}>
                 <FiHome size={20} />
