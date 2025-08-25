@@ -3,18 +3,20 @@ import { Outlet, NavLink } from 'react-router-dom';
 import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload } from 'react-icons/fi';
 import { RiVipCrownFill } from "react-icons/ri";
 
+// Skeleton loader while fetching user data
 const DashboardHeaderSkeleton = () => (
-    <div className="flex items-center justify-between p-6 bg-[#161B22] rounded-lg shadow-md mb-8 animate-pulse">
-        <div>
-            <div className="h-8 w-48 bg-gray-700 rounded-md mb-2"></div>
-            <div className="h-4 w-64 bg-gray-700 rounded-md"></div>
-        </div>
-        <div className="h-14 w-14 bg-gray-700 rounded-full"></div>
+  <div className="flex items-center justify-between p-6 bg-[#161B22] rounded-lg shadow-md mb-8 animate-pulse">
+    <div>
+      <div className="h-8 w-48 bg-gray-700 rounded-md mb-2"></div>
+      <div className="h-4 w-64 bg-gray-700 rounded-md"></div>
     </div>
+    <div className="h-14 w-14 bg-gray-700 rounded-full"></div>
+  </div>
 );
 
+// Header component
 const DashboardHeader = ({ user }) => {
-    if (!user) return <DashboardHeaderSkeleton />;
+  if (!user) return <DashboardHeaderSkeleton />;
 
     return (
         <div className="flex md:flex-row items-start md:items-center justify-between bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800 mb-2">
@@ -91,7 +93,12 @@ const UserDashboard = () => {
         const activeClasses = 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-500/40';
         const inactiveClasses = 'text-gray-400 hover:bg-gray-700 hover:text-white';
         return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
-    };
+ 
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
 
     return (
         <div className="flex flex-row h-screen bg-[#0D1117]">
@@ -114,44 +121,60 @@ const UserDashboard = () => {
                     </h2>
                 </div>
 
-                {/* Navigation */}
-                <nav className="w-full">
-                    <ul className="flex flex-row justify-around md:flex-col md:gap-2 w-full">
-                        <li>
-                            <NavLink to="/userDashboard" end className={getNavLinkClass}>
-                                <FiUser size={20} />
-                                <span className="hidden md:inline">Profile</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/userDashboard/package" className={getNavLinkClass}>
-                                <FiPackage size={20} />
-                                <span className="hidden md:inline">Packages</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/userDashboard/withdraw" className={getNavLinkClass}>
-                                <FiDownload size={20} />
-                                <span className="hidden md:inline">Withdraw</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/" className={getNavLinkClass}>
-                                <FiHome size={20} />
-                                <span className="hidden md:inline">Home</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </nav>
+  return (
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#0D1117]">
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed bottom-0 left-0 right-0 h-16 bg-[#161B22] border-t border-gray-800
+          flex items-center justify-around z-50 transition-transform duration-300
+          md:relative md:w-64 md:h-auto md:min-h-screen md:flex-col md:items-start md:justify-start md:p-4 md:border-r md:border-t-0
+          ${showMobileNav ? "translate-y-0" : "translate-y-full"} md:translate-y-0
+        `}
+      >
+        {/* Logo */}
+        <div className="hidden md:flex items-center gap-x-2 mb-6">
+          <RiVipCrownFill className="text-4xl seondary_text_color" />
+          <h2 className="text-xl font-semibold seondary_text_color">
+            Referal<span className="primary_text_color">Hut</span>
+          </h2>
+        </div>
 
-                {/* Logout button - only desktop */}
-                <div className="mt-auto p-4 hidden md:block">
-                    <button className="flex items-center w-full gap-3 py-3 px-4 rounded-lg text-gray-400 hover:bg-red-500/20 hover:text-red-400 transition-colors">
-                        <FiLogOut size={20} />
-                        <span>Logout</span>
-                    </button>
-                </div>
-            </aside>
+        {/* Navigation */}
+        <nav className="w-full">
+          <ul className="flex flex-row justify-around md:flex-col md:gap-2 w-full">
+            <li>
+              <NavLink to="/userDashboard" end className={getNavLinkClass}>
+                <FiUser size={20} />
+                <span className="hidden md:inline">Profile</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/userDashboard/package" className={getNavLinkClass}>
+                <FiPackage size={20} />
+                <span className="hidden md:inline">Packages</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/userDashboard/deposit" className={getNavLinkClass}>
+                <FiDownload size={20} />
+                <span className="hidden md:inline">Deposit</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/userDashboard/withdraw" className={getNavLinkClass}>
+                <FiDownload size={20} />
+                <span className="hidden md:inline">Withdraw</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/" className={getNavLinkClass}>
+                <FiHome size={20} />
+                <span className="hidden md:inline">Home</span>
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
 
             <main className="flex-1 flex flex-col overflow-hidden">
                 <div className="px-6 lg:px-10 pt-6 lg:pt-10">
@@ -163,8 +186,17 @@ const UserDashboard = () => {
                     <Outlet />
                 </div>
             </main>
-        </div>
-    );
+
+      
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 p-6 lg:p-10 pb-20 md:pb-10">
+        <DashboardHeader user={user} />
+        <Outlet />
+      </main>
+    </div>
+  );
 };
 
 export default UserDashboard;
