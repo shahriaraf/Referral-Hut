@@ -1,26 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react'; // Import useRef
+import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { FiHome, FiPackage, FiUser, FiLogOut, FiDownload } from 'react-icons/fi';
 import { RiVipCrownFill } from "react-icons/ri";
 
-// Skeleton loader while fetching user data
+// Skeleton loader while fetching user data (No changes needed)
 const DashboardHeaderSkeleton = () => (
-  <div className="flex items-center justify-between p-6 bg-[#161B22] rounded-lg shadow-md mb-8 animate-pulse">
-    <div>
-      <div className="h-8 w-48 bg-gray-700 rounded-md mb-2"></div>
-      <div className="h-4 w-64 bg-gray-700 rounded-md"></div>
+    <div className="flex items-center justify-between p-6 bg-[#161B22] rounded-lg shadow-md mb-8 animate-pulse">
+        <div>
+            <div className="h-8 w-48 bg-gray-700 rounded-md mb-2"></div>
+            <div className="h-4 w-64 bg-gray-700 rounded-md"></div>
+        </div>
+        <div className="h-14 w-14 bg-gray-700 rounded-full"></div>
     </div>
-    <div className="h-14 w-14 bg-gray-700 rounded-full"></div>
-  </div>
 );
 
-// Header component
+// Header component (No changes needed)
 const DashboardHeader = ({ user }) => {
-  if (!user) return <DashboardHeaderSkeleton />;
+    if (!user) return <DashboardHeaderSkeleton />;
 
     return (
-        <div className="flex md:flex-row items-start md:items-center justify-between bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800 mb-2">
-            <div className="mb-4 md:mb-0 w-1/2 lg:w-full">
+        <div className="flex items-center justify-between p-4 md:p-6 bg-gradient-to-r from-[#161B22] to-[#1a202c] rounded-lg shadow-lg border border-gray-800 mb-8">
+            <div className="flex-1">
                 <h1 className="lg:text-2xl text-xl font-bold text-white">
                     Welcome back,{' '}
                     <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -33,31 +33,28 @@ const DashboardHeader = ({ user }) => {
                 <img
                     src={user.avatarUrl}
                     alt="User Avatar"
-                    className=" w-12 h-12 rounded-full border-2 border-purple-500 object-cover"
+                    className="w-12 h-12 rounded-full border-2 border-purple-500 object-cover"
                 />
-                <button className="p-3 bg-gray-700/50 rounded-full lg:hidden hover:bg-gray-700 transition-colors">
-                    <FiLogOut className="text-gray-300" size={20} />
-                </button>
             </div>
         </div>
     );
 };
 
+
 const UserDashboard = () => {
     const [user, setUser] = useState(null);
-    // ADDED: State for mobile nav visibility and scroll position tracking
     const [showMobileNav, setShowMobileNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    // ADDED: Ref for the main scrollable content area
     const mainContentRef = useRef(null);
-    
+
     useEffect(() => {
+        // Mock fetching user data
         const fetchUserData = async () => {
             try {
                 setTimeout(() => {
                     const mockUserData = {
                         name: 'Jessica',
-                        avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%D%D&auto=format&fit=crop&w=100&q=80',
+                        avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80',
                     };
                     setUser(mockUserData);
                 }, 1500);
@@ -68,7 +65,7 @@ const UserDashboard = () => {
         fetchUserData();
     }, []);
 
-    // ADDED: Scroll listener for the main content area to hide/show mobile nav
+    // Scroll listener to hide/show mobile nav
     useEffect(() => {
         const contentElement = mainContentRef.current;
         if (!contentElement) return;
@@ -76,127 +73,81 @@ const UserDashboard = () => {
         const handleScroll = () => {
             const currentScrollY = contentElement.scrollTop;
             // Hide nav if scrolling down, show if scrolling up
-            if (currentScrollY > lastScrollY && currentScrollY > 50) { // Added a small threshold
+            if (currentScrollY > lastScrollY && currentScrollY > 50) { // Added threshold
                 setShowMobileNav(false);
             } else {
                 setShowMobileNav(true);
             }
             setLastScrollY(currentScrollY);
         };
-        
-        contentElement.addEventListener("scroll", handleScroll);
-        return () => contentElement.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]);
 
+        contentElement.addEventListener("scroll", handleScroll);
+        // Cleanup listener on component unmount
+        return () => contentElement.removeEventListener("scroll", handleScroll);
+    }, [lastScrollY]); // lastScrollY is needed to compare current vs previous scroll position
+
+    // Helper function for NavLink styling
     const getNavLinkClass = ({ isActive }) => {
         const baseClasses = 'flex items-center justify-center md:justify-start w-full md:gap-3 py-3 px-4 rounded-lg transition-all duration-200 ease-in-out';
         const activeClasses = 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-500/40';
-        const inactiveClasses = 'text-gray-400 hover:bg-gray-700 hover:text-white';
+        const inactiveClasses = 'text-gray-400 hover:bg-gray-800 hover:text-white';
         return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
- 
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
+    };
 
     return (
-        <div className="flex flex-row h-screen bg-[#0D1117]">
+        <div className="flex flex-col md:flex-row h-screen bg-[#0D1117] overflow-hidden">
+            {/* Sidebar / Mobile Nav */}
             <aside
                 className={`
                     fixed bottom-0 left-0 right-0 h-16 bg-[#161B22] border-t border-gray-800
                     flex items-center justify-around z-50
-                    md:relative md:w-64 md:h-auto md:flex-col md:items-start md:justify-start md:p-4 md:border-r md:border-t-0
-                    
-                    transition-transform duration-300 ease-in-out 
-                    ${showMobileNav ? 'translate-y-0' : 'translate-y-full'} 
-                    md:translate-y-0
+                    md:relative md:flex-col md:w-64 md:h-full md:justify-start md:p-4 md:border-r md:border-t-0
+                    transition-transform duration-300 ease-in-out
+                    ${showMobileNav ? "translate-y-0" : "translate-y-full"} md:translate-y-0
                 `}
             >
-                {/* Logo - only on desktop */}
-                <div className="hidden md:flex items-center gap-x-2 mb-6">
-                    <RiVipCrownFill className="text-4xl seondary_text_color" />
-                    <h2 className="text-xl font-semibold seondary_text_color">
-                        Referal<span className="primary_text_color">Hut</span>
+                {/* Logo - Desktop only */}
+                <div className="hidden md:flex items-center gap-x-2 mb-8 px-2">
+                    <RiVipCrownFill className="text-4xl text-purple-400" />
+                    <h2 className="text-xl font-semibold text-gray-200">
+                        Referal<span className="text-purple-400">Hut</span>
                     </h2>
                 </div>
 
-  return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-[#0D1117]">
-      {/* Sidebar */}
-      <aside
-        className={`
-          fixed bottom-0 left-0 right-0 h-16 bg-[#161B22] border-t border-gray-800
-          flex items-center justify-around z-50 transition-transform duration-300
-          md:relative md:w-64 md:h-auto md:min-h-screen md:flex-col md:items-start md:justify-start md:p-4 md:border-r md:border-t-0
-          ${showMobileNav ? "translate-y-0" : "translate-y-full"} md:translate-y-0
-        `}
-      >
-        {/* Logo */}
-        <div className="hidden md:flex items-center gap-x-2 mb-6">
-          <RiVipCrownFill className="text-4xl seondary_text_color" />
-          <h2 className="text-xl font-semibold seondary_text_color">
-            Referal<span className="primary_text_color">Hut</span>
-          </h2>
-        </div>
+                {/* Navigation Links */}
+                <nav className="flex-1 w-full">
+                    <ul className="flex flex-row justify-around md:flex-col md:gap-2 w-full">
+                        <li><NavLink to="/userDashboard" end className={getNavLinkClass}><FiUser size={20} /><span className="hidden md:inline">Profile</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/package" className={getNavLinkClass}><FiPackage size={20} /><span className="hidden md:inline">Packages</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/deposit" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Deposit</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/withdraw" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
+                        <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
+                    </ul>
+                </nav>
+                
+                {/* Logout Button - Desktop only */}
+                <div className="hidden md:block mt-auto w-full">
+                     <button className={`${getNavLinkClass({isActive: false})} w-full`}>
+                        <FiLogOut size={20} />
+                        <span className="hidden md:inline">Logout</span>
+                    </button>
+                </div>
+            </aside>
 
-        {/* Navigation */}
-        <nav className="w-full">
-          <ul className="flex flex-row justify-around md:flex-col md:gap-2 w-full">
-            <li>
-              <NavLink to="/userDashboard" end className={getNavLinkClass}>
-                <FiUser size={20} />
-                <span className="hidden md:inline">Profile</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/userDashboard/package" className={getNavLinkClass}>
-                <FiPackage size={20} />
-                <span className="hidden md:inline">Packages</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/userDashboard/deposit" className={getNavLinkClass}>
-                <FiDownload size={20} />
-                <span className="hidden md:inline">Deposit</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/userDashboard/withdraw" className={getNavLinkClass}>
-                <FiDownload size={20} />
-                <span className="hidden md:inline">Withdraw</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/" className={getNavLinkClass}>
-                <FiHome size={20} />
-                <span className="hidden md:inline">Home</span>
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-
+            {/* Main Content Area */}
             <main className="flex-1 flex flex-col overflow-hidden">
-                <div className="px-6 lg:px-10 pt-6 lg:pt-10">
+                {/* Header is fixed at the top of the main content */}
+                <div className="px-6 lg:px-10 pt-6 lg:pt-8">
                     <DashboardHeader user={user} />
                 </div>
-                
-                {/* ADDED: ref is attached to this scrollable div */}
+
+                {/* This inner div is the scrollable container */}
                 <div ref={mainContentRef} className="flex-1 overflow-y-auto px-6 lg:px-10 pb-20 md:pb-10">
                     <Outlet />
                 </div>
             </main>
-
-      
-      </aside>
-
-      {/* Main content */}
-      <main className="flex-1 p-6 lg:p-10 pb-20 md:pb-10">
-        <DashboardHeader user={user} />
-        <Outlet />
-      </main>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default UserDashboard;

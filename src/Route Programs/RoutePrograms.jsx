@@ -3,15 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // --- Data Structure with Level-Specific Details ---
 const programsData = {
-  "2p": {
-    title: "2P Program",
-    color: "blue",
-    description: "Foundational programs designed for rapid skill acquisition and core competency.",
-    cards: [
-      { level: 1, title: "Initiate", description: "Grasp the fundamental concepts and tools." },
-      { level: 2, title: "Develop", description: "Apply your knowledge to practical exercises." },
-    ],
-  },
   "3p": {
     title: "3P Program",
     color: "blue",
