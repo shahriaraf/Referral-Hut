@@ -3,7 +3,7 @@ import img from "../../public/Images/Crypto/09.png";
 
 const Crypto = () => {
   return (
-    <section className="crypto_section relative w-full overflow-hidden py-20 lg:py-3">
+    <section className="crypto_section relative w-full overflow-hidden py-20 lg:py-30">
       {/* Background Elements */}
 
 
