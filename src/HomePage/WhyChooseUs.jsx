@@ -71,16 +71,8 @@ const colorVariants = {
 
 const WhyChooseUs = () => {
   return (
-    <section className="why_choose_us_section relative overflow-hidden primary_bg_color w-full py-20 lg:py-32">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full filter blur-3xl"></div>
-      
-      {/* Floating geometric shapes */}
-      <div className="absolute top-20 right-20 w-20 h-20 border border-blue-500/30 rounded-lg transform rotate-45 animate-pulse"></div>
-      <div className="absolute bottom-40 left-20 w-16 h-16 border border-purple-500/30 rounded-full animate-bounce"></div>
-
+   
+    <section className="why_choose_us_section w-full py-10 lg:py-14">
       <div className="relative common_padding max-w-7xl mx-auto">
         <SectionTitle
           title_1="why choose us"
@@ -117,7 +109,7 @@ const WhyChooseUs = () => {
                 key={index}
                 className="card group relative"
               >
-                {/* Card Background with Hover Effect */}
+               
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl border border-white/20 group-hover:border-white/30 transition-all duration-500 group-hover:scale-105"></div>
                 <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-all duration-500`}></div>
                 
