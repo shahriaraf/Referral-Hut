@@ -84,35 +84,48 @@ const ThreePProgram = () => {
         <p className="text-gray-400 mb-8 max-w-xl mx-auto">
           {programInfo.description}
         </p>
+        <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+          {programInfo.price}
+        </p>
       </div>
 
-      {/* Level Toggle Buttons Section */}
-      <div className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
-        {programInfo.levels.map(({ level }) => {
-          const isUnlocked = unlockedLevels.includes(level);
-          const isActive = activeLevel === level;
-          
-          return (
-            <button
-              key={level}
-              onClick={() => handleLevelSelect(level)}
-              className={`
-                px-4 py-2 text-sm font-semibold rounded-full flex items-center gap-2 transition-all duration-300
-                ${
-                  isActive
-                    ? `${colors[programInfo.color].bg} text-white shadow-lg`
-                    : isUnlocked
-                    ? `bg-gray-700 text-gray-300 hover:${colors[programInfo.color].bgLight} hover:text-white`
-                    : `bg-gray-800 text-gray-500 border border-dashed border-gray-600 cursor-pointer hover:border-solid hover:${colors[programInfo.color].border}`
-                }
-              `}
-            >
-              {!isUnlocked && <FaLock size={12} />}
-              Level {level}
-            </button>
-          );
-        })}
-      </div>
+    
+    {/* Level Toggle Buttons Section */}
+    <div className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
+      {programInfo.levels.map(({ level, price }) => {
+        const isUnlocked = unlockedLevels.includes(level);
+        const isActive = activeLevel === level;
+        
+        return (
+          <button
+            key={level}
+            onClick={() => handleLevelSelect(level)}
+            className={`
+              px-4 py-2 text-sm font-semibold rounded-full flex items-center gap-2 transition-all duration-300
+              ${
+                isActive
+                  ? `${colors[programInfo.color].bg} text-white shadow-lg`
+                  : isUnlocked
+                  ? `bg-gray-700 text-gray-300 hover:${colors[programInfo.color].bgLight} hover:text-white`
+                  : `bg-gray-800 text-gray-500 border border-dashed border-gray-600 cursor-pointer hover:border-solid hover:${colors[programInfo.color].border}`
+              }
+            `}
+          >
+            {/* Conditional rendering for the icon and price */}
+            {isUnlocked ? (
+              `Level ${level}`
+            ) : (
+              <>
+                <FaLock size={12} />
+                <span>Unlock for {price}</span>
+              </>
+            )}
+          </button>
+        );
+      })}
+    </div>
+    
+    
       
       {/* Content Boxes Section - shows cards for the active level or a prompt */}
       {activeLevelData ? (
