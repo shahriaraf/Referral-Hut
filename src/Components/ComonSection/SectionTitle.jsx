@@ -9,7 +9,7 @@ const SectionTitle = ({ title_1, title_2, text }) => {
       <h1
         className={`${
           title_1
-            ? "primary_text_color text-base  font-semibold uppercase mb-4 text-center"
+            ? "primary_text_color  text-5xl  font-semibold uppercase mb-4 text-center"
             : ""
         }`}
       >
@@ -19,14 +19,14 @@ const SectionTitle = ({ title_1, title_2, text }) => {
       <h1
         className={`${
           title_2
-            ? "primary_text_color text-4xl  font-semibold capitalize text-center"
+            ? "primary_text_color text-2xl  font-semibold capitalize text-center"
             : ""
         }`}
       >
         {" "}
         {title_2}{" "}
-      </h1>
-      <p className={`${text ? 'text-purple-600 text-5xl  font-semibold capitalize mt-1' : ''}`}> {text} </p>
+      </h1><p className={`${text ? 'text-purple-600 text-2xl  font-semibold capitalize mt-1' : ''}`}> {text} </p>
+      
     </div>
   );
 };

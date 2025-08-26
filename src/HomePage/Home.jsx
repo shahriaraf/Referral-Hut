@@ -5,14 +5,13 @@ import Banner from './Banner';
 import WhyChooseUs from './WhyChooseUs';
 import Crypto from './Crypto';
 import OurPertners from './OurPertners';
-// Removed unused imports for clarity
+
 
 const Home = () => {
     return (
-        // Add relative and overflow-hidden to contain the background elements
+        
         <div className='relative w-full h-auto overflow-hidden'>
-            {/* START: Shared Background Elements */}
-            {/* These are moved here from Banner.js and WhyChooseUs.js */}
+           
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black -z-10"></div>
             
             <div className="absolute top-0 -left-10 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse"></div>
