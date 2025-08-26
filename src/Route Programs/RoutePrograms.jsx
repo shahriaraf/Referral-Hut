@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { programsData, colors } from './programData'; // ডাটা ইমপোর্ট
 import ThreePProgram from "./Programes/ThreePProgram";
-import SixPProgram from "./Programes/SixPProgram";
 import VipProgram from "./Programes/VipProgram";
+import SixPProgram from "./Programes/SixPProgram";
+
+
 
 
 const RoutePrograms = () => {
@@ -18,7 +20,7 @@ const RoutePrograms = () => {
       return <ThreePProgram />;
     }
     if (activeTab === "6p") {
-      return <SixPProgram />;
+      return <SixPProgram></SixPProgram>
     }
     if (activeTab === "vip") {
       return <VipProgram />;
@@ -90,3 +92,8 @@ const RoutePrograms = () => {
 };
 
 export default RoutePrograms;
+
+
+
+
+

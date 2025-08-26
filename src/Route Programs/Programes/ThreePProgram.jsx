@@ -14,12 +14,12 @@ const ContentCard = ({ title, description, color }) => {
   return (
     <motion.div
       variants={cardVariants}
-      className={`p-6 rounded-lg shadow-lg h-full ${colors[color].bgLight}`}
+      className={`p-6 rounded-lg w-72  h-72 shadow-lg  ${colors[color].bgLight}`}
     >
       <h3 className={`text-xl font-bold mb-2 ${colors[color].text}`}>
-        {title}
+        {/* {title} */}
       </h3>
-      <p className="text-gray-300">{description}</p>
+      {/* <p className="text-gray-300">{description}</p> */}
     </motion.div>
   );
 };
@@ -117,7 +117,7 @@ const ThreePProgram = () => {
             ) : (
               <>
                 <FaLock size={12} />
-                <span>Unlock for {price}</span>
+                <span>Unlock {level}</span>
               </>
             )}
           </button>
