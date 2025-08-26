@@ -31,53 +31,51 @@ const Signup = () => {
   // const [selectedFile, setSelectedFile] = useState(null);
   const { creatUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
 
+  const onSubmit = async (data) => {
+    try {
+      // Create user in Firebase Auth
+      const result = await creatUser(data.email, data.password);
+      await updateUserProfile(data.name);
 
+      // Prepare user data
+      const userData = {
+        name: data.name,
+        email: data.email,
+        referredBy: data.referralNumber ? Number(data.referralNumber) : null,
+        myReferrals: [],
+        role: "user",
+        Date: new Date().toLocaleString(),
+      };
 
-const onSubmit = async (data) => {
-  try {
-   
+      // Send user data to server
+      const response = await axiosPublic.post(
+        "/api/referral-creat-user",
+        userData
+      );
 
-    // Prepare user data
-    const userData = {
-      name: data.name,
-      email: data.email,
-      referredBy: Number(data.referralNumber),
-      myReferrals: [],
-      role: "user",
-      Date: new Date().toLocaleString()
-    };
+      if (response.data.data.acknowledged && response.data.data.insertedId) {
+        toast.success(response.data.message || "Your account is created");
 
-    // Send user data to server
-    const response = await axiosPublic.post('/api/referral-creat-user', userData); 
-        
-          if(response.data.acknowledged && response.data.insertedId){
-    navigate("/userDashboard");
-
-       // Create user in Firebase Auth
-    const result = await creatUser(data.email, data.password);
-    await updateUserProfile(data.name);
-
-    
-      toast.success(response.data.message || "Your account is created");
-
-      // Navigate after short delay
-      setTimeout(() => {
-        navigate("/");
-      }, 300);
-    } else {
-      toast.error(response.data.message || "Failed to create user");
+        // Navigate after short delay
+        setTimeout(() => {
+          navigate("/userDashboard");
+        }, 300);
+      } else {
+        toast.error(response.data.message || "Failed to create user");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong!"
+      );
+    } finally {
+      reset(); // reset form
     }
-
-  } catch (error) {
-    console.log(error);
-    toast.error(error.response?.data?.message || error.message || "Something went wrong!");
-  } finally {
-    reset(); // reset form
-  }
-};
-
+  };
 
   // const handleFileChange = (e) => {
   //   const file = e.target.files[0];
@@ -131,50 +129,46 @@ const onSubmit = async (data) => {
                 )}
               </div>
 
-
-               {/* Refer Number Field */}
-          <div>
-  <label className="block text-sm font-medium text-gray-200 mb-2">
-    Referral Number
-    <span className="text-gray-400 text-xs ml-1"></span>
-  </label>
-  <div className="relative">
-    <FaHashtag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-    <input
-      type="text"
-      {...register("referralNumber", {
-        required: "Referral number is required",
-        minLength: {
-          value: 6,
-          message: "Referral number must be at least 6 digits",
-        },
-        maxLength: {
-          value: 6,
-          message: "Referral number cannot exceed 6 digits",
-        },
-        pattern: {
-            value: /^[0-9]{4,10}$/,
-          message: "Please enter a valid number",
-        },
-      })}
-      className={`w-full pl-10 pr-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
-        errors.referralNumber
-          ? "border-red-500 focus:ring-red-500/50"
-          : "border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50"
-      }`}
-      placeholder="Enter Your friend's 6 digit unique ID"
-    />
-  </div>
-  {errors.referralNumber && (
-    <p className="text-red-400 text-sm mt-1 flex items-center">
-      <span className="w-1 h-1 bg-red-400 rounded-full mr-2"></span>
-      {errors.referralNumber.message}
-    </p>
-  )}
-</div>
-
-
-
+              {/* Refer Number Field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-200 mb-2">
+                  Referral Number
+                  <span className="text-gray-400 text-xs ml-1"></span>
+                </label>
+                <div className="relative">
+                  <FaHashtag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    {...register("referralNumber", {
+                      required: "Referral number is required",
+                      minLength: {
+                        value: 6,
+                        message: "Referral number must be at least 6 digits",
+                      },
+                      maxLength: {
+                        value: 6,
+                        message: "Referral number cannot exceed 6 digits",
+                      },
+                      pattern: {
+                        value: /^[0-9]{6}$/,
+                        message: "Referral number must be exactly 6 digits",
+                      },
+                    })}
+                    className={`w-full pl-10 pr-4 py-3 bg-white/5 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                      errors.referralNumber
+                        ? "border-red-500 focus:ring-red-500/50"
+                        : "border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50"
+                    }`}
+                    placeholder="Enter Your friend's 6 digit unique ID"
+                  />
+                </div>
+                {errors.referralNumber && (
+                  <p className="text-red-400 text-sm mt-1 flex items-center">
+                    <span className="w-1 h-1 bg-red-400 rounded-full mr-2"></span>
+                    {errors.referralNumber.message}
+                  </p>
+                )}
+              </div>
 
               {/* Email Field */}
               <div>
