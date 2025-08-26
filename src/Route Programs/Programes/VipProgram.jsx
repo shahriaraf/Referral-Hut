@@ -23,15 +23,17 @@ const VipProgram = () => {
         initial="hidden"
         animate="visible"
       >
-        {programInfo.cards.map((card, index) => (
-          <ProgramCard 
-            key={index} 
-            level={card.level}
-            title={card.title}
-            description={card.description}
-            color={programInfo.color}
-          />
-        ))}
+        {programInfo.levels.map((level) =>
+          level.cards.map((card, index) => (
+            <ProgramCard 
+              key={card.id || index}
+              level={level.level}   // comes from the parent "level"
+              title={card.title}
+              description={card.description}
+              color={programInfo.color}
+            />
+          ))
+        )}
       </motion.div>
     </>
   );
