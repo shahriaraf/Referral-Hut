@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaLock } from 'react-icons/fa'; // Using an icon for locked state
 import { programsData, colors } from '../programData';
 import PaymentModal from '../PaymentModal';
+import useAxiosPublic from '../../CustomHooks/Api/useAxiosPublic';
 
 // A new, simpler component for displaying content inside a level.
 const ContentCard = ({ title, description, color }) => {
@@ -88,7 +89,9 @@ const ThreePProgram = () => {
           {programInfo.price}
         </p>
       </div>
-
+ <div>
+   
+    </div>
     
     {/* Level Toggle Buttons Section */}
     <div className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
