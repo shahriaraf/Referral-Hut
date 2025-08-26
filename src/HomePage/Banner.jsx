@@ -27,7 +27,6 @@ const Banner = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
 
-              {/* --- Button 1: "Buy Token" (Unchanged) --- */}
               <button className="group relative inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <span className="relative z-10">Buy Token</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-200"></div>
@@ -36,17 +35,10 @@ const Banner = () => {
                 </svg>
               </button>
 
-              {/* --- Button 2: "Learn More" (Ghost Button with Gradient Border) --- */}
-              {/* 
-    The outer div creates the gradient border. 
-    On hover, it gets a "glow" effect via the shadow.
-  */}
+         
               <div className="group relative inline-flex p-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30">
 
-                {/* 
-      The inner button's background now matches the page's dark theme, making it look transparent.
-      The 'group-hover' effect makes it slightly lighter for interactivity.
-    */}
+      
                 <button className="inline-flex items-center justify-center w-full h-full px-6 py-3 bg-gray-900 rounded-full transition-colors duration-300 group-hover:bg-gray-800">
 
                   {/* Gradient Text */}

@@ -71,7 +71,7 @@ const colorVariants = {
 
 const WhyChooseUs = () => {
   return (
-   
+
     <section className="why_choose_us_section w-full py-10 lg:py-14">
       <div className="relative common_padding max-w-7xl mx-auto">
         <SectionTitle
@@ -105,26 +105,26 @@ const WhyChooseUs = () => {
           {outFeturedData.map((data, index) => {
             const colors = colorVariants[data.color];
             return (
-              <div 
+              <div
                 key={index}
                 className="card group relative"
               >
-               
+
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl border border-white/20 group-hover:border-white/30 transition-all duration-500 group-hover:scale-105"></div>
                 <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-all duration-500`}></div>
-                
+
                 {/* Card Content */}
                 <div className="relative p-8 space-y-6">
                   {/* Icon Container */}
                   <div className="relative">
                     <div className={`icon w-20 h-20 rounded-2xl ${colors.icon} flex items-center justify-center border-2 ${colors.border} group-hover:border-opacity-50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6`}>
-                      <img 
-                        src={data.image} 
+                      <img
+                        src={data.image}
                         alt={`${data.title} icon`}
                         className="w-10 h-10 filter group-hover:brightness-110 transition-all duration-300"
                       />
                     </div>
-                    
+
                     {/* Stats Badge */}
                     <div className={`absolute -top-2 -right-2 px-3 py-1 bg-gradient-to-r ${colors.gradient} text-white text-xs font-semibold rounded-full shadow-lg transform -rotate-12 group-hover:rotate-0 transition-transform duration-300`}>
                       {data.stats}
@@ -169,12 +169,24 @@ const WhyChooseUs = () => {
             Join millions of users who trust our platform for secure, fast, and reliable cryptocurrency trading.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-              Get Started Today
+
+          
+            <button className="group relative inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+              <span className="relative z-10">Get Started Today</span>
+              
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur opacity-0 group-hover:opacity-20 transition-opacity duration-200"></div>
             </button>
-            <button className="px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-2xl hover:bg-white/10 hover:border-white/50 transition-all duration-200">
-              Contact Sales
-            </button>
+
+          
+            <div className="group relative inline-flex p-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30">
+             
+              <button className="inline-flex items-center justify-center w-full h-full px-6 py-3 bg-gray-900 rounded-full transition-colors duration-300 group-hover:bg-gray-800">
+                <span className="font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+                  Contact Sales
+                </span>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
