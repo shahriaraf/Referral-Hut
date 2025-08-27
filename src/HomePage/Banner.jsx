@@ -3,9 +3,11 @@ import banner_img from "../../public/Images/Banner/banner.png";
 
 const Banner = () => {
   return (
-    <section className="banner_section relative w-full min-h-screen overflow-hidden">
+    <section className="banner_section primary_bg_color relative w-full min-h-screen overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full filter blur-3xl"></div>
       
       {/* Decorative elements */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
@@ -24,13 +26,13 @@ const Banner = () => {
                 Token Creative
               </span>
               <br />
-              <span className="text-gray-800 text-5xl dark:text-gray-200">
+              <span className="text-gray-100 text-5xl">
                 of CoinEX Theme
               </span>
             </h1>
             
             {/* Subtitle */}
-            <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-lg leading-relaxed max-w-2xl">
+            <p className="text-gray-400 text-sm sm:text-lg leading-relaxed max-w-2xl">
               Experience the future of cryptocurrency trading with our innovative, 
               user-friendly platform designed for both beginners and professionals.
             </p>
@@ -45,7 +47,7 @@ const Banner = () => {
                 </svg>
               </button>
               
-              <button className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-400 transition-all duration-200">
+              <button className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-300  font-semibold rounded-full hover:border-gray-400 transition-all duration-200">
                 Learn More
                 <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -57,15 +59,15 @@ const Banner = () => {
             <div className="flex flex-wrap gap-8 pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="text-center sm:text-left">
                 <div className="text-2xl font-bold text-blue-600">10K+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Active Users</div>
+                <div className="text-sm text-gray-400 ">Active Users</div>
               </div>
               <div className="text-center sm:text-left">
                 <div className="text-2xl font-bold text-purple-600">99.9%</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Uptime</div>
+                <div className="text-sm text-gray-400 ">Uptime</div>
               </div>
               <div className="text-center sm:text-left">
                 <div className="text-2xl font-bold text-green-600">24/7</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Support</div>
+                <div className="text-sm text-gray-400 ">Support</div>
               </div>
             </div>
           </div>
@@ -78,7 +80,7 @@ const Banner = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 rounded-3xl transform -rotate-6 scale-105 opacity-20"></div>
               
               {/* Main image container */}
-              <div className="relative bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-2xl">
+              <div className="relative bg-gray-800 rounded-3xl p-4 shadow-2xl">
                 <img 
                   src={banner_img} 
                   className="w-full h-auto rounded-2xl" 
