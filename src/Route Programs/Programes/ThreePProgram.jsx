@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaLock } from 'react-icons/fa'; // Using an icon for locked state
 import { programsData, colors } from '../programData';
 import PaymentModal from '../PaymentModal';
+import useAxiosPublic from '../../CustomHooks/Api/useAxiosPublic';
 
 // A new, simpler component for displaying content inside a level.
 const ContentCard = ({ title, description, color }) => {
@@ -26,6 +27,28 @@ const ContentCard = ({ title, description, color }) => {
 
 
 const ThreePProgram = () => {
+
+
+   const axiosPublic = useAxiosPublic();
+  const [users, setUsers] = useState([]);
+  const [payments, setPayments] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const usersRes = await axiosPublic.get("/api/referral-get-users");
+        const paymentsRes = await axiosPublic.get("/api/payments");
+
+        if (usersRes.data.success) setUsers(usersRes.data.data);
+        if (paymentsRes.data.success) setPayments(paymentsRes.data.data);
+        console.log(usersRes,paymentsRes)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
   // 3P প্রোগ্রামের ডাটা programData.js থেকে নিচ্ছি
   const programInfo = programsData['3p'];
   
@@ -88,7 +111,9 @@ const ThreePProgram = () => {
           {programInfo.price}
         </p>
       </div>
-
+ <div>
+   
+    </div>
     
     {/* Level Toggle Buttons Section */}
     <div className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
@@ -126,33 +151,47 @@ const ThreePProgram = () => {
     </div>
     
     
-      
-      {/* Content Boxes Section - shows cards for the active level or a prompt */}
-      {activeLevelData ? (
-        <motion.div
-          key={activeLevel} 
-          className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          variants={{ 
-            visible: { transition: { staggerChildren: 0.1 } } 
-          }}
-          initial="hidden"
-          animate="visible"
-        >
-          {activeLevelData.cards.map((card) => (
-            <ContentCard 
-              key={card.id} 
-              title={card.title}
-              description={card.description}
-              color={programInfo.color}
-            />
-          ))}
-        </motion.div>
-      ) : (
-        // UX IMPROVEMENT: Show this message when no level is selected
-        <div className="text-center py-10 px-6 bg-gray-800/50 rounded-lg">
-          <p className="text-gray-400">Please unlock a level to begin your journey!</p>
+    {activeLevelData ? (
+  <motion.div
+    key={activeLevel}
+    className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+    variants={{
+      visible: { transition: { staggerChildren: 0.1 } },
+    }}
+    initial="hidden"
+    animate="visible"
+  >
+    {activeLevelData.cards.map((card) => {
+      // Make sure users and payments are loaded
+      const matchedUser = users?.find((u) =>
+        (payments || []).some((p) => p.referredBy === u.uniqueId)
+      );
+
+      return (
+        <div key={card.id} className="relative">
+          <ContentCard
+            title={card.title}
+            description={card.description}
+            color={matchedUser ? "bg-green-500" : programInfo.color}
+          />
+
+          {matchedUser ? (
+            <p className="absolute bottom-2 left-2 text-sm font-semibold text-green-400">
+              Referral matched: {matchedUser.name}
+            </p>
+          ) : <p className=' text-5xl text-red-600'>did not change</p>}
         </div>
-      )}
+      );
+    })}
+  </motion.div>
+) : (
+  <div className="text-center py-10 px-6 bg-gray-800/50 rounded-lg">
+    <p className="text-gray-400">
+      Please unlock a level to begin your journey!
+    </p>
+  </div>
+)}
+
 
       <PaymentModal
         isOpen={modalOpen}

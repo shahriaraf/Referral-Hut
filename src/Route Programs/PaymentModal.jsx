@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
+import useAuth from "../CustomHooks/useAuth";
+import useAxiosPublic from "../CustomHooks/Api/useAxiosPublic";
 
 // Define the icons as inline SVG to avoid external dependencies.
 const FaTimes = () => (
@@ -36,29 +38,18 @@ const programsData = {
   },
 };
 
-const useAuth = () => ({
-  user: {
-    email: "test.user@example.com"
-  },
-});
-
-const useAxiosPublic = () => ({
-  post: (url, data) => new Promise((resolve) => {
-    console.log(`Mock API call to ${url} with data:`, data);
-    setTimeout(() => {
-      resolve({ data: { insertedId: "mock-id-12345" } });
-    }, 1000);
-  }),
-});
-
 const PaymentModal = ({ isOpen, onClose, level, programTitle, onPaymentSuccess }) => {
+  const {user}=useAuth()
+
+  const [refer,setRefer]=useState()
   const programInfo = programsData['3p'];
   const levelData = programInfo.levels.find(l => l.level === level);
   const amount = levelData ? parseFloat(levelData.price.replace('৳', '').trim()) : 0;
 
   const { register, handleSubmit, reset } = useForm();
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
+ 
 
   const onSubmit = async (data) => {
     const paymentData = {
@@ -67,10 +58,12 @@ const PaymentModal = ({ isOpen, onClose, level, programTitle, onPaymentSuccess }
       levelNumber: level,
       amount: amount,
       date: new Date(),
+      referredBy:refer.referredBy,
     };
 
+
     try {
-      const res = await axiosPublic.post("/api/payment", paymentData);
+      const res = await axiosPublic.post("api/payment", paymentData);
       
       if (res.data?.insertedId) {
         // Simulating a success message
@@ -94,6 +87,30 @@ const PaymentModal = ({ isOpen, onClose, level, programTitle, onPaymentSuccess }
     exit: { opacity: 0, scale: 0.8 }
   };
 
+
+
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/user/${user.email}`);
+        const data = await res.json();
+        if (data.success) {
+          setRefer(data.user);
+        } else {
+          console.log("User not found");
+        }
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
+    };
+
+    fetchUser();
+  }, [user.email]);
+ if (!refer) {
+  return <p>Loading user...</p>;
+}
+  console.log(refer.referredBy)
   return (
     <AnimatePresence>
       {isOpen && (
@@ -125,7 +142,7 @@ const PaymentModal = ({ isOpen, onClose, level, programTitle, onPaymentSuccess }
               {amount > 0 && (
                 <div className="bg-slate-800 p-3 rounded-lg text-center">
                   <p className="text-gray-400 text-sm">Required Amount</p>
-                  <p className="text-2xl font-bold text-green-400">৳{amount}</p>
+                  <p className="text-2xl font-bold text-green-400">${amount}</p>
                   <p className="text-xs text-gray-500">Projects • Support • Certificate</p>
                 </div>
               )}
@@ -153,6 +170,15 @@ const PaymentModal = ({ isOpen, onClose, level, programTitle, onPaymentSuccess }
                     readOnly
                     {...register("amount")}
                     className={`w-full pl-10 pr-4 py-3 bg-slate-800 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 border-slate-600 cursor-not-allowed`}
+                    placeholder="Enter amount"
+                  />
+                  <p className=" mt-2">referredBy</p>
+                  <input
+                    type="number"
+                    value={refer.referredBy}
+                    readOnly
+                    {...register("refer")}
+                    className={`w-full mt-1 pl-10 pr-4 py-3 bg-slate-800 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 border-slate-600 cursor-not-allowed`}
                     placeholder="Enter amount"
                   />
                 </div>
