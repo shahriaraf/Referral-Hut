@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { programsData, colors } from './programData'; // ডাটা ইমপোর্ট
 import ThreePProgram from "./Programes/ThreePProgram";
 import VipProgram from "./Programes/VipProgram";
-import SixPProgram from "./Programes/SixPProgram";
 
 
 
@@ -20,7 +19,7 @@ const RoutePrograms = () => {
       return <ThreePProgram />;
     }
     if (activeTab === "6p") {
-      return <SixPProgram></SixPProgram>
+      return <ThreePProgram></ThreePProgram>
     }
     if (activeTab === "vip") {
       return <VipProgram />;

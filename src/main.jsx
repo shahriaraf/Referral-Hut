@@ -49,7 +49,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/userDashboard',
-    element:<PrivateRoute><UserDashboard/></PrivateRoute>,
+    element:<UserDashboard/>,
     children:[
        {
         path: "package",
