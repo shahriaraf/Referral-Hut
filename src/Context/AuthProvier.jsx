@@ -12,7 +12,6 @@ import useAxiosPublic from "../CustomHooks/Api/useAxiosPublic";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
-
 const AuthProvier = ({ children }) => {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
