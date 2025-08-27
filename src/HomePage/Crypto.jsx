@@ -46,8 +46,8 @@ const Crypto = () => {
 
             {/* Content Cards */}
             <div className="flex flex-col lg:flex-row gap-5">
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+              <div className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 hover:shadow-lg transition-all duration-300">
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-3">
                   <span className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
                   Easy 3-Step Process
                 </h3>
@@ -58,8 +58,8 @@ const Crypto = () => {
                 </p>
               </div>
 
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+              <div className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 hover:shadow-lg transition-all duration-300">
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-3">
                   <span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
                   Secure & Reliable
                 </h3>
