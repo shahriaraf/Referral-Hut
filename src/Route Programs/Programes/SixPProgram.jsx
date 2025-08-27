@@ -9,7 +9,8 @@ const SixPProgram = () => {
   return (
     <>
       <div className="text-center">
-        <h2 className={`text-3xl font-bold mb-2 ${colors[programInfo.color].text}`}>
+        <h2
+         className={`text-3xl font-bold mb-2 ${colors[programInfo.color].text}`}>
           {programInfo.title}
         </h2>
         <p className="text-gray-400 mb-10 max-w-xl mx-auto">
@@ -35,6 +36,7 @@ const SixPProgram = () => {
           ))
         )}
       </motion.div>
+      
     </>
   );
 };
