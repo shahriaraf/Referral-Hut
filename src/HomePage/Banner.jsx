@@ -76,7 +76,7 @@ const Banner = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-3xl transform rotate-6 scale-105 opacity-20"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 rounded-3xl transform -rotate-6 scale-105 opacity-20"></div>
-              <div className="relative bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-2xl">
+              <div className="relative bg-gray-800 rounded-3xl p-4 shadow-2xl">
                 <img
                   src={banner_img}
                   className="w-full h-auto rounded-2xl"

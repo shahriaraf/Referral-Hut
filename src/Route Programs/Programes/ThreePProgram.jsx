@@ -1,207 +1,128 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaLock } from 'react-icons/fa'; // Using an icon for locked state
-import { programsData, colors } from '../programData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { FaLock, FaSync } from 'react-icons/fa';
+
+import { toast } from 'react-toastify';
 import PaymentModal from '../PaymentModal';
-import useAxiosPublic from '../../CustomHooks/Api/useAxiosPublic';
+import SlotCard from '../../Components/SlotCard';
 
-// A new, simpler component for displaying content inside a level.
-const ContentCard = ({ title, description, color }) => {
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  return (
-    <motion.div
-      variants={cardVariants}
-      className={`p-6 rounded-lg w-72  h-72 shadow-lg  ${colors[color].bgLight}`}
-    >
-      <h3 className={`text-xl font-bold mb-2 ${colors[color].text}`}>
-        {/* {title} */}
-      </h3>
-      {/* <p className="text-gray-300">{description}</p> */}
-    </motion.div>
-  );
-};
-
+// --- Component-specific configuration for 3P ---
+const programInfo = { title: '3P Program', description: 'Unlock levels, refer users, and earn in the 3P matrix.' };
+const colors = { program: { text: 'text-blue-400', bg: 'bg-blue-600', border: 'border-blue-500' } };
+const PACKAGE_NAME = '3p';
 
 const ThreePProgram = () => {
+    // --- State Management ---
+    const [user, setUser] = useState(null);
+    const [allLevels, setAllLevels] = useState([]);
+    const [userActivations, setUserActivations] = useState([]);
+    const [activeLevel, setActiveLevel] = useState(1);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [levelAction, setLevelAction] = useState(null);
+    const navigate = useNavigate();
 
-
-   const axiosPublic = useAxiosPublic();
-  const [users, setUsers] = useState([]);
-  const [payments, setPayments] = useState([]);
-
-  useEffect(() => {
+    // --- Data Fetching Logic (Corrected) ---
     const fetchData = async () => {
-      try {
-        const usersRes = await axiosPublic.get("/api/referral-get-users");
-        const paymentsRes = await axiosPublic.get("/api/payments");
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+        const config = { headers: { 'x-auth-token': token } };
 
-        if (usersRes.data.success) setUsers(usersRes.data.data);
-        if (paymentsRes.data.success) setPayments(paymentsRes.data.data);
-        console.log(usersRes,paymentsRes)
-      } catch (err) {
-        console.error(err);
-      }
+        try {
+            const [userRes, levelsRes, activationsRes] = await Promise.all([
+                axios.get('http://localhost:5000/api/users/me', config),
+                // FIX #1: Changed route from / to /all
+                axios.get('http://localhost:5000/api/levels/all', config), 
+                // FIX #2: Added package query parameter
+                axios.get(`http://localhost:5000/api/levels/my-activations?package=${PACKAGE_NAME}`, config),
+            ]);
+            
+            setUser(userRes.data);
+            setAllLevels(levelsRes.data.filter(l => l.packageName === PACKAGE_NAME)); // Filter for 3P
+            setUserActivations(activationsRes.data);
+        } catch (error) {
+            console.error('Failed to fetch data', error);
+            toast.error("Session expired. Please log in again.");
+            localStorage.removeItem('token');
+            navigate('/login');
+        }
     };
 
-    fetchData();
-  }, []);
-  // 3P প্রোগ্রামের ডাটা programData.js থেকে নিচ্ছি
-  const programInfo = programsData['3p'];
-  
-  // State management
-  const [modalOpen, setModalOpen] = useState(false);
-  const [levelToUnlock, setLevelToUnlock] = useState(null);
-  
-  // CHANGE 1: Start with an empty array. No levels are unlocked by default.
-  const [unlockedLevels, setUnlockedLevels] = useState([]); 
-  
-  // CHANGE 2: No level is active by default.
-  const [activeLevel, setActiveLevel] = useState(null);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-  // বাটন ক্লিক করলে মডেল খোলার ফাংশন
-  const handleOpenModal = (level) => {
-    setLevelToUnlock(level);
-    setModalOpen(true);
-  };
+    // --- API Action Handlers (Adapted for 3P) ---
+    const handleBuyLevel = async (levelNumber) => {
+        const token = localStorage.getItem('token');
+        const config = { headers: { 'x-auth-token': token } };
+        try {
+            const res = await axios.post('http://localhost:5000/api/levels/buy', { levelNumber, packageName: PACKAGE_NAME }, config);
+            toast.success(res.data.msg);
+            fetchData();
+        } catch (err) {
+            toast.error(err.response?.data?.msg || "Purchase failed.");
+        }
+    };
+    
+    const handleRecycleLevel = async (levelNumber) => {
+        const token = localStorage.getItem('token');
+        const config = { headers: { 'x-auth-token': token } };
+        try {
+            const res = await axios.post('http://localhost:5000/api/levels/recycle', { levelNumber, packageName: PACKAGE_NAME }, config);
+            toast.success(res.data.msg);
+            fetchData();
+        } catch (err) {
+            toast.error(err.response?.data?.msg || "Recycle failed.");
+        }
+    };
 
-  // মডেল বন্ধ করার ফাংশন
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setLevelToUnlock(null);
-  };
+    // --- Modal Controls ---
+    const handleOpenModal = (level, action) => { setLevelAction({ level, action }); setModalOpen(true); };
+    const handleCloseModal = () => { setLevelAction(null); setModalOpen(false); };
+    const handlePaymentSuccess = () => {
+        if (!levelAction) return;
+        if (levelAction.action === 'buy') handleBuyLevel(levelAction.level.levelNumber);
+        else if (levelAction.action === 'recycle') handleRecycleLevel(levelAction.level.levelNumber);
+        handleCloseModal();
+    };
 
-  // পেমেন্ট সফল হওয়ার ফাংশন
-  const handlePaymentSuccess = (unlockedLevel) => {
-    // Add the new level to the unlocked list
-    setUnlockedLevels(prevLevels => [...prevLevels, unlockedLevel]);
-    // Automatically switch to the newly unlocked level
-    setActiveLevel(unlockedLevel);
-    handleCloseModal();
-  };
-  
-  // This function handles clicks on the level toggle buttons
-  const handleLevelSelect = (level) => {
-    const isUnlocked = unlockedLevels.includes(level);
-    if (isUnlocked) {
-      // If unlocked, just switch the view
-      setActiveLevel(level);
-    } else {
-      // If locked, open the payment modal
-      handleOpenModal(level);
+    // --- Data Processing for Rendering ---
+    const latestActivations = new Map();
+    userActivations.forEach(act => {
+        if (!latestActivations.has(act.levelNumber) || latestActivations.get(act.levelNumber).cycle < act.cycle) {
+            latestActivations.set(act.levelNumber, act);
+        }
+    });
+    const highestPurchasedLevel = Math.max(0, ...Array.from(latestActivations.keys()));
+    const activeLevelActivation = latestActivations.get(activeLevel);
+
+    // --- Render Logic ---
+    if (!user) {
+        return <div className="text-center py-10">Loading 3P Program...</div>;
     }
-  };
 
-  // Find the data for the currently active level to display its cards
-  const activeLevelData = programInfo.levels.find(l => l.level === activeLevel);
-
-  return (
-    <>
-      <div className="text-center">
-        <h2 className={`text-3xl font-bold mb-2 ${colors[programInfo.color].text}`}>
-          {programInfo.title}
-        </h2>
-        <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-          {programInfo.description}
-        </p>
-        <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-          {programInfo.price}
-        </p>
-      </div>
- <div>
-   
-    </div>
-    
-    {/* Level Toggle Buttons Section */}
-    <div className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
-      {programInfo.levels.map(({ level, price }) => {
-        const isUnlocked = unlockedLevels.includes(level);
-        const isActive = activeLevel === level;
-        
-        return (
-          <button
-            key={level}
-            onClick={() => handleLevelSelect(level)}
-            className={`
-              px-4 py-2 text-sm font-semibold rounded-full flex items-center gap-2 transition-all duration-300
-              ${
-                isActive
-                  ? `${colors[programInfo.color].bg} text-white shadow-lg`
-                  : isUnlocked
-                  ? `bg-gray-700 text-gray-300 hover:${colors[programInfo.color].bgLight} hover:text-white`
-                  : `bg-gray-800 text-gray-500 border border-dashed border-gray-600 cursor-pointer hover:border-solid hover:${colors[programInfo.color].border}`
-              }
-            `}
-          >
-            {/* Conditional rendering for the icon and price */}
-            {isUnlocked ? (
-              `Level ${level}`
-            ) : (
-              <>
-                <FaLock size={12} />
-                <span>Unlock {level}</span>
-              </>
-            )}
-          </button>
-        );
-      })}
-    </div>
-    
-    
-    {activeLevelData ? (
-  <motion.div
-    key={activeLevel}
-    className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-    variants={{
-      visible: { transition: { staggerChildren: 0.1 } },
-    }}
-    initial="hidden"
-    animate="visible"
-  >
-    {activeLevelData.cards.map((card) => {
-      // Make sure users and payments are loaded
-      const matchedUser = users?.find((u) =>
-        (payments || []).some((p) => p.referredBy === u.uniqueId)
-      );
-
-      return (
-        <div key={card.id} className="relative">
-          <ContentCard
-            title={card.title}
-            description={card.description}
-            color={matchedUser ? "bg-green-500" : programInfo.color}
-          />
-
-          {matchedUser ? (
-            <p className="absolute bottom-2 left-2 text-sm font-semibold text-green-400">
-              Referral matched: {matchedUser.name}
-            </p>
-          ) : <p className=' text-5xl text-red-600'>did not change</p>}
+    return (
+        <div>
+            <div className="text-center">
+                <h3 className={`text-2xl font-bold mb-2 ${colors.program.text}`}>{programInfo.title}</h3>
+                <p className="text-gray-400 mb-8 max-w-xl mx-auto">{programInfo.description}</p>
+            </div>
+            <div className="flex justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
+                {allLevels.map((level) => {
+                    const activation = latestActivations.get(level.levelNumber);
+                    const isUnlocked = !!activation, isFrozen = isUnlocked && activation.status === 'frozen', isActive = activeLevel === level.levelNumber, canPurchase = level.levelNumber === highestPurchasedLevel + 1;
+                    return <button key={level.levelNumber} onClick={() => { if (isFrozen) handleOpenModal(level, 'recycle'); else if (isUnlocked) setActiveLevel(level.levelNumber); else if (canPurchase) handleOpenModal(level, 'buy'); else toast.info(`Unlock Level ${highestPurchasedLevel + 1} first.`); }} className={`px-4 py-2 text-sm font-semibold rounded-full flex items-center gap-2 transition-all duration-300 transform hover:scale-105 ${isActive ? `${colors.program.bg} text-white shadow-lg` : isFrozen ? `bg-yellow-600 text-white hover:bg-yellow-500` : isUnlocked ? `bg-gray-700 text-gray-300 hover:bg-gray-600` : `bg-gray-800 text-gray-500 border border-dashed border-gray-600 ${canPurchase ? 'cursor-pointer hover:border-solid hover:'+colors.program.border : 'cursor-not-allowed opacity-60'}`}`}>{isFrozen ? <FaSync size={12} /> : !isUnlocked && <FaLock size={12} />}<span>{isFrozen ? `Recycle Lvl ${level.levelNumber}` : `Level ${level.levelNumber}`}</span></button>;
+                })}
+            </div>
+            {activeLevelActivation ? (<motion.div key={activeLevel} className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" variants={{ visible: { transition: { staggerChildren: 0.1 } } }} initial="hidden" animate="visible">{activeLevelActivation.slots.map((slot, index) => <SlotCard key={index} slot={slot} index={index} />)}</motion.div>) : (<div className="text-center py-10 px-6 bg-gray-800/50 rounded-lg"><p className="text-lg text-gray-400">Level {activeLevel} is locked.</p></div>)}
+            {levelAction && <PaymentModal isOpen={modalOpen} onClose={handleCloseModal} level={levelAction.level} programTitle={programInfo.title} onPaymentSuccess={handlePaymentSuccess} action={levelAction.action} />}
         </div>
-      );
-    })}
-  </motion.div>
-) : (
-  <div className="text-center py-10 px-6 bg-gray-800/50 rounded-lg">
-    <p className="text-gray-400">
-      Please unlock a level to begin your journey!
-    </p>
-  </div>
-)}
-
-
-      <PaymentModal
-        isOpen={modalOpen}
-        onClose={handleCloseModal}
-        level={levelToUnlock}
-        programTitle={programInfo.title}
-        onPaymentSuccess={handlePaymentSuccess}
-      />
-    </>
-  );
+    );
 };
 
 export default ThreePProgram;

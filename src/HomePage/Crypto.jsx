@@ -20,7 +20,7 @@ const Crypto = () => {
               <div className="absolute -inset-2 bg-gradient-to-r from-purple-400/20 to-pink-500/20 rounded-3xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500"></div>
 
               {/* Main image container */}
-              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl group-hover:shadow-3xl transition-all duration-500">
+              <div className="relative bg-gray-800 rounded-2xl p-6 shadow-2xl group-hover:shadow-3xl transition-all duration-500">
                 <img
                   src={img}
                   className="w-full h-auto rounded-xl transform group-hover:scale-105 transition-transform duration-500"
@@ -51,7 +51,7 @@ const Crypto = () => {
                   <span className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
                   Easy 3-Step Process
                 </h3>
-                <p className="text-gray-600 text-sm dark:text-gray-300 leading-relaxed">
+                <p className="text-sm text-gray-300 leading-relaxed">
                   Here are 3 easy steps to buy & sell Bitcoin. Our platform has been the industry's
                   leading solution since 2020, providing secure and intuitive cryptocurrency trading
                   for millions of users worldwide.
@@ -63,7 +63,7 @@ const Crypto = () => {
                   <span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
                   Secure & Reliable
                 </h3>
-                <p className="text-gray-600 text-sm dark:text-gray-300 leading-relaxed">
+                <p className="text-sm text-gray-300 leading-relaxed">
                   Built with enterprise-grade security and 24/7 monitoring, our platform ensures
                   your investments are safe. Join thousands of satisfied traders who trust CoinEX
                   for their cryptocurrency needs.
