@@ -8,51 +8,58 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../../firebase.init";
-import useAxiosPublic from "../CustomHooks/Api/useAxiosPublic";
+import axios from "axios";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvier = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(user);
 
-  // Firebase observer
+  // Firebase observer to manage user state and JWT token
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth,  (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
 
-     
-
-
-        return () => {
-      return unsubscribe();
-    };
-
-
-
+      // If user logs in, get a JWT token from our backend
+      if (currentUser) {
+        axios.post('http://localhost:5000/api/users/jwt', { email: currentUser.email })
+          .then(res => {
+            // Save the token from our custom backend to localStorage
+            localStorage.setItem('token', res.data.token);
+            setLoading(false);
+          })
+          .catch(error => {
+            console.error("JWT token fetch error:", error);
+            // Even if token fetch fails, stop loading so the app can proceed
+            setLoading(false);
+          });
+      } else {
+        // If user logs out, remove the token
+        localStorage.removeItem('token');
+        setLoading(false);
+      }
     });
 
-  
+    return () => {
+      return unsubscribe();
+    };
   }, []);
 
-  // firebase sign up
+  // Firebase sign up
   const creatUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  //  firebase log in
-
+  // Firebase log in
   const logIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // firebase  log out
-
+  // Firebase log out
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
@@ -66,7 +73,6 @@ const AuthProvier = ({ children }) => {
     });
   };
 
-  // auth info
   const authInfo = {
     user,
     loading,

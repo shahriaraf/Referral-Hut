@@ -1,54 +1,62 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { programsData, colors } from './programData'; // ডাটা ইমপোর্ট
-import ThreePProgram from "./Programes/ThreePProgram";
-import VipProgram from "./Programes/VipProgram";
 
-
+import { programsData, colors } from './programData';
+import ThreePProgram from "./Programes/ThreePProgram"; // আগের Dashboard কম্পোনেন্ট
+import VipProgram from "./Programes/VipProgram"; // আপনার অন্য প্রোগ্রাম
+import SixPProgram from "./Programes/SixPProgram"; // আপনার অন্য প্রোগ্রাম
+import { useOutletContext } from "react-router-dom"; // ডেটা পাওয়ার জন্য এই হুকটি ইমপোর্ট করুন
 
 
 const RoutePrograms = () => {
-  // শুধু কোন ট্যাব active আছে, সেই state এখানে রাখব
+  // Outlet থেকে ডেটা এবং ফাংশন গ্রহণ করুন
+  const { user, allLevels, userActivations, fetchData } = useOutletContext();
+
   const [activeTab, setActiveTab] = useState("3p");
-  
   const activeProgramData = programsData[activeTab];
 
-  // কোন প্রোগ্রাম কম্পোনেন্ট দেখাতে হবে, তা ঠিক করার জন্য একটি ফাংশন
+  // কোন প্রোগ্রাম কম্পোনেন্ট দেখাতে হবে
   const renderActiveProgram = () => {
-    if (activeTab === "3p") {
-      return <ThreePProgram />;
+    switch (activeTab) {
+      case "3p":
+        // এখানে UserDashboard থেকে পাওয়া props পাস করে দিন
+        return (
+          <ThreePProgram
+            user={user}
+            allLevels={allLevels}
+            userActivations={userActivations}
+            fetchData={fetchData}
+          />
+        );
+      case "6p":
+        return <SixPProgram />;
+      case "vip":
+        return <VipProgram />;
+      default:
+        return null;
     }
-    if (activeTab === "6p") {
-      return <ThreePProgram></ThreePProgram>
-    }
-    if (activeTab === "vip") {
-      return <VipProgram />;
-    }
-    return null; // ডিফল্ট কিছুই দেখাবে না
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0f172a] flex flex-col items-center justify-start p-6 pt-16 md:pt-24 text-white font-sans overflow-hidden">
-      {/* Background Gradient - activeTab অনুযায়ী পরিবর্তন হবে */}
+    // মূল UI অপরিবর্তিত থাকবে
+    <div className="relative min-h-full flex flex-col items-center justify-start p-4 md:p-6 text-white font-sans overflow-hidden">
       <div className={`absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b ${colors[activeProgramData.color].gradient} opacity-10 blur-3xl`}></div>
 
-      {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12 z-10"
+        className="text-center mb-8 z-10"
       >
-        <h1 className={`text-4xl md:text-5xl font-extold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${colors[activeProgramData.color].gradient}`}>
-          Choose Your Path
+        <h1 className={`text-3xl md:text-5xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${colors[activeProgramData.color].gradient}`}>
+          Choose Your Program
         </h1>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <p className="text-md md:text-lg text-gray-400 max-w-2xl mx-auto">
           Each program is a journey. Select your starting point and begin your ascent.
         </p>
       </motion.div>
 
-      {/* Tab Buttons */}
-      <div className="flex z-10 space-x-2 md:space-x-4 mb-12 p-2 bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-full">
+      <div className="flex z-10 space-x-2 md:space-x-4 mb-8 p-2 bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-full">
         {Object.keys(programsData).map((tabId) => (
           <button
             key={tabId}
@@ -65,23 +73,21 @@ const RoutePrograms = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
-            <span className="relative z-10 uppercase">{tabId}</span>
+            <span className="relative z-10 uppercase tracking-wider">{tabId}</span>
           </button>
         ))}
       </div>
 
-      {/* Tab Content */}
-      <div className="w-full max-w-6xl z-10">
+      <div className="w-full max-w-7xl z-10">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab} // key পরিবর্তন হলে AnimatePresence কাজ করে
+            key={activeTab}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="bg-slate-900/30 p-8 md:p-12 rounded-2xl shadow-2xl border border-slate-800"
+            className="bg-slate-900/30 p-4 md:p-8 rounded-2xl shadow-2xl border border-slate-800"
           >
-            {/* এখানে activeTab অনুযায়ী সঠিক কম্পোনেন্ট রেন্ডার হবে */}
             {renderActiveProgram()}
           </motion.div>
         </AnimatePresence>
@@ -91,8 +97,3 @@ const RoutePrograms = () => {
 };
 
 export default RoutePrograms;
-
-
-
-
-
