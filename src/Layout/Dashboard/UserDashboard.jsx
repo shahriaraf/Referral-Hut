@@ -108,6 +108,23 @@ const UserDashboard = () => {
                     <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
                 </ul></nav>
 
+
+                {/* Navigation Links */}
+                <nav className="flex-1 w-full">
+                    <ul className="flex flex-row justify-around md:flex-col md:gap-2 w-full">
+                        <li><NavLink to="/userDashboard" end className={getNavLinkClass}><FiUser size={20} /><span className="hidden md:inline">Profile</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/package" className={getNavLinkClass}><FiPackage size={20} /><span className="hidden md:inline">Packages</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/deposit" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Deposit</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/withdraw" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-dashboard" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Admin</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-withdraw" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Admin Withdraw</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-deposit" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline"> Admin Deposite</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-3p" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">3p</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-6p" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">6p</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-vip" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">vip</span></NavLink></li>
+                        <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
+                    </ul>
+                </nav>
                 <div className="hidden md:block mt-auto w-full">
                      <button className={`${getNavLinkClass({isActive: false})} w-full hover:bg-red-500/20 hover:text-red-400`}><FiLogOut size={20} /><span className="hidden md:inline">Logout</span></button>
                 </div>
