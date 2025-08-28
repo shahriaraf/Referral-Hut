@@ -25,19 +25,12 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900">
-            <div className="w-full max-w-md p-8 space-y-8 bg-gray-800 rounded-2xl shadow-2xl border border-purple-500/30">
-                <div className="text-center">
-                    <h1 className="text-3xl font-bold text-white">
-                        Welcome Back
-                    </h1>
-                    <p className="mt-2 text-gray-400">Login to access your account</p>
-                </div>
+        <div className="container mx-auto max-w-md p-8 mt-10">
+            <div className="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700">
+                <h1 className="text-3xl font-bold mb-6 text-center text-white">Login to Your Account</h1>
                 <form onSubmit={onSubmit} className="space-y-6">
                     <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-400" htmlFor="email">
-                            Email Address
-                        </label>
+                        <label className="block text-gray-400 mb-2" htmlFor="email">Email Address</label>
                         <input
                             type="email"
                             name="email"
@@ -45,13 +38,12 @@ const Login = () => {
                             placeholder="you@example.com"
                             onChange={onChange}
                             required
-                            className="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors"
+                            className="w-full p-3 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-white"
                         />
                     </div>
                     <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-400" htmlFor="password">
-                            Password
-                        </label>
+                        <label className="block text-gray-400 mb-2" htmlFor="password">Password</label>
+
                         <input
                             type="password"
                             name="password"
@@ -59,19 +51,22 @@ const Login = () => {
                             placeholder="••••••••"
                             onChange={onChange}
                             required
-                            className="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors"
+                            className="w-full p-3 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-white"
+
                         />
                     </div>
                     <button
                         type="submit"
-                        className="w-full p-3 font-bold text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-purple-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-purple-500/40 transform hover:-translate-y-1"
+                        className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-bold text-white transition duration-300"
+
                     >
                         Login
                     </button>
                 </form>
-                <p className="text-sm text-center text-gray-400">
+                <p className="text-center mt-6 text-gray-400">
                     Don't have an account?{' '}
-                    <Link to="/register" className="font-medium text-purple-400 hover:underline">
+                    <Link to="/register" className="text-blue-400 hover:underline">
+
                         Register here
                     </Link>
                 </p>
