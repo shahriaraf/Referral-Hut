@@ -43,6 +43,7 @@ const Login = () => {
                     </div>
                     <div>
                         <label className="block text-gray-400 mb-2" htmlFor="password">Password</label>
+
                         <input
                             type="password"
                             name="password"
@@ -51,11 +52,13 @@ const Login = () => {
                             onChange={onChange}
                             required
                             className="w-full p-3 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-white"
+
                         />
                     </div>
                     <button
                         type="submit"
                         className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-bold text-white transition duration-300"
+
                     >
                         Login
                     </button>
@@ -63,6 +66,7 @@ const Login = () => {
                 <p className="text-center mt-6 text-gray-400">
                     Don't have an account?{' '}
                     <Link to="/register" className="text-blue-400 hover:underline">
+
                         Register here
                     </Link>
                 </p>

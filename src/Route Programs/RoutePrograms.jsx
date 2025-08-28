@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import { programsData, colors } from './programData';
 import ThreePProgram from "./Programes/ThreePProgram"; // আগের Dashboard কম্পোনেন্ট
 import VipProgram from "./Programes/VipProgram"; // আপনার অন্য প্রোগ্রাম
 import SixPProgram from "./Programes/SixPProgram"; // আপনার অন্য প্রোগ্রাম
 import { useOutletContext } from "react-router-dom"; // ডেটা পাওয়ার জন্য এই হুকটি ইমপোর্ট করুন
+
 
 const RoutePrograms = () => {
   // Outlet থেকে ডেটা এবং ফাংশন গ্রহণ করুন
