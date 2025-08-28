@@ -126,8 +126,8 @@ const UserDashboard = () => {
                         <li><NavLink to="/userDashboard/deposit" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Deposit</span></NavLink></li>
                         <li><NavLink to="/userDashboard/withdraw" className={getNavLinkClass}><FiDownload size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
                         <li><NavLink to="/userDashboard/admin-dashboard" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Admin</span></NavLink></li>
-                        <li><NavLink to="/userDashboard/admin-withdraw" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Withdraw</span></NavLink></li>
-                        <li><NavLink to="/userDashboard/admin-deposit" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Deposite</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-withdraw" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Admin Withdraw</span></NavLink></li>
+                        <li><NavLink to="/userDashboard/admin-deposit" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline"> Admin Deposite</span></NavLink></li>
                         <li><NavLink to="/userDashboard/admin-3p" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">3p</span></NavLink></li>
                         <li><NavLink to="/userDashboard/admin-6p" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">6p</span></NavLink></li>
                         <li><NavLink to="/userDashboard/admin-vip" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">vip</span></NavLink></li>
