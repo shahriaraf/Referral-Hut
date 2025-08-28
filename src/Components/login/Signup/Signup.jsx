@@ -1,7 +1,9 @@
 // src/components/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
+
 import { useNavigate } from 'react-router-dom';
+
 
 const Signup = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', referralId: '' });
@@ -12,7 +14,8 @@ const Signup = () => {
     const onSubmit = async e => {
         e.preventDefault();
         try {
-             const res = await axios.post('http://localhost:5000/register', formData);
+
+            const res = await axios.post('http://localhost:5000/api/referral-creat-user', formData);
             localStorage.setItem('token', res.data.token);
             navigate('/userDashboard');
         } catch (err) {
@@ -31,6 +34,7 @@ const Signup = () => {
                 <input type="text" name="referralId" placeholder="Referral ID (Optional)" onChange={onChange} className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-blue-500" />
                 <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-bold">Register</button>
             </form>
+
         </div>
     );
 };

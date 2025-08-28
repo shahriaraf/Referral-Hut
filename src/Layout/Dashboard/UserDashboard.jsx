@@ -107,6 +107,7 @@ const UserDashboard = () => {
                     <li><NavLink to="/userDashboard/admin-dashboard" className={getNavLinkClass}><FiSettings size={20} /><span className="hidden md:inline">Admin</span></NavLink></li>
                     <li><NavLink to="/" className={getNavLinkClass}><FiHome size={20} /><span className="hidden md:inline">Home</span></NavLink></li>
                 </ul></nav>
+
                 <div className="hidden md:block mt-auto w-full">
                      <button className={`${getNavLinkClass({isActive: false})} w-full hover:bg-red-500/20 hover:text-red-400`}><FiLogOut size={20} /><span className="hidden md:inline">Logout</span></button>
                 </div>
