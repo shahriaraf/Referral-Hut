@@ -20,6 +20,11 @@ import PrivateRoute from './Routes/PrivateRoute.jsx';
 import UserDashboard from './Layout/Dashboard/UserDashboard.jsx';
 import AdminDashboard from './Dashboard/AdminDashboard/AdminDashboard.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Admin3PLevels from './Components/ThreePLevel/ThreePLevel.jsx';
+import Admin6PLevels from './Components/sixplevel/SixPLevel.jsx';
+import AdminVIPLevels from './Components/viplevel/VipLevel.jsx';
+import WithdrawalAdminPanel from './Withdraw/WithdrawAdmin.jsx';
+import DepositAdminPanel from './Deposit/DepositAdmin.jsx';
 
 const queryClient = new QueryClient()
 
@@ -70,7 +75,27 @@ const router = createBrowserRouter([
       {
         path : 'admin-dashboard',
         element : <AdminDashboard></AdminDashboard>
-      }
+      },
+      {
+        path :   "/userDashboard/admin-withdraw",
+        element : <WithdrawalAdminPanel></WithdrawalAdminPanel>
+      },
+      {
+        path :   "/userDashboard/admin-deposit",
+        element : <DepositAdminPanel></DepositAdminPanel>
+      },
+      {
+        path : 'admin-3p',
+        element : <Admin3PLevels></Admin3PLevels>
+      },
+      {
+        path : 'admin-6p',
+        element : <Admin6PLevels></Admin6PLevels>
+      },
+      {
+        path : 'admin-vip',
+        element : <AdminVIPLevels></AdminVIPLevels>
+      },
     ]
 
   }
