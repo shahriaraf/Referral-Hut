@@ -31,6 +31,12 @@ const DashboardLayout = () => {
           >
             Deposit
           </NavLink>
+          <NavLink
+            to="/dashboard/3p"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-purple-100"
+          >
+            3p
+          </NavLink>
         </nav>
       </div>
 
