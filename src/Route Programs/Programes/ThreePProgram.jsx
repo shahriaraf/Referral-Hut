@@ -6,7 +6,7 @@ import { FaLock, FaSync } from 'react-icons/fa';
 
 import { toast } from 'react-toastify';
 import PaymentModal from '../PaymentModal';
-import SlotCard from '../../Components/SlotCard';
+
 
 // --- Component-specific configuration for 3P ---
 const programInfo = { title: '3P Program', description: 'Unlock levels, refer users, and earn in the 3P matrix.' };
