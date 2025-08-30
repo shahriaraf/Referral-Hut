@@ -340,9 +340,11 @@ const EditLevelModal = ({ isOpen, onClose, level, onUpdate }) => {
 
         try {
             // Make PATCH request to update the level
-            const response = await axios.patch(`${API_BASE_URL}/${level._id}`, {
-                price: `৳ ${parseFloat(price)}`
-            });
+                     const response = await axios.patch(
+  `${API_BASE_URL}/programs/${PACKAGE_NAME}/levels/${level.levelNumber}`, 
+  { price: `৳ ${parseFloat(price)}` }
+);
+
 
             // Handle successful response
             const updatedLevel = { ...level, price: `৳ ${parseFloat(price)}` };
@@ -446,21 +448,21 @@ const AdminVIPLevels = () => {
             setLoading(true);
             
             // Fetch program data and levels from backend API
-            const response = await axios.get(`${API_BASE_URL}/programs/${PACKAGE_NAME}/levels`);
+           const response = await axios.get(`${API_BASE_URL}/programs/${PACKAGE_NAME}/levels`);
             
             if (response.data && response.data.levels) {
                 // If backend returns structured data with levels
-                const formattedLevels = response.data.levels.map((level) => ({
-                    _id: level._id || `${PACKAGE_NAME}-${level.level || level.levelNumber}`,
-                    levelNumber: level.level || level.levelNumber,
-                    price: level.price,
-                    packageName: PACKAGE_NAME,
-                    description: level.description || `VIP Level ${level.level || level.levelNumber} - Premium coaching with ${level.cards?.length || 0} sessions`,
-                    cards: level.cards || [],
-                    createdAt: level.createdAt || new Date().toISOString(),
-                    updatedAt: level.updatedAt || new Date().toISOString()
-                }));
-                setLevels(formattedLevels);
+                  const formattedLevels = response.data.levels.map((lvl, index) => ({
+  _id: lvl.id || `${PACKAGE_NAME}-${lvl.level}`, // id নেই DB তে? তাহলে unique key দাও
+  levelNumber: lvl.level,
+  price: lvl.price,
+  packageName: PACKAGE_NAME,
+  description: `Level ${lvl.level} - ${lvl.cards?.length || 0} modules`,
+  cards: lvl.cards,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString()
+}));
+setLevels(formattedLevels);
             } else if (Array.isArray(response.data)) {
                 // If backend returns array of levels directly
                 setLevels(response.data);

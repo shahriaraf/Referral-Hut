@@ -300,7 +300,6 @@ import React, { useState, useEffect } from 'react';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import axios from 'axios'; // Add axios import
-import { programsData } from '../../Route Programs/programData'; // Adjust path as needed
 
 // --- Component-specific configuration for 3P Admin ---
 const PACKAGE_NAME = '3p';
@@ -318,46 +317,31 @@ const EditLevelModal = ({ isOpen, onClose, level, onUpdate }) => {
         }
     }, [level]);
 
-    const handleSubmit = async (e) => {
-        if (e) e.preventDefault();
-        if (!price || price <= 0) {
-            toast.error('Please enter a valid price');
-            return;
-        }
+ const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!price || price <= 0) {
+        toast.error('Please enter a valid price');
+        return;
+    }
 
-        setLoading(true);
+    setLoading(true);
+    try {
+await axios.patch(
+  `${API_BASE_URL}/programs/${PACKAGE_NAME}/levels/${level.levelNumber}`, 
+  { price: `৳ ${parseFloat(price)}` }
+);
 
-        try {
-            // Make PATCH request to update the level
-            const response = await axios.patch(`${API_BASE_URL}/${level._id}`, {
-                price: `$ ${parseFloat(price)}`
-            });
 
-            // Handle successful response
-            const updatedLevel = { ...level, price: `$ ${parseFloat(price)}` };
-            toast.success('Level price updated successfully!');
-            onUpdate(updatedLevel);
-            onClose();
-        } catch (error) {
-            console.error('Failed to update level price', error);
-            
-            // Handle different types of errors
-            if (error.response) {
-                // Server responded with error status
-                const errorMessage = error.response.data?.message || 'Failed to update level price';
-                toast.error(errorMessage);
-            } else if (error.request) {
-                // Request was made but no response received
-                toast.error('No response from server. Please check your connection.');
-            } else {
-                // Something else happened
-                toast.error('An unexpected error occurred');
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
-
+toast.success('Level price updated successfully!');
+        onUpdate({ ...level, price: `৳ ${parseFloat(price)}`, updatedAt: new Date().toISOString() });
+        onClose();
+    } catch (error) {
+        console.error(error);
+        toast.error('Failed to update level price');
+    } finally {
+        setLoading(false);
+    }
+};
     if (!isOpen) return null;
 
     return (
@@ -433,20 +417,34 @@ const Admin3PLevels = () => {
             // Fetch program data and levels from backend API
             const response = await axios.get(`${API_BASE_URL}/programs/${PACKAGE_NAME}/levels`);
             
+            // if (response.data && response.data.levels) {
+            //     // If backend returns structured data with levels
+            //     const formattedLevels = response.data.levels.map((level) => ({
+            //         _id: level._id || `${PACKAGE_NAME}-${level.level || level.levelNumber}`,
+            //         levelNumber: level.level || level.levelNumber,
+            //         price: level.price,
+            //         packageName: PACKAGE_NAME,
+            //         description: level.description || `Level ${level.level || level.levelNumber} - Contains ${level.cards?.length || 0} modules`,
+            //         cards: level.cards || [],
+            //         createdAt: level.createdAt || new Date().toISOString(),
+            //         updatedAt: level.updatedAt || new Date().toISOString()
+            //     }));
+            //     setLevels(formattedLevels);
+            // } 
             if (response.data && response.data.levels) {
-                // If backend returns structured data with levels
-                const formattedLevels = response.data.levels.map((level) => ({
-                    _id: level._id || `${PACKAGE_NAME}-${level.level || level.levelNumber}`,
-                    levelNumber: level.level || level.levelNumber,
-                    price: level.price,
-                    packageName: PACKAGE_NAME,
-                    description: level.description || `Level ${level.level || level.levelNumber} - Contains ${level.cards?.length || 0} modules`,
-                    cards: level.cards || [],
-                    createdAt: level.createdAt || new Date().toISOString(),
-                    updatedAt: level.updatedAt || new Date().toISOString()
-                }));
-                setLevels(formattedLevels);
-            } else if (Array.isArray(response.data)) {
+    const formattedLevels = response.data.levels.map((lvl, index) => ({
+  _id: lvl.id || `${PACKAGE_NAME}-${lvl.level}`, // id নেই DB তে? তাহলে unique key দাও
+  levelNumber: lvl.level,
+  price: lvl.price,
+  packageName: PACKAGE_NAME,
+  description: `Level ${lvl.level} - ${lvl.cards?.length || 0} modules`,
+  cards: lvl.cards,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString()
+}));
+setLevels(formattedLevels);
+}
+            else if (Array.isArray(response.data)) {
                 // If backend returns array of levels directly
                 setLevels(response.data);
             } else {
