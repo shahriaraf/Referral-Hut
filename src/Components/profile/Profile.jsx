@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../CustomHooks/useAuth";
-import useAllDeposite from "../../CustomHooks/useAllDeposite";
+
+import { FaRegCopy } from "react-icons/fa";
+
 
 const Profile = () => {
  const {user} = useAuth();
- const [allDeposite,refetch,isLoading] = useAllDeposite();
 
- const myDeposites = allDeposite?.filter(dep => dep.email === user?.email && dep.status === "accepted");
+   const [copied, setCopied] = useState(false);
 
- const totalAmount = myDeposites?.reduce((sum, dep) => sum + dep.ammount, 0); // total amount
+  const handleCopy = () => {
+    if (user?.myReferralId) {
+      navigator.clipboard.writeText(user.myReferralId);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // 2 সেকেন্ড পর মেসেজ হাইড হবে
+    }
+  };
 
- console.log(totalAmount);
+
+  const packages = user.packages;
+ 
+
+
+
  
 
 
@@ -31,7 +43,7 @@ const Profile = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h1 className="text-3xl font-bold text-white">Jhone Doe</h1>
+                    <h1 className="text-3xl font-bold text-white"> {user?.name} </h1>
                     <span className="bg-gradient-to-r from-amber-500 to-yellow-500 text-xs font-semibold px-3 py-1 rounded-full">
                       DIAMOND AFFILIATE
                     </span>
@@ -75,7 +87,7 @@ const Profile = () => {
                   <div className="h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full mt-2"></div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white"> ${totalAmount} </div>
+                  <div className="text-2xl font-bold text-white">{user?.balance} </div>
                   <div className="text-gray-400 text-sm">Balance</div>
                   <div className="h-1 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full mt-2"></div>
                 </div>
@@ -98,23 +110,55 @@ const Profile = () => {
               </div>
               
               {/* Action Buttons */}
-              <div className="w-full space-y-3">
-                <button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                  Get My Referral Link
-                </button>
-                <button className="w-full bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-lg border border-white/20 transition-colors">
-                  View Success Stories
-                </button>
-              </div>
+               <div className="w-full space-y-3">
+      <div className="relative w-full">
+        <button className="w-full flex items-center justify-between bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+          <span>Referral Id : {user?.myReferralId}</span>
+           {
+            copied ?     <span className=" text-emerald-400 text-xs font-medium animate-fade">
+            Copied!
+          </span> :   <FaRegCopy
+            onClick={handleCopy}
+            className="cursor-pointer text-lg hover:text-gray-200"
+            title="Copy ID"
+          />
+           }
+        </button>
+
+
+      </div>
+    </div>
               
               {/* Activity Status */}
-              <div className="text-center">
-                <div className="text-white font-medium flex items-center justify-center gap-2">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                  Active Referrer
-                </div>
-                <div className="text-emerald-400 text-sm">Last referral: 2 hours ago</div>
-              </div>
+     <div className="max-w-md mx-auto bg-gray-800 rounded-2xl shadow-lg p-5">
+  {/* Header */}
+  <div className="flex items-center justify-center gap-2 text-lg font-semibold text-white mb-4">
+    <div className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+    Active Referrer
+  </div>
+
+  {/* Program Names in Flex */}
+  <div className="flex items-center justify-center flex-wrap gap-3">
+    {Object.keys(packages).map((pkgKey) => {
+      const activeLevels = packages[pkgKey].levels.filter(
+        (level) => level.status === "active"
+      );
+
+      if (activeLevels.length === 0) return null;
+
+      return (
+        <div
+          key={pkgKey}
+          className="bg-gray-700 hover:bg-gray-600 transition-colors duration-300 rounded-full px-4 py-1 text-sm font-semibold text-emerald-400 uppercase shadow-md"
+        >
+          {pkgKey}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+
             </div>
           </div>
         </div>
