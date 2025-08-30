@@ -1,13 +1,12 @@
-// src/components/Login.js
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../../CustomHooks/useAuth';
+
+
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,60 +14,28 @@ const Login = () => {
     const onSubmit = async e => {
         e.preventDefault();
         try {
-             const res = await axios.post('http://localhost:5000/api/users/login', formData);
-            localStorage.setItem('token', res.data.token);
-            navigate('/userDashboard');
-        } catch (err) {
-            console.error(err.response.data);
-            alert('Invalid credentials. Please try again.');
-        }
+            await login(formData.email, formData.password);
+            navigate('/');
+        } catch (err) { /* Error handled by global interceptor */ }
     };
 
     return (
-        <div className="container mx-auto max-w-md p-8 mt-10">
-            <div className="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700">
-                <h1 className="text-3xl font-bold mb-6 text-center text-white">Login to Your Account</h1>
+        <div className="flex items-center justify-center min-h-[80vh]">
+            <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg">
+                <h1 className="text-3xl font-bold text-center text-white">Login to Your Account</h1>
                 <form onSubmit={onSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-gray-400 mb-2" htmlFor="email">Email Address</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="you@example.com"
-                            onChange={onChange}
-                            required
-                            className="w-full p-3 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-white"
-                        />
+                        <label className="block mb-2 text-sm font-medium text-gray-300">Email</label>
+                        <input type="email" name="email" value={formData.email} onChange={onChange} required className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500"/>
                     </div>
                     <div>
-                        <label className="block text-gray-400 mb-2" htmlFor="password">Password</label>
-
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="••••••••"
-                            onChange={onChange}
-                            required
-                            className="w-full p-3 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-white"
-
-                        />
+                        <label className="block mb-2 text-sm font-medium text-gray-300">Password</label>
+                        <input type="password" name="password" value={formData.password} onChange={onChange} required className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500"/>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-bold text-white transition duration-300"
-
-                    >
-                        Login
-                    </button>
+                    <button type="submit" className="w-full px-4 py-2 font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700">Login</button>
                 </form>
-                <p className="text-center mt-6 text-gray-400">
-                    Don't have an account?{' '}
-                    <Link to="/register" className="text-blue-400 hover:underline">
-
-                        Register here
-                    </Link>
+                <p className="text-sm text-center text-gray-400">
+                    Don't have an account? <Link to="/register" className="font-medium text-blue-400 hover:underline">Register here</Link>
                 </p>
             </div>
         </div>
