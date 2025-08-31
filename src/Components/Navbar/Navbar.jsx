@@ -8,6 +8,7 @@ import useAuth from "../../CustomHooks/useAuth";
 
 const Navbar = () => {
   const { user } = useAuth();
+  
 
   const authBtn = (
     <>
