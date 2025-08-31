@@ -30,6 +30,12 @@ const UserDashboard = () => {
     { icon: FaBoxOpen, label: 'Packages', path: 'package' },
     { icon: FaUser, label: 'Deposit', path: 'deposit' },
     { icon: FaCog, label: 'Withdraw', path: 'withdraw' },
+    { icon: FaCog, label: 'admin withdraw',  path: "admin-withdraw",  },
+    { icon: FaCog, label: 'admin deposit',  path: "admin-deposit", },
+    { icon: FaUser, label: 'admin 3p', path: "admin-3p", },
+    { icon: FaUser, label: 'admin 6p',  path: "admin-6p",  },
+    { icon: FaUser, label: 'admin vip',path: "admin-vip", },
+  
   ];
 
   // --- CONDITIONAL LOGIC ADDED HERE ---
