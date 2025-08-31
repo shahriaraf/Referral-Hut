@@ -37,6 +37,18 @@ const DashboardLayout = () => {
           >
             3p
           </NavLink>
+          <NavLink
+            to="/dashboard/6p"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-purple-100"
+          >
+            6p
+          </NavLink>
+          <NavLink
+            to="/dashboard/vip"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-purple-100"
+          >
+            vip
+          </NavLink>
         </nav>
       </div>
 

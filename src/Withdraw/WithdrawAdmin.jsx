@@ -182,20 +182,18 @@ const WithdrawalAdminPanel = () => {
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
-          {['all', 'pending', 'approved', 'rejected'].map(status => {
-            const count = status === 'all' 
-              ? withdrawals.length 
-              : withdrawals.filter(w => w.status === status).length;
-            
-            return (
-              <div key={status} className="bg-[#161B22]/80 backdrop-blur-sm rounded-lg border border-slate-800 p-4">
-                <div className="text-2xl font-bold text-white">{count}</div>
-                <div className="text-sm text-gray-400 capitalize">{status === 'all' ? 'Total' : status}</div>
-              </div>
-            );
-          })}
-        </div>
+     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+  {['pending', 'approved', 'rejected'].map(status => {
+    const count = withdrawals.filter(w => w.status === status).length;
+    
+    return (
+      <div key={status} className="bg-[#161B22]/80 backdrop-blur-sm rounded-lg border border-slate-800 p-4">
+        <div className="text-2xl font-bold text-white">{count}</div>
+        <div className="text-sm text-gray-400 capitalize">{status}</div>
+      </div>
+    );
+  })}
+</div>
 
         {/* Withdrawals Table */}
         <div className="bg-[#161B22]/80 backdrop-blur-sm rounded-lg border border-slate-800 overflow-hidden">
