@@ -65,6 +65,7 @@ return (
                 </div>
                
                 <div className="text-center">
+
                   <div className="text-2xl font-bold text-white">${user?.balance} </div>
                   <div className="text-gray-400 text-sm">Balance</div>
                   <div className="h-1 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full mt-2"></div>
