@@ -34,7 +34,7 @@ const UserDashboard = () => {
 
   // --- CONDITIONAL LOGIC ADDED HERE ---
   // If the user object exists and their referral ID matches, add the Admin link.
-  if (user && user.myReferralId === '7e84b41e') {
+  if (user && user.myReferralId === '7e84b41e') {  
     sidebarItems.push({ icon: FaCog, label: 'Admin', path: 'admin-dashboard' });
   }
 
