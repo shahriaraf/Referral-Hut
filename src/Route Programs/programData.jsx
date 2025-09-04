@@ -333,6 +333,42 @@ export const programsData = {
           { id: '6p-2-3', title: 'Pillar 6: Resilience', description: 'Building mental fortitude for challenges.' },
         ]
       },
+      {
+        level: 3,
+        price: '৳ 400',
+        cards: [
+          { id: '6p-2-1', title: 'Pillar 4: Communication', description: 'Enhancing verbal and written communication.' },
+          { id: '6p-2-2', title: 'Pillar 5: Adaptability', description: 'Learning to thrive in changing environments.' },
+          { id: '6p-2-3', title: 'Pillar 6: Resilience', description: 'Building mental fortitude for challenges.' },
+        ]
+      },
+      {
+        level: 4,
+        price: '৳ 400',
+        cards: [
+          { id: '6p-2-1', title: 'Pillar 4: Communication', description: 'Enhancing verbal and written communication.' },
+          { id: '6p-2-2', title: 'Pillar 5: Adaptability', description: 'Learning to thrive in changing environments.' },
+          { id: '6p-2-3', title: 'Pillar 6: Resilience', description: 'Building mental fortitude for challenges.' },
+        ]
+      },
+      {
+        level: 5,
+        price: '৳ 400',
+        cards: [
+          { id: '6p-2-1', title: 'Pillar 4: Communication', description: 'Enhancing verbal and written communication.' },
+          { id: '6p-2-2', title: 'Pillar 5: Adaptability', description: 'Learning to thrive in changing environments.' },
+          { id: '6p-2-3', title: 'Pillar 6: Resilience', description: 'Building mental fortitude for challenges.' },
+        ]
+      },
+      {
+        level: 6,
+        price: '৳ 400',
+        cards: [
+          { id: '6p-2-1', title: 'Pillar 4: Communication', description: 'Enhancing verbal and written communication.' },
+          { id: '6p-2-2', title: 'Pillar 5: Adaptability', description: 'Learning to thrive in changing environments.' },
+          { id: '6p-2-3', title: 'Pillar 6: Resilience', description: 'Building mental fortitude for challenges.' },
+        ]
+      },
     ],
   },
   'vip': {

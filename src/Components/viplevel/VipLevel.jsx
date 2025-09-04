@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { programsData } from'../../Route Programs/programData'; // Adjust path as needed
+import axios from 'axios'; // Add axios import
 
 // --- Component-specific configuration for VIP Admin ---
 const PACKAGE_NAME = 'vip';
+const API_BASE_URL = 'http://localhost:5000/api'; // Define your API base URL
 
 const EditLevelModal = ({ isOpen, onClose, level, onUpdate }) => {
     const [price, setPrice] = useState('');
@@ -28,17 +29,34 @@ const EditLevelModal = ({ isOpen, onClose, level, onUpdate }) => {
         setLoading(true);
 
         try {
-            // Simulate API call or update local data
-            setTimeout(() => {
-                const updatedLevel = { ...level, price: `৳ ${parseFloat(price)}` };
-                toast.success('VIP level price updated successfully!');
-                onUpdate(updatedLevel);
-                onClose();
-                setLoading(false);
-            }, 1000);
+            // Make PATCH request to update the level
+                     const response = await axios.patch(
+  `${API_BASE_URL}/programs/${PACKAGE_NAME}/levels/${level.levelNumber}`, 
+  { price: `৳ ${parseFloat(price)}` }
+);
+
+
+            // Handle successful response
+            const updatedLevel = { ...level, price: `৳ ${parseFloat(price)}` };
+            toast.success('VIP level price updated successfully!');
+            onUpdate(updatedLevel);
+            onClose();
         } catch (error) {
-            console.error('Failed to update level price', error);
-            toast.error('Failed to update level price');
+            console.error('Failed to update VIP level price', error);
+            
+            // Handle different types of errors
+            if (error.response) {
+                // Server responded with error status
+                const errorMessage = error.response.data?.message || 'Failed to update VIP level price';
+                toast.error(errorMessage);
+            } else if (error.request) {
+                // Request was made but no response received
+                toast.error('No response from server. Please check your connection.');
+            } else {
+                // Something else happened
+                toast.error('An unexpected error occurred');
+            }
+        } finally {
             setLoading(false);
         }
     };
@@ -111,40 +129,75 @@ const AdminVIPLevels = () => {
     // --- State Management ---
     const [levels, setLevels] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedLevel, setSelectedLevel] = useState(null);
 
     // --- Data Loading Logic ---
-    const loadLevels = () => {
+    const loadLevels = async () => {
         try {
-            const programData = programsData[PACKAGE_NAME];
-            if (programData && programData.levels) {
-                // Convert the levels format to match your component structure
-                const formattedLevels = programData.levels.map((level, index) => ({
-                    _id: `${PACKAGE_NAME}-${level.level}`,
-                    levelNumber: level.level,
-                    price: level.price,
-                    packageName: PACKAGE_NAME,
-                    description: `VIP Level ${level.level} - Premium coaching with ${level.cards.length} sessions`,
-                    cards: level.cards,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                }));
-                setLevels(formattedLevels);
+            setLoading(true);
+            
+            // Fetch program data and levels from backend API
+           const response = await axios.get(`${API_BASE_URL}/programs/${PACKAGE_NAME}/levels`);
+            
+            if (response.data && response.data.levels) {
+                // If backend returns structured data with levels
+                  const formattedLevels = response.data.levels.map((lvl, index) => ({
+  _id: lvl.id || `${PACKAGE_NAME}-${lvl.level}`, // id নেই DB তে? তাহলে unique key দাও
+  levelNumber: lvl.level,
+  price: lvl.price,
+  packageName: PACKAGE_NAME,
+  description: `Level ${lvl.level} - ${lvl.cards?.length || 0} modules`,
+  cards: lvl.cards,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString()
+}));
+setLevels(formattedLevels);
+            } else if (Array.isArray(response.data)) {
+                // If backend returns array of levels directly
+                setLevels(response.data);
+            } else {
+                throw new Error('Invalid data format received from API');
             }
-        } catch (error) {
-            console.error('Failed to load VIP levels', error);
-            toast.error('Failed to load VIP levels');
+            
+        } catch (apiError) {
+            console.error('Failed to fetch VIP levels from API:', apiError.message);
+            toast.error('Failed to load VIP levels from server');
+            
+            // Optional: Remove local fallback if you want to rely entirely on backend
+            // Uncomment below if you want to keep local fallback
+            /*
+            console.warn('Falling back to local VIP data...');
+            try {
+                const programData = programsData[PACKAGE_NAME];
+                if (programData && programData.levels) {
+                    const formattedLevels = programData.levels.map((level, index) => ({
+                        _id: `${PACKAGE_NAME}-${level.level}`,
+                        levelNumber: level.level,
+                        price: level.price,
+                        packageName: PACKAGE_NAME,
+                        description: `VIP Level ${level.level} - Premium coaching with ${level.cards.length} sessions`,
+                        cards: level.cards,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    }));
+                    setLevels(formattedLevels);
+                } else {
+                    toast.error('No local VIP data available');
+                }
+            } catch (localError) {
+                console.error('Failed to load local VIP data:', localError);
+                toast.error('Failed to load VIP levels');
+            }
+            */
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        // Simulate loading delay
-        setTimeout(() => {
-            loadLevels();
-        }, 500);
+        loadLevels();
     }, []);
 
     // --- Event Handlers ---
@@ -161,22 +214,14 @@ const AdminVIPLevels = () => {
     const handleLevelUpdate = (updatedLevel) => {
         setLevels(prevLevels => 
             prevLevels.map(level => 
-                level._id === updatedLevel._id ? updatedLevel : level
+                level._id === updatedLevel._id ? 
+                { ...level, ...updatedLevel, updatedAt: new Date().toISOString() } : 
+                level
             )
         );
         
-        // Update the programsData as well
-        try {
-            const programData = programsData[PACKAGE_NAME];
-            if (programData && programData.levels) {
-                const levelIndex = programData.levels.findIndex(l => l.level === updatedLevel.levelNumber);
-                if (levelIndex !== -1) {
-                    programData.levels[levelIndex].price = updatedLevel.price;
-                }
-            }
-        } catch (error) {
-            console.error('Failed to update local VIP data', error);
-        }
+        // No need to update local programsData since we're fetching from backend
+        // Local data update removed as we're now using backend as source of truth
     };
 
     // --- Render Logic ---
