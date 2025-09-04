@@ -25,16 +25,33 @@ const programColors = {
 };
 
 const Packages = () => {
-    const { user, setUser } = useAuth();
+    const { user, setUser,programData } = useAuth();
     const [activeProgram, setActiveProgram] = useState('3p');
     const [selectedLevelDetails, setSelectedLevelDetails] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [levelToPurchase, setLevelToPurchase] = useState(null);
+ 
+  
+      
 
-    const handlePurchaseClick = (program, level) => {
-        setLevelToPurchase({ program, level });
-        setIsModalOpen(true);
-    };
+  const handlePurchaseClick = (programKey, levelNumber) => {
+    
+    const program = programData.programs.find(p => p.key === programKey);
+     console.log(program);
+     
+    // const program = programData.programs.find(p => p.key === programKey);
+    if (!program) return toast.error('Program data not found');
+
+    // ওই প্রোগ্রামের levels থেকে level খুঁজে বের করা
+    const levelData = program.levels.find(l => l.level === levelNumber);
+     console.log(levelData);
+     
+    if (!levelData) return toast.error('Level data not found');
+
+    // modal এ দেখানোর জন্য state set করা
+    setLevelToPurchase({ program: programKey, level: levelData });
+    setIsModalOpen(true);
+};
 
     const confirmPurchase = async () => {
         if (!levelToPurchase) return;
@@ -63,6 +80,8 @@ const Packages = () => {
         return { levels: programLevels, highestPurchasedLevel: highest, currentLevelData: currentData };
     }, [user, activeProgram, selectedLevelDetails]);
 
+    //   console.log(levels);
+      
     if (!user) return <Spinner fullPage />;
 
     const colors = programColors[activeProgram];
@@ -75,7 +94,7 @@ const Packages = () => {
                 onConfirm={confirmPurchase}
                 title="Confirm Purchase"
             >
-                Are you sure you want to purchase {levelToPurchase?.program.toUpperCase()} Level {levelToPurchase?.level.level} for ${levelToPurchase?.level.cost}?
+                Are you sure you want to purchase {levelToPurchase?.program.toUpperCase()} Level {levelToPurchase?.level.level} for ${levelToPurchase?.level.price}?
             </Modal>
             
             {/* Program Toggles */}
@@ -109,7 +128,7 @@ const Packages = () => {
                             key={level.level}
                             onClick={() => {
                                 if (isUnlocked) setSelectedLevelDetails(level.level);
-                                else if (canPurchase) handlePurchaseClick(activeProgram, level);
+                                else if (canPurchase) handlePurchaseClick(activeProgram, level.level);
                                 else toast.info(`Please unlock previous levels first.`);
                             }}
                             className={`px-4 py-2 text-sm font-semibold rounded-full flex items-center gap-2 transition-all duration-300 transform hover:scale-105 ${
