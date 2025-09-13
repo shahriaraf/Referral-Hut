@@ -25,6 +25,7 @@ import WithdrawalAdminPanel from './Withdraw/WithdrawAdmin.jsx';
 import DepositAdminPanel from './Deposit/DepositAdmin.jsx';
 import { AuthProvider } from './Context/AuthProvider.jsx';
 import Packages from './Route Programs/Programes/Pakages.jsx';
+import PrivateRoute from './Routes/PrivateRoute.jsx';
 
 
 const queryClient = new QueryClient()
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
   },
 {
   path:'/userDashboard',
-  element:<UserDashboard/>,
+  element:<PrivateRoute><UserDashboard/></PrivateRoute>,
   children:[
     { index: true, element: <Profile /> },
     { path: "package", element: <Packages /> },

@@ -132,17 +132,10 @@ const WithdrawalAdminPanel = () => {
     return `${address.slice(0, 8)}...${address.slice(-8)}`;
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[#0D1117]">
-        <FaSpinner className="w-8 h-8 text-blue-500 animate-spin" />
-      </div>
-    );
-  }
 
   return (
-    <div className="min-h-screen bg-[#0D1117] p-6 font-sans">
-      <div className="absolute top-0 left-0 h-full w-full bg-[radial-gradient(circle_at_top,_rgba(29,78,216,0.15),_transparent_40%)]"></div>
+    <div className="min-h-screen  p-6 font-sans">
+    
       
       <div className="relative max-w-7xl mx-auto">
         {/* Header */}

@@ -75,7 +75,7 @@ const Packages = () => {
                 onConfirm={confirmPurchase}
                 title="Confirm Purchase"
             >
-                Are you sure you want to purchase {levelToPurchase?.program.toUpperCase()} Level {levelToPurchase?.level.level} for ${levelToPurchase?.level.cost}?
+                Are you sure you want to purchase {levelToPurchase?.program.toUpperCase()} Level {levelToPurchase?.level.level} for ${}?
             </Modal>
             
             {/* Program Toggles */}

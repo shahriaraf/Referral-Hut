@@ -101,7 +101,7 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className="bg-gray-900 min-h-screen text-gray-200 p-4 sm:p-6 lg:p-8">
+        <div className="min-h-screen text-gray-200 p-4 sm:p-6 lg:p-8">
             <div className="container mx-auto">
                 {/* Header */}
                 <header className="mb-8">

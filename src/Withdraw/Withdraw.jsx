@@ -45,7 +45,7 @@ const Withdraw = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+        <div className="min-h-screen flex items-center justify-center p-4">
             <motion.div
                 className="w-full max-w-2xl mx-auto bg-slate-800/50 backdrop-blur-sm border border-purple-900 rounded-2xl shadow-lg shadow-purple-900/20"
                 initial={{ opacity: 0, scale: 0.95 }}
