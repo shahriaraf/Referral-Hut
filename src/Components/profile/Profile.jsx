@@ -13,7 +13,7 @@ const Profile = () => {
     if (user?.myReferralId) {
       navigator.clipboard.writeText(user.myReferralId);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // 2 সেকেন্ড পর মেসেজ হাইড হবে
+      setTimeout(() => setCopied(false), 2000); 
     }
   };
 
