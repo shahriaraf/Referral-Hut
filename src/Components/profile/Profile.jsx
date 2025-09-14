@@ -20,7 +20,7 @@ const Profile = () => {
 
   const packages = user.packages;
 return (
-    <div className="min-h-screen p-4 sm:p-6">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto space-y-6">
         
         {/* Header Section - Referral Profile */}

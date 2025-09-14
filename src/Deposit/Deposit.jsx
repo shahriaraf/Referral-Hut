@@ -52,7 +52,7 @@ const Deposit = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="min-h-screen flex items-center justify-center">
             <motion.div
                 className="w-full max-w-2xl mx-auto bg-slate-800/50 backdrop-blur-sm border border-purple-900 rounded-2xl shadow-lg shadow-purple-900/20"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -61,7 +61,7 @@ const Deposit = () => {
             >
                 <div className="p-8">
                     <motion.h1 
-                        className="text-4xl font-extrabold text-center text-white mb-6 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+                        className="text-2xl lg:text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}

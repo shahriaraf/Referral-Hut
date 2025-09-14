@@ -1,82 +1,45 @@
-import React, { createContext, useState, useEffect } from 'react';
+// AuthProvider.jsx
+import { createContext, useState } from 'react';
+import { useQuery } from '@tanstack/react-query'; // <-- useQuery ইম্পোর্ট করুন
 import api from '../services/api';
 
-const AuthContext = createContext();
+
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [programData, setProgramData] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [loading, setLoading] = useState(true);
 
-      
+    // --- মূল পরিবর্তন: useEffect এর পরিবর্তে useQuery ---
+    const { data: user, isLoading, refetch } = useQuery({
+        queryKey: ['authUser'], // <-- এই ডেটার জন্য একটি ইউনিক কী
+        queryFn: async () => {
+            const { data } = await api.get('/auth');
+            return data;
+        },
+        enabled: !!token, // শুধুমাত্র টোকেন থাকলেই এই কোয়েরিটি চলবে
+        retry: 1, // একবার ফেইল করলে আবার চেষ্টা করবে
+        staleTime: 1000 * 60 * 5, // ৫ মিনিটের জন্য ডেটা ফ্রেশ থাকবে
+    });
 
-    useEffect(() => {
-        const loadUser = async () => {
-            if (token) {
-                try {
-                    const res = await api.get('/auth');
-                    setUser(res.data);
-                } catch (err) {
-                    localStorage.removeItem('token');
-                    setToken(null);
-                }
-            }
-            setLoading(false);
-        };
-        loadUser();
-    }, [token]);
-
-
-       // ২️⃣ Packages / Collections fetch
-    useEffect(() => {
-        const loadProgrames = async () => {
-            if (token) {
-                try {
-                    const res = await api.get('/admin/programs', {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
-                    setProgramData(res.data); 
-                } catch (err) {
-                    console.error("Failed to load packages:", err);
-                    localStorage.removeItem('token');
-                    setToken(null);
-                }
-            }
-        };
-        loadProgrames();
-    }, [token]);
-
-    
     const login = async (email, password) => {
         const res = await api.post('/auth/login', { email, password });
         localStorage.setItem('token', res.data.token);
         setToken(res.data.token);
     };
 
-    const register = (userData) => api.post('/auth/register', userData);
-
     const logout = () => {
         localStorage.removeItem('token');
-        setUser(null);
         setToken(null);
+        // React Query ক্যাশ পরিষ্কার করার জন্য
+        queryClient.removeQueries(['authUser']);
     };
-    
-    const refreshUser = async () => {
-        if (token) {
-            try {
-                const res = await api.get('/auth');
-                setUser(res.data);
-            } catch (error) {
-                console.error("Failed to refresh user data", error);
-            }
-        }
+
+    if (isLoading && token) {
+        return <p>Loading...</p>; // অথবা একটি স্পিনার কম্পোনেন্ট ব্যবহার করুন
     }
 
-    if (loading) return "Loading";
-
     return (
-        <AuthContext.Provider value={{ user, token, loading, login, register, logout, refreshUser,programData }}>
+        <AuthContext.Provider value={{ user, token, login, logout, setUser: refetch }}>
             {children}
         </AuthContext.Provider>
     );
