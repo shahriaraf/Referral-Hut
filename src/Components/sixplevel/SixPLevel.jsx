@@ -1,344 +1,93 @@
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import axios from 'axios'; // Add axios import
+import api from '../../services/api'; // <-- মূল পরিবর্তন: axios এর পরিবর্তে api ইম্পোর্ট করা হয়েছে
 
-// --- Component-specific configuration for 6P Admin ---
 const PACKAGE_NAME = '6p';
-const API_BASE_URL = 'http://localhost:5000/api'; // Define your API base URL
 
 const EditLevelModal = ({ isOpen, onClose, level, onUpdate }) => {
-    const [price, setPrice] = useState('');
+    const [cost, setCost] = useState('');
+    const [unfreezeCost, setUnfreezeCost] = useState('');
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        if (level) {
-            // Extract numeric value from price string (e.g., "৳ 200" -> "200")
-            const numericPrice = level.price ? level.price.toString().replace('৳ ', '') : '';
-            setPrice(numericPrice);
-        }
-    }, [level]);
-
+    useEffect(() => { if (level) { setCost(level.cost || ''); setUnfreezeCost(level.unfreezeCost || ''); } }, [level]);
     const handleSubmit = async (e) => {
-        if (e) e.preventDefault();
-        if (!price || price <= 0) {
-            toast.error('Please enter a valid price');
-            return;
-        }
-
-        setLoading(true);
-
+        e.preventDefault(); setLoading(true);
         try {
-            // Make PATCH request to update the level
-            const response = await axios.patch(
-  `${API_BASE_URL}/programs/${PACKAGE_NAME}/levels/${level.levelNumber}`, 
-  { price: `৳ ${parseFloat(price)}` }
-);
-
-            // Handle successful response
-            const updatedLevel = { ...level, price: `৳ ${parseFloat(price)}` };
-            toast.success('Level price updated successfully!');
-            onUpdate(updatedLevel);
+            const payload = { cost: parseFloat(cost), unfreezeCost: parseFloat(unfreezeCost) };
+            // --- api.patch ব্যবহার করা হচ্ছে ---
+            await api.patch(`/programs/${PACKAGE_NAME}/levels/${level.level}`, payload);
+            toast.success('Level updated successfully!');
+            onUpdate({ ...level, ...payload });
             onClose();
-        } catch (error) {
-            console.error('Failed to update level price', error);
-            
-            // Handle different types of errors
-            if (error.response) {
-                // Server responded with error status
-                const errorMessage = error.response.data?.message || 'Failed to update level price';
-                toast.error(errorMessage);
-            } else if (error.request) {
-                // Request was made but no response received
-                toast.error('No response from server. Please check your connection.');
-            } else {
-                // Something else happened
-                toast.error('An unexpected error occurred');
-            }
-        } finally {
-            setLoading(false);
-        }
+        } catch (error) { toast.error(error.response?.data?.msg || 'Failed to update level'); } finally { setLoading(false); }
     };
-
     if (!isOpen) return null;
-
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md mx-4">
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold text-white">
-                        Edit Level {level?.levelNumber} Price
-                    </h2>
-                    <button
-                        onClick={onClose}
-                        className="text-gray-400 hover:text-white transition-colors"
-                    >
-                        <FaTimes size={20} />
-                    </button>
-                </div>
-
-                <div>
-                    <div className="mb-4">
-                        <label className="block text-gray-300 text-sm font-medium mb-2">
-                            Price (৳)
-                        </label>
-                        <input
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            value={price.toString().replace('৳ ', '')}
-                            onChange={(e) => setPrice(e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            placeholder="Enter price"
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                    handleSubmit(e);
-                                }
-                            }}
-                        />
-                    </div>
-
-                    <div className="flex gap-3">
-                        <button
-                            onClick={handleSubmit}
-                            disabled={loading}
-                            className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                        >
-                            {loading ? (
-                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                            ) : (
-                                <FaSave size={16} />
-                            )}
-                            {loading ? 'Updating...' : 'Update Price'}
-                        </button>
-                        <button
-                            onClick={onClose}
-                            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-md transition-colors"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+            <div className="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
+                <h2 className="text-xl font-bold text-white mb-6">Edit Level {level?.level}</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div><label className="block text-gray-300 text-sm mb-2">Cost ($)</label><input type="number" step="0.01" min="0" value={cost} onChange={(e) => setCost(e.target.value)} className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" /></div>
+                    <div><label className="block text-gray-300 text-sm mb-2">Unfreeze Cost ($)</label><input type="number" step="0.01" min="0" value={unfreezeCost} onChange={(e) => setUnfreezeCost(e.target.value)} className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" /></div>
+                    <div className="flex gap-4 pt-4"><button type="submit" disabled={loading} className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md disabled:opacity-50 flex items-center justify-center gap-2">{loading ? <div className="animate-spin rounded-full h-5 w-5 border-b-2"></div> : <FaSave />} {loading ? 'Updating...' : 'Update'}</button><button type="button" onClick={onClose} className="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-md">Cancel</button></div>
+                </form>
             </div>
         </div>
     );
 };
 
 const Admin6PLevels = () => {
-    // --- State Management ---
     const [levels, setLevels] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedLevel, setSelectedLevel] = useState(null);
 
-    // --- Data Loading Logic ---
     const loadLevels = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
-            
-            // Fetch program data and levels from backend API
-             const response = await axios.get(`${API_BASE_URL}/programs/${PACKAGE_NAME}/levels`);
-            
-            if (response.data && response.data.levels) {
-                // If backend returns structured data with levels
-             const formattedLevels = response.data.levels.map((lvl, index) => ({
-  _id: lvl.id || `${PACKAGE_NAME}-${lvl.level}`, // id নেই DB তে? তাহলে unique key দাও
-  levelNumber: lvl.level,
-  price: lvl.price,
-  packageName: PACKAGE_NAME,
-  description: `Level ${lvl.level} - ${lvl.cards?.length || 0} modules`,
-  cards: lvl.cards,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString()
-}));
-setLevels(formattedLevels);
-            } else if (Array.isArray(response.data)) {
-                // If backend returns array of levels directly
+            // --- api.get ব্যবহার করা হচ্ছে ---
+            const response = await api.get(`/programs/${PACKAGE_NAME}/levels`);
+            if (Array.isArray(response.data)) {
                 setLevels(response.data);
             } else {
-                throw new Error('Invalid data format received from API');
+                setLevels([]);
             }
-            
-        } catch (apiError) {
-            console.error('Failed to fetch from API:', apiError.message);
-            toast.error('Failed to load levels from server');
-            
-            // Optional: Remove local fallback if you want to rely entirely on backend
-            // Uncomment below if you want to keep local fallback
-            /*
-            console.warn('Falling back to local data...');
-            try {
-                const programData = programsData[PACKAGE_NAME];
-                if (programData && programData.levels) {
-                    const formattedLevels = programData.levels.map((level, index) => ({
-                        _id: `${PACKAGE_NAME}-${level.level}`,
-                        levelNumber: level.level,
-                        price: level.price,
-                        packageName: PACKAGE_NAME,
-                        description: `Level ${level.level} - Contains ${level.cards.length} modules`,
-                        cards: level.cards,
-                        createdAt: new Date().toISOString(),
-                        updatedAt: new Date().toISOString()
-                    }));
-                    setLevels(formattedLevels);
-                } else {
-                    toast.error('No local data available');
-                }
-            } catch (localError) {
-                console.error('Failed to load local data:', localError);
-                toast.error('Failed to load levels');
-            }
-            */
+        } catch (error) {
+            toast.error('Failed to load levels.');
+            setLevels([]);
         } finally {
             setLoading(false);
         }
     };
 
-    useEffect(() => {
-        loadLevels();
-    }, []);
+    useEffect(() => { loadLevels(); }, []);
 
-    // --- Event Handlers ---
-    const handleEditClick = (level) => {
-        setSelectedLevel(level);
-        setModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setSelectedLevel(null);
-        setModalOpen(false);
-    };
-
-    const handleLevelUpdate = (updatedLevel) => {
-        setLevels(prevLevels => 
-            prevLevels.map(level => 
-                level._id === updatedLevel._id ? 
-                { ...level, ...updatedLevel, updatedAt: new Date().toISOString() } : 
-                level
-            )
-        );
-        
-        // No need to update local programsData since we're fetching from backend
-        // Local data update removed as we're now using backend as source of truth
-    };
-
-    // --- Render Logic ---
-    if (loading) {
-        return (
-            <div className="text-center py-10">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto"></div>
-                <p className="text-gray-400 mt-4">Loading 6P levels...</p>
-            </div>
-        );
-    }
+    const handleEditClick = (level) => { setSelectedLevel(level); setModalOpen(true); };
+    const handleLevelUpdate = (updatedLevel) => { setLevels(prev => prev.map(l => l.level === updatedLevel.level ? updatedLevel : l)); };
+    if (loading) return <div className="text-center py-10">Loading...</div>;
 
     return (
         <div className="max-w-6xl mx-auto p-6">
-            <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-purple-400 mb-2">
-                    Admin - 6P Program Levels
-                </h2>
-                <p className="text-gray-400">
-                    Manage pricing for all 6P program levels
-                </p>
-            </div>
-
+            <h2 className="text-3xl font-bold text-purple-400 mb-8 text-center">Admin - 6P Program Levels</h2>
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {levels.map((level) => (
-                    <div
-                        key={level._id}
-                        className="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 hover:border-purple-500 transition-all duration-300"
-                    >
+                    <div key={level.level} className="bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xl font-semibold text-white">
-                                Level {level.levelNumber}
-                            </h3>
-                            <button
-                                onClick={() => handleEditClick(level)}
-                                className="p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-colors hover:scale-110 transform duration-200"
-                                title="Edit Level Price"
-                            >
-                                <FaEdit size={16} />
-                            </button>
+                            <h3 className="text-xl font-semibold text-white">Level {level.level}</h3>
+                            <button onClick={() => handleEditClick(level)} className="p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full"><FaEdit /></button>
                         </div>
-
-                        <div className="space-y-2">
-                            <div className="flex justify-between">
-                                <span className="text-gray-400">Price:</span>
-                                <span className="text-green-400 font-semibold">
-                                    {level.price || '৳ 0'}
-                                </span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-400">Package:</span>
-                                <span className="text-purple-400 font-medium uppercase">
-                                    {level.packageName}
-                                </span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-400">Modules:</span>
-                                <span className="text-blue-400 font-medium">
-                                    {level.cards?.length || 0} modules
-                                </span>
-                            </div>
-                            {level.description && (
-                                <div className="pt-2">
-                                    <p className="text-gray-300 text-sm">
-                                        {level.description}
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Module Preview */}
-                        {level.cards && level.cards.length > 0 && (
-                            <div className="mt-4 pt-4 border-t border-gray-700">
-                                <h4 className="text-sm font-medium text-purple-400 mb-2">Modules:</h4>
-                                <div className="space-y-1">
-                                    {level.cards.slice(0, 2).map((card, index) => (
-                                        <div key={index} className="text-xs text-gray-400">
-                                            • {card.title}
-                                        </div>
-                                    ))}
-                                    {level.cards.length > 2 && (
-                                        <div className="text-xs text-gray-500">
-                                            ... and {level.cards.length - 2} more
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        <div className="mt-4 pt-4 border-t border-gray-700">
-                            <div className="flex justify-between text-xs text-gray-500">
-                                <span>Created: {new Date(level.createdAt).toLocaleDateString()}</span>
-                                <span>Updated: {new Date(level.updatedAt).toLocaleDateString()}</span>
-                            </div>
+                        <div className="space-y-2 text-gray-300">
+                            <p>Cost: <span className="font-semibold text-green-400">${level.cost || 0}</span></p>
+                            <p>Unfreeze Cost: <span className="font-semibold text-yellow-400">${level.unfreezeCost || 0}</span></p>
                         </div>
                     </div>
                 ))}
             </div>
-
-            {levels.length === 0 && (
-                <div className="text-center py-10">
-                    <p className="text-gray-400 text-lg">
-                        No 6P levels found. Please check your configuration.
-                    </p>
-                </div>
+            {levels.length === 0 && !loading && (
+                 <div className="text-center py-10 text-gray-500">No levels found for this program.</div>
             )}
-
-            <EditLevelModal
-                isOpen={modalOpen}
-                onClose={handleCloseModal}
-                level={selectedLevel}
-                onUpdate={handleLevelUpdate}
-            />
+            <EditLevelModal isOpen={modalOpen} onClose={() => setModalOpen(false)} level={selectedLevel} onUpdate={handleLevelUpdate} />
         </div>
     );
 };
-
 export default Admin6PLevels;
