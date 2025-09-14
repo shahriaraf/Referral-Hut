@@ -5,8 +5,11 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [programData, setProgramData] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
+
+      
 
     useEffect(() => {
         const loadUser = async () => {
@@ -23,6 +26,27 @@ export const AuthProvider = ({ children }) => {
         };
         loadUser();
     }, [token]);
+
+
+       // ২️⃣ Packages / Collections fetch
+    useEffect(() => {
+        const loadProgrames = async () => {
+            if (token) {
+                try {
+                    const res = await api.get('/admin/programs', {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    setProgramData(res.data); 
+                } catch (err) {
+                    console.error("Failed to load packages:", err);
+                    localStorage.removeItem('token');
+                    setToken(null);
+                }
+            }
+        };
+        loadProgrames();
+    }, [token]);
+
     
     const login = async (email, password) => {
         const res = await api.post('/auth/login', { email, password });
@@ -52,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     if (loading) return "Loading";
 
     return (
-        <AuthContext.Provider value={{ user, token, loading, login, register, logout, refreshUser }}>
+        <AuthContext.Provider value={{ user, token, loading, login, register, logout, refreshUser,programData }}>
             {children}
         </AuthContext.Provider>
     );

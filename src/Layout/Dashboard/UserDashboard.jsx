@@ -59,7 +59,7 @@ const UserDashboard = () => {
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-800">
           <div className="flex items-center gap-x-2">
             <RiVipCrownFill className="text-3xl text-purple-400" />
-            <h1 className="text-xl font-bold text-white">ReferalHut</h1>
+            <h1 className="text-xl font-bold text-white">NexoNext</h1>
           </div>
           <button onClick={() => setSidebarOpen(false)} className="p-1 rounded-md text-gray-400 hover:bg-gray-700 lg:hidden">
             <FaTimes className="w-5 h-5" />

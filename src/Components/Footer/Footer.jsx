@@ -28,7 +28,7 @@ const Footer = () => {
              <div className="navbar-start flex items-center gap-x-2">
                        <RiVipCrownFill className="text-3xl seondary_text_color" />
                        <h2 className="text-xl font-semibold seondary_text_color">
-                         Referal<span className="primary_text_color">Hut</span>
+                         Nexo<span className="primary_text_color">Next</span>
                        </h2>
                      </div>
               <p className="text-gray-300 mt-4 leading-relaxed">
@@ -133,7 +133,7 @@ const Footer = () => {
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
-              © 2024 YourCompany. All rights reserved.
+              © 2025 Nexonext. All rights reserved.
             </div>
             
             <div className="flex items-center space-x-6">

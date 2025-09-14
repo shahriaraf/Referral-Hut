@@ -35,7 +35,7 @@ const Navbar = () => {
           <div className="navbar-start flex items-center gap-x-2">
             <RiVipCrownFill className="text-3xl seondary_text_color" />
             <h2 className="text-xl font-semibold seondary_text_color">
-              Referal<span className="primary_text_color">Hut</span>
+              Nexo<span className="primary_text_color">Next</span>
             </h2>
           </div>
           <div className="nav_link navbar-center">
