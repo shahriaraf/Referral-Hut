@@ -1,45 +1,59 @@
-// AuthProvider.jsx
-import { createContext, useState } from 'react';
-import { useQuery } from '@tanstack/react-query'; // <-- useQuery ইম্পোর্ট করুন
-import api from '../services/api';
+import React, { createContext, useState, useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import api from '../services/api'; // আপনার api.js ফাইলের সঠিক পাথ দিন
 
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(() => localStorage.getItem('token'));
+    const queryClient = useQueryClient();
 
-    // --- মূল পরিবর্তন: useEffect এর পরিবর্তে useQuery ---
-    const { data: user, isLoading, refetch } = useQuery({
-        queryKey: ['authUser'], // <-- এই ডেটার জন্য একটি ইউনিক কী
+    const { data: user, isLoading } = useQuery({
+        queryKey: ['authUser'],
         queryFn: async () => {
             const { data } = await api.get('/auth');
             return data;
         },
-        enabled: !!token, // শুধুমাত্র টোকেন থাকলেই এই কোয়েরিটি চলবে
-        retry: 1, // একবার ফেইল করলে আবার চেষ্টা করবে
-        staleTime: 1000 * 60 * 5, // ৫ মিনিটের জন্য ডেটা ফ্রেশ থাকবে
+        enabled: !!token,
+        retry: 1,
     });
 
     const login = async (email, password) => {
         const res = await api.post('/auth/login', { email, password });
         localStorage.setItem('token', res.data.token);
         setToken(res.data.token);
+        await queryClient.invalidateQueries({ queryKey: ['authUser'] });
+    };
+
+    // --- মূল ফিক্স: register ফাংশনটি এখানে ডিফাইন করা হচ্ছে ---
+    const register = (userData) => {
+        // register ফাংশনটি api.post কল করে এবং সেই promise-টি রিটার্ন করে
+        return api.post('/auth/register', userData);
     };
 
     const logout = () => {
         localStorage.removeItem('token');
         setToken(null);
-        // React Query ক্যাশ পরিষ্কার করার জন্য
-        queryClient.removeQueries(['authUser']);
+        queryClient.removeQueries({ queryKey: ['authUser'] });
     };
-
+    
+    // AuthProvider লোড হওয়ার সময় একটি স্পিনার দেখানো হচ্ছে
     if (isLoading && token) {
-        return <p>Loading...</p>; // অথবা একটি স্পিনার কম্পোনেন্ট ব্যবহার করুন
+        return <p>Loading...</p>;
     }
 
+    // --- মূল ফিক্স: value-এর ভেতরে register ফাংশনটি যোগ করা হয়েছে ---
+    const authInfo = {
+        user,
+        token,
+        login,
+        register, // <-- এখানে যোগ করা হয়েছে
+        logout
+    };
+
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, setUser: refetch }}>
+        <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );
