@@ -28,7 +28,7 @@ const Register = () => {
         try {
             await register({ name: formData.name, email: formData.email, password: formData.password, referralId: formData.referralId });
             toast.success('Registration successful! Please log in.');
-            navigate('/login');
+            navigate('/userDashboard');
         } catch (err) {
             // Error is handled by global interceptor, but you can add specific feedback here if needed
             console.error("Registration failed:", err);
