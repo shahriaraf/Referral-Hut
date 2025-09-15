@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
   FaHome, FaBoxOpen, FaCog, FaUser, FaSignOutAlt,
   FaBars, FaTimes
@@ -130,8 +130,10 @@ const UserDashboard = () => {
             </button>
             <div className="flex items-center space-x-4 ml-auto">
               <div className="flex items-center space-x-3">
+                 <Link to='/'><FaHome className='text-3xl text-purple-500'></FaHome></Link>
                 <img src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.name}`} alt="Avatar" className="w-9 h-9 rounded-full border-2 border-purple-500" />
                 <span className="text-sm font-medium text-white">{user.name}</span>
+               
               </div>
             </div>
           </div>

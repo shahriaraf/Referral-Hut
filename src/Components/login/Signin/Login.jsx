@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
         try {
             await login(formData.email, formData.password);
-            navigate('/'); // Navigate to dashboard or home on successful login
+            navigate('/userDashboard'); // Navigate to dashboard or home on successful login
         } catch (err) { 
             // Error is handled by a global interceptor, but you could add a toast here if you wish
             console.error("Login failed:", err);
