@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+.primary_bg_color {
+  @apply bg-[#151C2B];
+}
+
+.secondary_bg_color {
+  @apply bg-purple-600;
+}
+
+.primary_text_color {
+  @apply text-gray-100;
+}
+
+.seondary_text_color {
+  @apply text-purple-600;
+}
+
+.primary_btn {
+  @apply btn btn-sm sm:btn-sm md:btn-md px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold  hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl border-none;
+}
+
+.secondary_btn {
+  @apply btn btn-sm sm:btn-sm md:btn-md border-2 border-gray-300 text-white hover:text-black  font-semibold bg-transparent  hover:bg-gray-50  hover:border-gray-400 transition-all duration-200;
+}
+
+.common_padding {
+  @apply px-4 sm:px-8 md:px-16 2xl:px-22;
+}
+
+.nav_link a.active {
+  @apply text-purple-500 shadow-[0_0_10px_rgba(147,51,234,0.6)] scale-105;
+}
+
+/* footer */
+.footer_link_title {
+  @apply text-lg uppercase text-white font-semibold mb-6;
+}
+
+.footer_links {
+  @apply flex flex-col gap-5 text-gray-400 text-base;
+}
+
+/* parnerns */
+.pertners_card:hover .company_logo,
+.pertners_card:hover .company_name {
+  color: white !important;
+}
+
+
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
