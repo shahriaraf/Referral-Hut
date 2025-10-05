@@ -2,7 +2,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const api = axios.create({
-    baseURL: 'https://nixto.vercel.app/api',
+    baseURL: 'https://nexonext-server.vercel.app/api',
     headers: { 'Content-Type': 'application/json' }
 });
 

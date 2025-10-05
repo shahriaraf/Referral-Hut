@@ -3,7 +3,7 @@ import React from 'react';
 
 const useAxiosPublic = () => {
     const axiosPublic = axios.create({
-        baseURL : 'https://nixto.vercel.app/'
+        baseURL : 'https://nexonext-server.vercel.app/'
     })
     return  axiosPublic;
 };

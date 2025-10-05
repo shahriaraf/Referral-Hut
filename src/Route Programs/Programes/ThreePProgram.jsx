@@ -34,11 +34,11 @@ const ThreePProgram = () => {
 
         try {
             const [userRes, levelsRes, activationsRes] = await Promise.all([
-                axios.get('https://nixto.vercel.app/api/users/me', config),
+                axios.get('https://nexonext-server.vercel.app/api/users/me', config),
                 // FIX #1: Changed route from / to /all
-                axios.get('https://nixto.vercel.app/api/levels/all', config), 
+                axios.get('https://nexonext-server.vercel.app/api/levels/all', config), 
                 // FIX #2: Added package query parameter
-                axios.get(`https://nixto.vercel.app/api/levels/my-activations?package=${PACKAGE_NAME}`, config),
+                axios.get(`https://nexonext-server.vercel.app/api/levels/my-activations?package=${PACKAGE_NAME}`, config),
             ]);
             
             setUser(userRes.data);
@@ -61,7 +61,7 @@ const ThreePProgram = () => {
         const token = localStorage.getItem('token');
         const config = { headers: { 'x-auth-token': token } };
         try {
-            const res = await axios.post('https://nixto.vercel.app/api/levels/buy', { levelNumber, packageName: PACKAGE_NAME }, config);
+            const res = await axios.post('https://nexonext-server.vercel.app/api/levels/buy', { levelNumber, packageName: PACKAGE_NAME }, config);
             toast.success(res.data.msg);
             fetchData();
         } catch (err) {
@@ -73,7 +73,7 @@ const ThreePProgram = () => {
         const token = localStorage.getItem('token');
         const config = { headers: { 'x-auth-token': token } };
         try {
-            const res = await axios.post('https://nixto.vercel.app/api/levels/recycle', { levelNumber, packageName: PACKAGE_NAME }, config);
+            const res = await axios.post('https://nexonext-server.vercel.app/api/levels/recycle', { levelNumber, packageName: PACKAGE_NAME }, config);
             toast.success(res.data.msg);
             fetchData();
         } catch (err) {
