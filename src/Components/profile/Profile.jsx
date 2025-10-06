@@ -85,7 +85,7 @@ const Profile = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-gray-800/50 rounded-lg">
                   <div className="text-2xl font-bold text-white">156</div>
-                  <div className="text-gray-400 text-sm">Total Referrals</div>
+                  <div className="text-gray-400 text-sm">Total Partners</div>
                   <div className="h-1 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full mt-2"></div>
                 </div>
 

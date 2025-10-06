@@ -150,7 +150,6 @@ const Register = () => {
                             <input
                                 type="text"
                                 name="referralId"
-                                value={formData.referralId}
                                 onChange={onChange}
                                 required
                                 className="w-full px-4 py-3 bg-slate-900/70 border border-purple-800 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-300"
