@@ -66,7 +66,7 @@ const Crypto = () => {
                 </h3>
                 <p className="text-sm text-gray-300 leading-relaxed">
                   Here are 3 easy steps to buy & sell Bitcoin. Our platform has
-                  been the industry's leading solution since 2020, providing
+                  been the industry's leading solution since 2017, providing
                   secure and intuitive cryptocurrency trading for millions of
                   users worldwide.
                 </p>
