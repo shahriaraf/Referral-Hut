@@ -1,5 +1,3 @@
-// src/Components/Withdraw.js
-
 import React, { useState, useMemo } from "react";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
@@ -13,16 +11,20 @@ const Withdraw = () => {
     amount: "",
   });
   const [loading, setLoading] = useState(false);
-  // Get the user object and the new refreshUser function from our custom hook
   const { user, refreshUser } = useAuth();
 
-  // Calculate the true available balance using useMemo for efficiency.
-  // This value will only be recalculated when the `user` object changes.
   const availableForWithdrawal = useMemo(() => {
     if (!user) return 0;
-    // Available = Total Balance - Sum of Pending Withdrawals
     return user.balance - (user.pendingWithdrawalsTotal || 0);
   }, [user]);
+
+  // --- NEW: Calculate fee and net amount for UI display ---
+  // This logic is purely for the user's information.
+  // The `formData.amount` sent to the backend is still the gross amount.
+  const withdrawalAmount = parseFloat(formData.amount) || 0;
+  const adminFee = withdrawalAmount * 0.08;
+  const youWillReceive = withdrawalAmount - adminFee;
+  // --- END OF NEW LOGIC ---
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,30 +32,23 @@ const Withdraw = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!user) return toast.error("User data not loaded yet.");
-
-    const amount = parseFloat(formData.amount);
-    // CRITICAL: Validate against the calculated available balance, not the total balance.
-    if (amount > availableForWithdrawal) {
+    if (withdrawalAmount > availableForWithdrawal) {
       return toast.error("Withdrawal amount cannot exceed your available balance.");
     }
-    if (amount <= 0 || !formData.amount) {
+    if (withdrawalAmount <= 0) {
       return toast.error("Please enter a valid positive withdrawal amount.");
     }
 
     setLoading(true);
     try {
+      // No change here. The backend receives the full requested amount.
       const withdrawPromise = api.post("/user/withdraw", formData);
-
       await toast.promise(withdrawPromise, {
         pending: "Submitting withdrawal request...",
         success: {
           render({ data }) {
             setFormData({ accountType: "USDT TRC20", accountNumber: "", amount: "" });
-            // On success, call refreshUser to refetch data from the server.
-            // This will update the pending total and available balance on the screen.
-            if (refreshUser) {
-              refreshUser();
-            }
+            if (refreshUser) refreshUser();
             return data.data.msg;
           },
         },
@@ -87,7 +82,6 @@ const Withdraw = () => {
             Request Withdrawal
           </motion.h1>
 
-          {/* --- UPDATED BALANCE DISPLAY --- */}
           <motion.div
             className="text-center text-purple-300 mb-6 text-lg space-y-1"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
@@ -97,7 +91,7 @@ const Withdraw = () => {
             <div className="mt-2 text-xl border-t border-purple-800 pt-2">Available for Withdrawal: <span className="font-bold text-green-400">${availableForWithdrawal.toFixed(2)}</span></div>
           </motion.div>
           
-          <motion.form onSubmit={onSubmit} className="space-y-6" variants={containerVariants} initial="hidden" animate="visible">
+          <motion.form onSubmit={onSubmit} className="space-y-4" variants={containerVariants} initial="hidden" animate="visible">
             <motion.div variants={itemVariants}>
               <label className="block mb-2 text-sm font-medium text-purple-300">Withdrawal Method</label>
               <select name="accountType" value={formData.accountType} onChange={onChange} className="w-full px-4 py-3 bg-slate-900/70 border border-purple-800 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
@@ -110,10 +104,34 @@ const Withdraw = () => {
               <input type="text" name="accountNumber" value={formData.accountNumber} onChange={onChange} required className="w-full px-4 py-3 bg-slate-900/70 border border-purple-800 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your wallet address"/>
             </motion.div>
             <motion.div variants={itemVariants}>
-              <label className="block mb-2 text-sm font-medium text-purple-300">Amount (USDT)</label>
+              <label className="block mb-2 text-sm font-medium text-purple-300">Amount to Withdraw (USDT)</label>
               <input type="number" name="amount" value={formData.amount} onChange={onChange} required min="1" step="0.01" max={availableForWithdrawal.toFixed(2)} className="w-full px-4 py-3 bg-slate-900/70 border border-purple-800 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter amount to withdraw"/>
             </motion.div>
-            <motion.div variants={itemVariants}>
+
+            {/* --- NEW: Display Fee Calculation --- */}
+            {withdrawalAmount > 0 && (
+              <motion.div
+                className="p-4 bg-slate-900/50 border border-purple-800 rounded-md text-sm space-y-2"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <div className="flex justify-between text-gray-400">
+                  <span>Amount to be Deducted:</span>
+                  <span>${withdrawalAmount.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-red-400">
+                  <span>Admin Fee (8%):</span>
+                  <span>-${adminFee.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-green-400 font-bold text-base border-t border-purple-800 pt-2 mt-2">
+                  <span>Estimated Amount You Will Receive:</span>
+                  <span>${youWillReceive.toFixed(2)}</span>
+                </div>
+              </motion.div>
+            )}
+            {/* --- END OF NEW DISPLAY --- */}
+
+            <motion.div variants={itemVariants} className="pt-2">
               <motion.button type="submit" disabled={loading} className="w-full px-4 py-3 font-bold text-white bg-purple-600 rounded-md disabled:bg-purple-800 disabled:cursor-not-allowed flex items-center justify-center" whileHover={{ scale: loading ? 1 : 1.03 }} whileTap={{ scale: loading ? 1 : 0.98 }}>
                 {loading ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> : "Submit Withdrawal Request"}
               </motion.button>
