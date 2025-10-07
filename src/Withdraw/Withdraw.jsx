@@ -95,8 +95,8 @@ const Withdraw = () => {
             <motion.div variants={itemVariants}>
               <label className="block mb-2 text-sm font-medium text-purple-300">Withdrawal Method</label>
               <select name="accountType" value={formData.accountType} onChange={onChange} className="w-full px-4 py-3 bg-slate-900/70 border border-purple-800 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-               <option value="USDT TRC20">USDT (TRC20)</option>
-               <option value="USDT BEP20">USDT (BEP20)</option>
+               <option value="USDT TRC20">USDT</option>
+               <option value="USDT BEP20">USDT</option>
               </select>
             </motion.div>
             <motion.div variants={itemVariants}>
